@@ -6,5 +6,9 @@ public class TestDrive {
         for (int i = 0; i <= 5; i++) {
             System.out.println("Numero " + i);
         }
+        test();
+    }
+    public static void test() {
+        System.out.println("tests");
     }
 }
