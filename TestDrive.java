@@ -15,6 +15,7 @@ public class TestDrive {
         int suma = sumar(p1.getEdad(), p2.getEdad());
         System.out.println(suma);
         System.out.println("sdadfafasd");
+        System.out.println("Nueva clase");
     }
     public static void test() {
         System.out.println("tests");
@@ -22,4 +23,5 @@ public class TestDrive {
     public static int sumar(int a, int b) {
         return a+b;
     }
+
 }
