@@ -16,5 +16,5 @@ public class TestDrive {
     }
     private String name;
 
-    Persona persona = new Persona();
+    Persona p1 = new Persona();
 }
