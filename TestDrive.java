@@ -14,6 +14,7 @@ public class TestDrive {
 
         int suma = sumar(p1.getEdad(), p2.getEdad());
         System.out.println(suma);
+        System.out.println("sdadfafasd");
     }
     public static void test() {
         System.out.println("tests");
