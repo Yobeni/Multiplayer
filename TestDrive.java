@@ -11,4 +11,8 @@ public class TestDrive {
     public static void test() {
         System.out.println("tests");
     }
+    public int sumar(int a, int b) {
+        return a+b;
+    }
+    private String name;
 }
