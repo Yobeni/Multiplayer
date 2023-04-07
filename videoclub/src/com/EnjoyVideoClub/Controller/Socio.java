@@ -9,6 +9,9 @@ public class Socio {
     private String poblacion;
     public Socio() {
         setNIF(Constantes.defaultNIF);
+        setNombre(Constantes.defaultNombre);
+        setPoblacion(Constantes.defaultPoblacion);
+        setFechaNac(Constantes.defaultFechaNac);
     }
     public String getNIF() {
         return NIF;
