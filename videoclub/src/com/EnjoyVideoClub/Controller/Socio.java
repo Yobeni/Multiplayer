@@ -13,10 +13,10 @@ public class Socio {
 
     private int dineroDeuda;
     public Socio() {
-        setNIF(Constantes.defaultNIF);
-        setNombre(Constantes.defaultNombre);
-        setPoblacion(Constantes.defaultPoblacion);
-        setFechaNac(Constantes.defaultFechaNac);
+        setNIF(Constantes.NIF_DEFAULT);
+        setNombre(Constantes.NOMBRE_DEFAULT);
+        setPoblacion(Constantes.POBLACION_DEFAULT);
+        setFechaNac(Constantes.FECHA_NACIMIENTO_DEFAULT);
 
     }
     public Socio(String NIF,String nombre,Date fechaNac,String poblacion) {
