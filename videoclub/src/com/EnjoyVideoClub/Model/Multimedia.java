@@ -1,7 +1,6 @@
 package com.EnjoyVideoClub.Model;
 
 import com.EnjoyVideoClub.Controller.Constantes;
-
 import java.util.Date;
 
 @SuppressWarnings("ALL")

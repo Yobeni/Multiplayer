@@ -5,31 +5,30 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Videojuego extends Multimedia {
-    private ArrayList<PlataformaVideojuego> plataformas;
-    private PlataformaVideojuego plataforma;
+    private ArrayList<PlataformaVideojuego> plataformas = new ArrayList<>();
 
     public Videojuego() {
         super();
-        setPlataforma(Constantes.PLATAFORMA_DEFAULT);
-        plataformas.add(getPlataforma());
     }
 
-    public Videojuego(String titulo, String dev, FormatoMultimedia formato, Date date, PlataformaVideojuego plataforma) {
+    public Videojuego(String titulo, String dev, FormatoMultimedia formato, Date date) {
         super(titulo, dev, formato, date);
-        setPlataforma(plataforma);
-        plataformas.add(getPlataforma());
     }
 
-    public void setPlataforma(PlataformaVideojuego plataforma) {
-        this.plataforma = plataforma;
+    public void añadirPlataformas(PlataformaVideojuego plataformaVideojuego) {
+        plataformas.add(plataformaVideojuego);
     }
 
-    public PlataformaVideojuego getPlataforma() {
-        return plataforma;
+    public String recorrerPlataformas(ArrayList<PlataformaVideojuego> plataformas) {
+        String info = "\n";
+        for (PlataformaVideojuego plataforma : plataformas) {
+            info += "  - " + plataforma.toString() + "\n";
+        }
+        return info;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\n  Plataforma: " + getPlataforma();
+        return super.toString() + "\n Plataformas: " + recorrerPlataformas(plataformas);
     }
 }
