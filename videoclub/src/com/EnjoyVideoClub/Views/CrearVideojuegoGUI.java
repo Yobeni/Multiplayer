@@ -42,6 +42,7 @@ public class CrearVideojuegoGUI extends JFrame {
         formatoComboBox.addItem(FormatoMultimedia.DVD);
         formatoComboBox.addItem(FormatoMultimedia.BLURAY);
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
+        System.out.println("hgjhgj");
 
         crearBtn.addActionListener(new ActionListener() {
             @Override
