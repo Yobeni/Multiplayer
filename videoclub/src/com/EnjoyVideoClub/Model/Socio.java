@@ -6,6 +6,8 @@ import com.EnjoyVideoClub.Model.Multimedia;
 import java.util.ArrayList;
 import java.util.Date;
 
+@SuppressWarnings("ALL")
+
 public class Socio {
     private String NIF;
     private String nombre;
