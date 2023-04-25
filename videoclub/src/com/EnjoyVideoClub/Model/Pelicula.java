@@ -6,6 +6,7 @@ public class Pelicula extends Multimedia{
     private double duracionPelicula;
     private String actorPrincipaL;
     private String actrizPrincipal;
+    private String tipo;
 
     public double DURACION_DEFAULT = 0;
     public String ACTOR_DEFAULT = "";
@@ -16,6 +17,7 @@ public class Pelicula extends Multimedia{
         duracionPelicula = DURACION_DEFAULT;
         actorPrincipaL = ACTOR_DEFAULT;
         actrizPrincipal = ACTRIZ_DEFAULT;
+        comprobarTipo();
     }
 
     Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, double duracionPelicula, String actorPrincipaL, String actrizPrincipal){
@@ -23,13 +25,18 @@ public class Pelicula extends Multimedia{
         setDuracionPelicula(duracionPelicula);
         setActorPrincipaL(actorPrincipaL);
         setActrizPrincipal(actrizPrincipal);
+        comprobarTipo();
     }
 
     public double getDuracionPelicula() {
         return duracionPelicula;
     }
     public void setDuracionPelicula(double duracionPelicula) {
-        this.duracionPelicula = duracionPelicula;
+        if (duracionPelicula > 0){
+            this.duracionPelicula = duracionPelicula;
+        } else{
+            throw new RuntimeException("La duración debe ser mayor que 0");
+        }
     }
 
     public String getActorPrincipaL() {
@@ -44,6 +51,21 @@ public class Pelicula extends Multimedia{
     }
     public void setActrizPrincipal(String actrizPrincipal) {
         this.actrizPrincipal = actrizPrincipal;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void comprobarTipo(){
+        if(duracionPelicula <= 30){
+            setTipo("Cortometraje");
+        } else {
+            setTipo("Largometraje");
+        }
     }
 
     @Override
