@@ -1,5 +1,6 @@
-package com.EnjoyVideoClub.Controller;
+package com.EnjoyVideoClub.Model;
 
+import com.EnjoyVideoClub.Controller.Constantes;
 import com.EnjoyVideoClub.Model.Multimedia;
 
 import java.util.ArrayList;
