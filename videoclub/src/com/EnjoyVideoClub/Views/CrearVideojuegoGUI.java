@@ -26,12 +26,13 @@ public class CrearVideojuegoGUI extends JFrame {
     private JButton crearBtn;
     private JComboBox formatoComboBox;
     private JButton restablecerBtn;
+    private JLabel lblPollo;
 
     public CrearVideojuegoGUI() {
         this.setContentPane(CrearVideojuegoPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
-        this.setResizable(false);
+
         this.setLocationRelativeTo(null);
         this.setTitle("Añadir videojuego");
         this.setVisible(true);
