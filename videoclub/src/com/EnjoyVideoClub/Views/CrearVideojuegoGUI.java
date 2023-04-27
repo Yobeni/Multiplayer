@@ -29,7 +29,6 @@ public class CrearVideojuegoGUI extends JFrame {
     private JComboBox formatoComboBox;
     private JButton restablecerBtn;
     private JLabel lblPollo;
-    private JDateChooser JDateChooser1;
 
     public CrearVideojuegoGUI() {
         this.setContentPane(CrearVideojuegoPanel);
