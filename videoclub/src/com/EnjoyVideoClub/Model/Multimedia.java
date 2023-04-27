@@ -119,7 +119,7 @@ public class Multimedia {
                 "\n Titulo: " + getTitulo() +
                 "\n Nombre del autor/director: " + getNombreAutor() +
                 "\n Formato: " + getFormato() +
-                "\n F5echa de publicación: " + getAño();
+                "\n Fecha de publicacion: " + getAño();
     }
 
     /**
