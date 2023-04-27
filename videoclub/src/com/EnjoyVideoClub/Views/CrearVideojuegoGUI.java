@@ -1,6 +1,8 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Model.*;
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,12 +28,14 @@ public class CrearVideojuegoGUI extends JFrame {
     private JButton crearBtn;
     private JComboBox formatoComboBox;
     private JButton restablecerBtn;
+    private JLabel lblPollo;
+    private JDateChooser JDateChooser1;
 
     public CrearVideojuegoGUI() {
         this.setContentPane(CrearVideojuegoPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
-        this.setResizable(false);
+
         this.setLocationRelativeTo(null);
         this.setTitle("Añadir videojuego");
         this.setVisible(true);
@@ -42,7 +46,6 @@ public class CrearVideojuegoGUI extends JFrame {
         formatoComboBox.addItem(FormatoMultimedia.DVD);
         formatoComboBox.addItem(FormatoMultimedia.BLURAY);
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
-        System.out.println("hgjhgj");
 
         crearBtn.addActionListener(new ActionListener() {
             @Override
@@ -50,12 +53,9 @@ public class CrearVideojuegoGUI extends JFrame {
                 try {
                     ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
 
-                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fecha = formato.parse(fechaTxtField.getText());
-
                     Videojuego videojuego = new Videojuego(tituloTxtField.getText(),
                             desarrolladorTxtField.getText(),
-                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha);
+                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), JDateChooser1.getDate());
 
                     if (ps5RadioBtn.isSelected()) {
                         PlataformaVideojuego ps5 = PlataformaVideojuego.PS5;
@@ -94,5 +94,13 @@ public class CrearVideojuegoGUI extends JFrame {
                 formatoComboBox.setSelectedIndex(0);
             }
         });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        JDateChooser1 = new JDateChooser();
+        JDateChooser1.setSize(500, 500);
+        JDateChooser1.setDateFormatString("dd/MM/yyyy");
+        System.out.println("Entra");
     }
 }
