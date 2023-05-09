@@ -38,4 +38,8 @@ public class Principal {
 
         return p;
     }
+
+    public static Disco creaDisco(){
+        return null;
+    }
 }

@@ -88,7 +88,7 @@
         </constraints>
         <properties>
           <background color="-8615"/>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <text value="PlayStation 5"/>
         </properties>
       </component>
