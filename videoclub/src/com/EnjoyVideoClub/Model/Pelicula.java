@@ -20,7 +20,7 @@ public class Pelicula extends Multimedia{
         comprobarTipo();
     }
 
-    Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, double duracionPelicula, String actorPrincipaL, String actrizPrincipal){
+    public Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, double duracionPelicula, String actorPrincipaL, String actrizPrincipal){
         super(titulo, dev, formato, date);
         setDuracionPelicula(duracionPelicula);
         setActorPrincipaL(actorPrincipaL);
@@ -70,8 +70,8 @@ public class Pelicula extends Multimedia{
 
     @Override
     public String toString() {
-        String s = super.toString() + "Duracion de la pelicula: " + getDuracionPelicula() + "\nActor principal: "
-                + getActorPrincipaL() + "\nActriz principal: " + getActrizPrincipal();
+        String s = super.toString() + "\n Duracion de la pelicula: " + getDuracionPelicula() + "\n Actor principal: "
+                + getActorPrincipaL() + "\n Actriz principal: " + getActrizPrincipal();
         return s;
     }
 }

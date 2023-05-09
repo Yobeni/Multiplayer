@@ -10,6 +10,7 @@ import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.PlataformaVideojuego;
 
 public class Constantes {
+    //
     public static final String NIF_DEFAULT = "";
     public static final String NOMBRE_DEFAULT = "";
     public static final String POBLACION_DEFAULT = "";
