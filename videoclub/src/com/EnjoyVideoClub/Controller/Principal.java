@@ -3,6 +3,8 @@ package com.EnjoyVideoClub.Controller;
 import com.EnjoyVideoClub.Model.*;
 import com.EnjoyVideoClub.Views.CrearVideojuegoGUI;
 
+import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -37,5 +39,9 @@ public class Principal {
         Pelicula p = new Pelicula("Los minions","Dory",FormatoMultimedia.CD,d,120,"Juan","Pedro");
 
         return p;
+    }
+
+    public static Disco creaDisco(){
+        return null;
     }
 }

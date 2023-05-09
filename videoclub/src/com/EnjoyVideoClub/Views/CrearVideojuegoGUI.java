@@ -29,6 +29,7 @@ public class CrearVideojuegoGUI extends JFrame {
     private JLabel lblPollo;
 
     public CrearVideojuegoGUI() {
+        Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
@@ -37,7 +38,16 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setTitle("Añadir videojuego");
         this.setVisible(true);
 
-        tituloLbl.setFont(new Font("Verdana", Font.BOLD, 20));
+        ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
+
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+
+        crearBtn.setBackground(new Color(250, 149, 18));
+
+        ps5RadioBtn.setBackground(backgroundColor);
+        pcRadioBtn.setBackground(backgroundColor);
+        xboxRadioBtn.setBackground(backgroundColor);
+        switchRadioBtn.setBackground(backgroundColor);
 
         formatoComboBox.addItem(FormatoMultimedia.CD);
         formatoComboBox.addItem(FormatoMultimedia.DVD);
@@ -48,7 +58,6 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
 
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
@@ -94,5 +103,19 @@ public class CrearVideojuegoGUI extends JFrame {
                 formatoComboBox.setSelectedIndex(0);
             }
         });
+
+        crearBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                crearBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                crearBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
     }
 }
+
+
