@@ -38,6 +38,8 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setTitle("Añadir videojuego");
         this.setVisible(true);
 
+        ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
+
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         crearBtn.setBackground(new Color(250, 149, 18));
@@ -56,7 +58,6 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
 
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
@@ -104,12 +105,9 @@ public class CrearVideojuegoGUI extends JFrame {
         });
 
         crearBtn.addMouseListener(new MouseAdapter() {
-            int x = 0;
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("entra " + x + " veces");
                 crearBtn.setBackground(new Color(253, 84, 27));
-                x++;
             }
 
             @Override
