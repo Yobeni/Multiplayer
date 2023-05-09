@@ -82,10 +82,16 @@ public class CrearVideojuegoGUI extends JFrame {
                         PlataformaVideojuego pc = PlataformaVideojuego.PC;
                         videojuego.añadirPlataformas(pc);
                     }
-                    videojuegosCreados.add(videojuego);
-                    JOptionPane.showMessageDialog(null, videojuego);
+
+                    if (videojuego.getPlataformas().size() != 0) {
+                        videojuegosCreados.add(videojuego);
+                        JOptionPane.showMessageDialog(null, videojuego);
+                    } else {
+                        throw new RuntimeException("No hay plataforma");
+                    }
+
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
