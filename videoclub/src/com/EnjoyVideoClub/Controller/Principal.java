@@ -3,6 +3,8 @@ package com.EnjoyVideoClub.Controller;
 import com.EnjoyVideoClub.Model.*;
 import com.EnjoyVideoClub.Views.CrearVideojuegoGUI;
 
+import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
