@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,8 @@ public class VentanaMainGUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Cine Plus Videoclub - Menú Principal");
         this.setVisible(true);
+
+        this.setBackground(new Color(255, 222, 89));
 
         darDeAltaButton.addActionListener(new ActionListener() {
             @Override

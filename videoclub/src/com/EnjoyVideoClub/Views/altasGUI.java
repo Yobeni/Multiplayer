@@ -31,6 +31,14 @@ public class altasGUI extends JFrame {
             }
         });
 
+        altaPeliBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearPeliculaGUI();
+                dispose();
+            }
+        });
+
         atrasBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
