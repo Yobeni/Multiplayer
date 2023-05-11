@@ -83,11 +83,12 @@ public class CrearVideojuegoGUI extends JFrame {
                         videojuego.añadirPlataformas(pc);
                     }
 
-                    if (videojuego.getPlataformas().size() != 0) {
+                    if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
+                            !videojuego.getNombreAutor().equals("")) {
                         videojuegosCreados.add(videojuego);
                         JOptionPane.showMessageDialog(null, videojuego);
                     } else {
-                        throw new RuntimeException("No hay plataforma");
+                        throw new RuntimeException("Todos los campos deben estar llenos");
                     }
 
                 } catch (Exception ex) {
