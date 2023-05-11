@@ -27,6 +27,7 @@ public class CrearVideojuegoGUI extends JFrame {
     private JComboBox formatoComboBox;
     private JButton restablecerBtn;
     private JLabel lblPollo;
+    private JButton regresarAlMenúDeButton;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -37,6 +38,8 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
         this.setVisible(true);
+
+        ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
@@ -56,8 +59,6 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
-
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
 
@@ -81,10 +82,17 @@ public class CrearVideojuegoGUI extends JFrame {
                         PlataformaVideojuego pc = PlataformaVideojuego.PC;
                         videojuego.añadirPlataformas(pc);
                     }
-                    videojuegosCreados.add(videojuego);
-                    JOptionPane.showMessageDialog(null, videojuego);
+
+                    if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
+                            !videojuego.getNombreAutor().equals("")) {
+                        videojuegosCreados.add(videojuego);
+                        JOptionPane.showMessageDialog(null, videojuego);
+                    } else {
+                        throw new RuntimeException("Todos los campos deben estar llenos");
+                    }
+
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
@@ -104,17 +112,22 @@ public class CrearVideojuegoGUI extends JFrame {
         });
 
         crearBtn.addMouseListener(new MouseAdapter() {
-            int x = 0;
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("entra " + x + " veces");
                 crearBtn.setBackground(new Color(253, 84, 27));
-                x++;
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 crearBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        regresarAlMenúDeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
             }
         });
     }
