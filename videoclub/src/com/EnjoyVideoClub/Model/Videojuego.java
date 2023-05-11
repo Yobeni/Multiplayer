@@ -15,6 +15,10 @@ public class Videojuego extends Multimedia {
         super(titulo, dev, formato, date);
     }
 
+    public ArrayList<PlataformaVideojuego> getPlataformas() {
+        return plataformas;
+    }
+
     public void añadirPlataformas(PlataformaVideojuego plataformaVideojuego) {
         plataformas.add(plataformaVideojuego);
     }

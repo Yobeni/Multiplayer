@@ -58,7 +58,6 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
 
@@ -82,10 +81,16 @@ public class CrearVideojuegoGUI extends JFrame {
                         PlataformaVideojuego pc = PlataformaVideojuego.PC;
                         videojuego.añadirPlataformas(pc);
                     }
-                    videojuegosCreados.add(videojuego);
-                    JOptionPane.showMessageDialog(null, videojuego);
+
+                    if (videojuego.getPlataformas().size() != 0) {
+                        videojuegosCreados.add(videojuego);
+                        JOptionPane.showMessageDialog(null, videojuego);
+                    } else {
+                        throw new RuntimeException("No hay plataforma");
+                    }
+
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
