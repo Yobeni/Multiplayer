@@ -27,6 +27,7 @@ public class CrearVideojuegoGUI extends JFrame {
     private JComboBox formatoComboBox;
     private JButton restablecerBtn;
     private JLabel lblPollo;
+    private JButton regresarAlMenúDeButton;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -118,6 +119,14 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void mouseExited(MouseEvent e) {
                 crearBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        regresarAlMenúDeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
             }
         });
     }
