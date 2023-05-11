@@ -58,7 +58,6 @@ public class CrearVideojuegoGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
 
