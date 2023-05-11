@@ -35,7 +35,7 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setSize(700, 500);
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Añadir videojuego");
+        this.setTitle("CinePlus");
         this.setVisible(true);
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
