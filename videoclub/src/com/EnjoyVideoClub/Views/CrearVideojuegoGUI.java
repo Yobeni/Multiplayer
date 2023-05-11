@@ -36,14 +36,22 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setSize(700, 500);
 
         this.setLocationRelativeTo(null);
-        this.setTitle("CinePlus");
+        this.setTitle("Añadir videojuego");
+        agregarmenu();
         this.setVisible(true);
 
         ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
 
+
+        tituloTxtField.setBackground(new Color(240, 217, 117));
+        desarrolladorTxtField.setBackground(new Color(240, 217, 117));
+        fechaTxtField.setBackground(new Color(240, 217, 117));
+        formatoComboBox.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         crearBtn.setBackground(new Color(250, 149, 18));
+        regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
+        restablecerBtn.setBackground(new Color(250, 149, 18));
 
         ps5RadioBtn.setBackground(backgroundColor);
         pcRadioBtn.setBackground(backgroundColor);
@@ -54,6 +62,7 @@ public class CrearVideojuegoGUI extends JFrame {
         formatoComboBox.addItem(FormatoMultimedia.DVD);
         formatoComboBox.addItem(FormatoMultimedia.BLURAY);
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
+        formatoComboBox.setEditable(false);
 
         crearBtn.addActionListener(new ActionListener() {
             @Override
@@ -123,6 +132,30 @@ public class CrearVideojuegoGUI extends JFrame {
             }
         });
 
+        regresarAlMenúDeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                regresarAlMenúDeButton.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        restablecerBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
         regresarAlMenúDeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +163,48 @@ public class CrearVideojuegoGUI extends JFrame {
                 dispose();
             }
         });
+
+
+    }
+    public void agregarmenu(){
+        JMenuBar barra=new JMenuBar();
+        Color g2 = new Color(253,85,27);
+        Color g = new Color(0,0,0);
+        barra.setBackground(g);
+
+
+
+        JMenu s = new JMenu("\uD83D\uDD25");
+        s.setForeground(g2);
+        barra.add(s);
+        Font font = s.getFont().deriveFont(18f);
+        s.setFont(font);
+
+        JMenu archivo = new JMenu("Archivo");
+        archivo.setForeground(Color.orange);
+        JMenu socios = new JMenu("Socios");
+        socios.setForeground(g2);
+        JMenuItem salir = new JMenuItem("Salir");
+        JMenuItem guardar = new JMenuItem("Guardar archivo");
+        JMenuItem darAlta = new JMenuItem("Dar de Alta");
+        JMenuItem darBaja = new JMenuItem("Dar de Baja");
+        barra.add(archivo);
+        barra.add(socios);
+        archivo.add(guardar);
+        archivo.add(salir);
+        socios.add(darAlta);
+        socios.add(darBaja);
+        setJMenuBar(barra);
+
+
+
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
     }
 }
 
