@@ -41,7 +41,6 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setVisible(true);
 
         ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
->>>>>>>>> Temporary merge branch 2
 
 
         tituloTxtField.setBackground(new Color(240, 217, 117));
