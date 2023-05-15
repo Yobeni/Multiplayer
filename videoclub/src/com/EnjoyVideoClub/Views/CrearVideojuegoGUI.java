@@ -36,7 +36,7 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setSize(700, 500);
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Añadir videojuego");
+        this.setTitle("CinePlus");
         agregarmenu();
         this.setVisible(true);
 
@@ -205,6 +205,14 @@ public class CrearVideojuegoGUI extends JFrame {
             }
         });
 
+
+        regresarAlMenúDeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
+            }
+        });
     }
 }
 
