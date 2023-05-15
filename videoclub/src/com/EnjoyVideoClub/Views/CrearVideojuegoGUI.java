@@ -41,10 +41,18 @@ public class CrearVideojuegoGUI extends JFrame {
         this.setVisible(true);
 
         ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
+>>>>>>>>> Temporary merge branch 2
 
+
+        tituloTxtField.setBackground(new Color(240, 217, 117));
+        desarrolladorTxtField.setBackground(new Color(240, 217, 117));
+        fechaTxtField.setBackground(new Color(240, 217, 117));
+        formatoComboBox.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         crearBtn.setBackground(new Color(250, 149, 18));
+        regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
+        restablecerBtn.setBackground(new Color(250, 149, 18));
 
         ps5RadioBtn.setBackground(backgroundColor);
         pcRadioBtn.setBackground(backgroundColor);
@@ -55,13 +63,12 @@ public class CrearVideojuegoGUI extends JFrame {
         formatoComboBox.addItem(FormatoMultimedia.DVD);
         formatoComboBox.addItem(FormatoMultimedia.BLURAY);
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
+        formatoComboBox.setEditable(false);
 
         crearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
-
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
 
@@ -115,17 +122,46 @@ public class CrearVideojuegoGUI extends JFrame {
         });
 
         crearBtn.addMouseListener(new MouseAdapter() {
-            int x = 0;
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("entra " + x + " veces");
                 crearBtn.setBackground(new Color(253, 84, 27));
-                x++;
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 crearBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        regresarAlMenúDeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                regresarAlMenúDeButton.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        restablecerBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        regresarAlMenúDeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
             }
         });
 
