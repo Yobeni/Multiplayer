@@ -49,6 +49,9 @@ public class AlquilarGUI extends JFrame {
         tipoComboBox.addItem("Videojuego");
         tipoComboBox.addItem("Disco");
 
+        regresarAlMenuPrincipal();
+        mostrarFechaFinal();
+        alquilar();
     }
 
     public void mostrarFechaFinal() {
@@ -56,14 +59,16 @@ public class AlquilarGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-
+                    if (fechaInicioTxt.getText().equals("")) {
+                        throw new RuntimeException("El campo de la fecha de inicio no puede estar vacío");
+                    }
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaInicio = formato.parse(fechaInicioTxt.getText());
                     Date fechaFin = sumarDias(fechaInicio, 3);
                     String fechaFinString = formato.format(fechaFin);
                     fechaFinTxt.setText(fechaFinString);
                 } catch (Exception ex) {
-
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
@@ -76,4 +81,29 @@ public class AlquilarGUI extends JFrame {
         return calendar.getTime();
     }
 
+    public void regresarAlMenuPrincipal() {
+        regresarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
+            }
+        });
+    }
+
+    public void alquilar() {
+        alquilarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!fechaInicioTxt.getText().equals("") && !fechaFinTxt.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Alquiler realizado!" +
+                            "\nFecha de inicio: " + fechaInicioTxt.getText() +
+                            "\nFecha de finalización: " + fechaFinTxt.getText() +
+                            "\nNO EXCEDER EL LÍMITE.");
+                } else {
+                    throw new RuntimeException("Los datos no han sido validados.");
+                }
+            }
+        });
+    }
 }
