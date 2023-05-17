@@ -3,12 +3,12 @@ package com.EnjoyVideoClub.Model;
 import java.util.Date;
 
 public class Pelicula extends Multimedia{
-    private double duracionPelicula;
+    private int duracionPelicula;
     private String actorPrincipaL;
     private String actrizPrincipal;
     private String tipo;
 
-    public double DURACION_DEFAULT = 0;
+    public int DURACION_DEFAULT = 0;
     public String ACTOR_DEFAULT = "";
     public String ACTRIZ_DEFAULT = "";
 
@@ -20,7 +20,7 @@ public class Pelicula extends Multimedia{
         comprobarTipo();
     }
 
-    public Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, double duracionPelicula, String actorPrincipaL, String actrizPrincipal){
+    public Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, int duracionPelicula, String actorPrincipaL, String actrizPrincipal){
         super(titulo, dev, formato, date);
         setDuracionPelicula(duracionPelicula);
         setActorPrincipaL(actorPrincipaL);
@@ -31,7 +31,7 @@ public class Pelicula extends Multimedia{
     public double getDuracionPelicula() {
         return duracionPelicula;
     }
-    public void setDuracionPelicula(double duracionPelicula) {
+    public void setDuracionPelicula(int duracionPelicula) {
         if (duracionPelicula > 0){
             this.duracionPelicula = duracionPelicula;
         } else{
