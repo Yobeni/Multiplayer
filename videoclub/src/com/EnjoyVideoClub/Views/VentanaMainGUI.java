@@ -39,5 +39,13 @@ public class VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+
+        alquilarMultimediaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AlquilarGUI();
+                dispose();
+            }
+        });
     }
 }
