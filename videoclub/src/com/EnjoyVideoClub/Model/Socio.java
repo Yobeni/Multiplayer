@@ -25,7 +25,7 @@ public class Socio {
         setNombre(Constantes.NOMBRE_DEFAULT);
         setPoblacion(Constantes.POBLACION_DEFAULT);
         setFechaNac(Constantes.FECHA_NACIMIENTO_DEFAULT);
-
+        setApellidos(Constantes.APELLIDOS_DEFAULT);
     }
 
     /**

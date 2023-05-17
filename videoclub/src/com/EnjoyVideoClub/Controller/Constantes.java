@@ -21,5 +21,6 @@ public class Constantes {
     public static final String[] COLABORADORES_DEFAULT ={};
     public static final double DURACION_DEFAULT = 0.00;
     public static final ArrayList<Cancion> CANCIONES_DEFAULT= null;
+    public static final String APELLIDOS_DEFAULT = "";
 
 }
