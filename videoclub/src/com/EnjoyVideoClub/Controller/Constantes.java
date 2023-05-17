@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.EnjoyVideoClub.Model.Cancion;
-import com.EnjoyVideoClub.Model.FormatoMultimedia;
-import com.EnjoyVideoClub.Model.PlataformaVideojuego;
+import com.EnjoyVideoClub.Model.*;
 
 public class Constantes {
     //
