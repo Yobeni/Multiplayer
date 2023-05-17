@@ -17,7 +17,6 @@ public class CrearPeliculaGUI extends JFrame{
     private JTextField tituloTfield;
     private JTextField directorTfield;
     private JTextField FechaTfield;
-    private JTextField DurecionTfield;
     private JTextField ActorTfield;
     private JTextField ActrizTfield;
     private JButton restablecerBtn;
@@ -47,6 +46,10 @@ public class CrearPeliculaGUI extends JFrame{
         FormatoCbo.addItem(FormatoMultimedia.ARCHIVO);
         FormatoCbo.setEditable(false);
 
+        SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
+        duracionSpin.setModel(value);
+
+
         ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
@@ -69,7 +72,7 @@ public class CrearPeliculaGUI extends JFrame{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-                DurecionTfield.setText("");
+               duracionSpin.setValue(0);
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
