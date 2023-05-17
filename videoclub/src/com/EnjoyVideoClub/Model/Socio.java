@@ -13,6 +13,7 @@ import java.util.Date;
 public class Socio {
     private String NIF;
     private String nombre;
+    private String apellidos;
     private Date fechaNac;
     private String poblacion;
     private int dineroDeuda;
@@ -33,12 +34,14 @@ public class Socio {
      * @param nombre String que define el nombre del socio.
      * @param fechaNac Date que define el fecha de nacionmiento del socio.
      * @param poblacion String que define la población del socio.
+     * @param apellidos String que define los apellidos del socio.
      */
-    public Socio(String NIF,String nombre,Date fechaNac,String poblacion) {
+    public Socio(String NIF,String nombre,Date fechaNac,String poblacion,String apellidos) {
         setNIF(NIF);
         setFechaNac(fechaNac);
         setPoblacion(poblacion);
         setNombre(nombre);
+        setApellidos(apellidos);
     }
 
     /**
@@ -84,6 +87,13 @@ public class Socio {
     }
     public int getDineroDeuda() {
         return dineroDeuda;
+    }
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public void setDineroDeuda(int dineroDeuda) {
