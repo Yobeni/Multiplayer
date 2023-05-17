@@ -49,15 +49,6 @@ public class AlquilarGUI extends JFrame {
         tipoComboBox.addItem("Videojuego");
         tipoComboBox.addItem("Disco");
 
-        regresarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new VentanaMainGUI();
-                dispose();
-            }
-        });
-
-        mostrarFechaFinal();
     }
 
     public void mostrarFechaFinal() {
@@ -65,13 +56,14 @@ public class AlquilarGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaInicio = formato.parse(fechaInicioTxt.getText());
                     Date fechaFin = sumarDias(fechaInicio, 3);
                     String fechaFinString = formato.format(fechaFin);
                     fechaFinTxt.setText(fechaFinString);
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+
                 }
             }
         });
@@ -83,4 +75,5 @@ public class AlquilarGUI extends JFrame {
         calendar.add(Calendar.DAY_OF_YEAR, dias);
         return calendar.getTime();
     }
+
 }
