@@ -2,6 +2,7 @@ package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,7 @@ public class CrearVideojuegoGUI extends JFrame {
     private JButton restablecerBtn;
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
+    private JButton btnPollo;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -164,7 +166,19 @@ public class CrearVideojuegoGUI extends JFrame {
             }
         });
 
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
 
+
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
+            }
+        });
     }
     public void agregarmenu(){
         JMenuBar barra=new JMenuBar();

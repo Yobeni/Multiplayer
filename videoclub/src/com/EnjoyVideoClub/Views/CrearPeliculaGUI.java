@@ -28,6 +28,7 @@ public class CrearPeliculaGUI extends JFrame{
     private JLabel actorLbl;
     private JLabel actrizLbl;
     private JButton retrocederBtn;
+    private JLabel lblPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
