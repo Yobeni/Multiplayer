@@ -93,7 +93,7 @@ public class CrearPeliculaGUI extends JFrame{
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
