@@ -166,15 +166,14 @@ public class  CrearVideojuegoGUI extends JFrame {
 
 
     }
-    public void agregarmenu(){
-        JMenuBar barra=new JMenuBar();
-        Color g2 = new Color(253,85,27);
-        Color g = new Color(0,0,0);
+    public void agregarmenu() {
+        JMenuBar barra = new JMenuBar();
+        Color g2 = new Color(253, 85, 27);
+        Color g = new Color(0, 0, 0);
         barra.setBackground(g);
 
 
-
-        JMenu s = new JMenu("\uD83D\uDD25");
+        JMenuItem s = new JMenu("\uD83D\uDD25");
         s.setForeground(g2);
         barra.add(s);
         Font font = s.getFont().deriveFont(18f);
@@ -197,7 +196,6 @@ public class  CrearVideojuegoGUI extends JFrame {
         setJMenuBar(barra);
 
 
-
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -206,7 +204,7 @@ public class  CrearVideojuegoGUI extends JFrame {
         });
 
 
-        regresarAlMenúDeButton.addActionListener(new ActionListener() {
+        s.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new altasGUI();
