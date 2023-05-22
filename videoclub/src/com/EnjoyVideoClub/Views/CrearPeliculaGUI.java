@@ -31,6 +31,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JLabel actrizLbl;
     private JButton retrocederBtn;
     private JSpinner duracionSpin;
+    private JLabel lblPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
