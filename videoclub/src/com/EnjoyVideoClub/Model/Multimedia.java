@@ -1,8 +1,6 @@
 package com.EnjoyVideoClub.Model;
 
 import com.EnjoyVideoClub.Controller.Constantes;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("ALL")
@@ -116,17 +114,12 @@ public class Multimedia {
      */
     @Override
     public String toString() {
-        String formato = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formato);
-
-        String fecha = simpleDateFormat.format(getAño());
-
         return "--- DATOS DE LA MULTIMEDIA ---" +
                 "\n Tipo: " + getClass().getSimpleName() +
                 "\n Titulo: " + getTitulo() +
                 "\n Nombre del autor/director: " + getNombreAutor() +
                 "\n Formato: " + getFormato() +
-                "\n Fecha de publicacion: " + fecha;
+                "\n Fecha de publicacion: " + getAño();
     }
 
     /**

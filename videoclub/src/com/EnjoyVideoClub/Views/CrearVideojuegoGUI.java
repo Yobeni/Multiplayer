@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class CrearVideojuegoGUI extends VentanaMainGUI {
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
