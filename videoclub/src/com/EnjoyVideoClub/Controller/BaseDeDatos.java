@@ -13,7 +13,7 @@ public class BaseDeDatos {
     public static final String BASE_DE_DATOS = "Proyecto Programación - CinePlus Videoclub";
     public static final String DRIVER = "org.postgresql.Driver";
 
-    public void conectarBaseDeDatos() {
+    public void cargarBaseDeDatos() {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
@@ -22,9 +22,17 @@ public class BaseDeDatos {
         }
     }
 
-    public void desconectarBaseDeDatos() {
+    public static void agregarMultimedia(String consulta) {
         try {
-            connection.close();
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
