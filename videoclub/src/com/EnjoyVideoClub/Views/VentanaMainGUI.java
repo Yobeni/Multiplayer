@@ -95,6 +95,13 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+        darBaja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new eliminarSocio();
+                dispose();
+            }
+        });
 
         s.addActionListener(new ActionListener() {
             @Override
