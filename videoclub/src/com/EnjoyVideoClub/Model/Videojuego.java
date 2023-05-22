@@ -1,6 +1,5 @@
 package com.EnjoyVideoClub.Model;
 
-import com.EnjoyVideoClub.Controller.Constantes;
 import java.util.ArrayList;
 import java.util.Date;
 

@@ -5,15 +5,13 @@ import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CrearPeliculaGUI extends JFrame{
+public class CrearPeliculaGUI extends VentanaMainGUI{
     private JPanel CrearPeliculaPanel;
     private JTextField tituloTfield;
     private JTextField directorTfield;
@@ -50,6 +48,12 @@ public class CrearPeliculaGUI extends JFrame{
         SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
         duracionSpin.setModel(value);
 
+        retrocederBtn.setBackground(new Color(250, 149, 18));
+        añadirBtn.setBackground(new Color(250, 149, 18));
+        restablecerBtn.setBackground(new Color(250, 149, 18));
+
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+        agregarmenu();
 
         ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
 
@@ -66,6 +70,18 @@ public class CrearPeliculaGUI extends JFrame{
                 dispose();
             }
         });
+
+        restablecerBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
         restablecerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +94,19 @@ public class CrearPeliculaGUI extends JFrame{
                 ActrizTfield.setText("");
             }
         });
+
+        retrocederBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                retrocederBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                retrocederBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
         añadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,6 +131,18 @@ public class CrearPeliculaGUI extends JFrame{
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
+            }
+        });
+
+        añadirBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                añadirBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                añadirBtn.setBackground(new Color(250, 149, 18));
             }
         });
     }

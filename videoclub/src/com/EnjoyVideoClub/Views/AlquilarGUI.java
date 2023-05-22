@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AlquilarGUI extends JFrame {
+public class AlquilarGUI extends VentanaMainGUI {
     private JPanel panel1;
     private JLabel alquilarTitleLbl;
     private JLabel tipoLbl;
@@ -37,6 +37,8 @@ public class AlquilarGUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Cine Plus - Alquilar multimedia.");
         this.setVisible(true);
+
+        agregarmenu();
 
         tipoComboBox.setEditable(false);
         nombreComboBox.setEditable(false);

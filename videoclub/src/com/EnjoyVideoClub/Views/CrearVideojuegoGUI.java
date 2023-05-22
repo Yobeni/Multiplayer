@@ -8,7 +8,8 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CrearVideojuegoGUI extends JFrame {
+
+public class CrearVideojuegoGUI extends VentanaMainGUI {
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
     private JLabel tituloVideojuegoLbl;
@@ -166,54 +167,6 @@ public class CrearVideojuegoGUI extends JFrame {
         });
 
 
-    }
-    public void agregarmenu(){
-        JMenuBar barra=new JMenuBar();
-        Color g2 = new Color(253,85,27);
-        Color g = new Color(0,0,0);
-        barra.setBackground(g);
-
-
-
-        JMenu s = new JMenu("\uD83D\uDD25");
-        s.setForeground(g2);
-        barra.add(s);
-        Font font = s.getFont().deriveFont(18f);
-        s.setFont(font);
-
-        JMenu archivo = new JMenu("Archivo");
-        archivo.setForeground(Color.orange);
-        JMenu socios = new JMenu("Socios");
-        socios.setForeground(g2);
-        JMenuItem salir = new JMenuItem("Salir");
-        JMenuItem guardar = new JMenuItem("Guardar archivo");
-        JMenuItem darAlta = new JMenuItem("Dar de Alta");
-        JMenuItem darBaja = new JMenuItem("Dar de Baja");
-        barra.add(archivo);
-        barra.add(socios);
-        archivo.add(guardar);
-        archivo.add(salir);
-        socios.add(darAlta);
-        socios.add(darBaja);
-        setJMenuBar(barra);
-
-
-
-        salir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-
-        regresarAlMenúDeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new altasGUI();
-                dispose();
-            }
-        });
     }
 }
 
