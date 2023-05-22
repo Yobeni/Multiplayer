@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class altasGUI extends JFrame {
+public class altasGUI extends VentanaMainGUI{
     private JPanel panel1;
     private JLabel titleLbl;
     private JLabel descripLbl;
@@ -23,6 +23,7 @@ public class altasGUI extends JFrame {
         this.setTitle("Cine Plus Videoclub - Menú de altas");
         this.setVisible(true);
 
+        agregarmenu();
         altaJuegoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

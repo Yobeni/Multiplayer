@@ -1,14 +1,16 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class  CrearVideojuegoGUI extends JFrame {
+
+public class CrearVideojuegoGUI extends VentanaMainGUI {
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
     private JLabel tituloVideojuegoLbl;
@@ -28,6 +30,7 @@ public class  CrearVideojuegoGUI extends JFrame {
     private JButton restablecerBtn;
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
+    private JButton btnPollo;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -39,9 +42,6 @@ public class  CrearVideojuegoGUI extends JFrame {
         this.setTitle("CinePlus");
         agregarmenu();
         this.setVisible(true);
-
-        ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
-
 
         tituloTxtField.setBackground(new Color(240, 217, 117));
         desarrolladorTxtField.setBackground(new Color(240, 217, 117));
@@ -94,7 +94,11 @@ public class  CrearVideojuegoGUI extends JFrame {
 
                     if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
                             !videojuego.getNombreAutor().equals("")) {
-                        videojuegosCreados.add(videojuego);
+                        Videojuego.videojuegosCreados.add(videojuego);
+                        String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
+                                "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
+                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, videojuego);
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
@@ -164,47 +168,13 @@ public class  CrearVideojuegoGUI extends JFrame {
             }
         });
 
-
-    }
-    public void agregarmenu() {
-        JMenuBar barra = new JMenuBar();
-        Color g2 = new Color(253, 85, 27);
-        Color g = new Color(0, 0, 0);
-        barra.setBackground(g);
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
 
 
-        JMenuItem s = new JMenu("\uD83D\uDD25");
-        s.setForeground(g2);
-        barra.add(s);
-        Font font = s.getFont().deriveFont(18f);
-        s.setFont(font);
-
-        JMenu archivo = new JMenu("Archivo");
-        archivo.setForeground(Color.orange);
-        JMenu socios = new JMenu("Socios");
-        socios.setForeground(g2);
-        JMenuItem salir = new JMenuItem("Salir");
-        JMenuItem guardar = new JMenuItem("Guardar archivo");
-        JMenuItem darAlta = new JMenuItem("Dar de Alta");
-        JMenuItem darBaja = new JMenuItem("Dar de Baja");
-        barra.add(archivo);
-        barra.add(socios);
-        archivo.add(guardar);
-        archivo.add(salir);
-        socios.add(darAlta);
-        socios.add(darBaja);
-        setJMenuBar(barra);
-
-
-        salir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-
-        s.addActionListener(new ActionListener() {
+        btnPollo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new altasGUI();

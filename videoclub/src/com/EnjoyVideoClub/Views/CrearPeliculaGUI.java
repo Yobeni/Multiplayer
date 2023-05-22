@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
@@ -7,14 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class CrearPeliculaGUI extends JFrame{
+public class CrearPeliculaGUI extends VentanaMainGUI{
     private JPanel CrearPeliculaPanel;
     private JTextField tituloTfield;
     private JTextField directorTfield;
     private JTextField FechaTfield;
+    private JTextField DurecionTfield;
     private JTextField ActorTfield;
     private JTextField ActrizTfield;
     private JButton restablecerBtn;
@@ -30,6 +31,7 @@ public class CrearPeliculaGUI extends JFrame{
     private JLabel actrizLbl;
     private JButton retrocederBtn;
     private JSpinner duracionSpin;
+    private JLabel lblPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
@@ -52,8 +54,7 @@ public class CrearPeliculaGUI extends JFrame{
         restablecerBtn.setBackground(new Color(250, 149, 18));
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
-
-        ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
+        agregarmenu();
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -87,7 +88,7 @@ public class CrearPeliculaGUI extends JFrame{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-               duracionSpin.setValue(0);
+                DurecionTfield.setText("");
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
@@ -117,7 +118,13 @@ public class CrearPeliculaGUI extends JFrame{
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
                                 ,fecha, (Integer) duracionSpin.getValue(),ActorTfield.getText(),ActrizTfield.getText());
 
-                        peliculasCreadas.add(pelicula);
+                        String consulta = "Insert into pelicula values (" + "'" + pelicula.getTitulo() + "', " +
+                                "'" + pelicula.getNombreAutor() + "', " + "'" + pelicula.getFormato() + "', " +
+                                "'" + pelicula.getAño() + "', " + pelicula.getDuracionPelicula() + ", '" +
+                                pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
+
+                        Pelicula.listaPeliculas.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
