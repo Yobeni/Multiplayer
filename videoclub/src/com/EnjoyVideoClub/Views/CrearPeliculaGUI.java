@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
@@ -117,6 +118,12 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                         Pelicula pelicula = new Pelicula(tituloTfield.getText(),directorTfield.getText(),
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
                                 ,fecha, (Integer) duracionSpin.getValue(),ActorTfield.getText(),ActrizTfield.getText());
+
+                        String consulta = "Insert into pelicula values (" + "'" + pelicula.getTitulo() + "', " +
+                                "'" + pelicula.getNombreAutor() + "', " + "'" + pelicula.getFormato() + "', " +
+                                "'" + pelicula.getAño() + "', " + pelicula.getDuracionPelicula() + ", '" +
+                                pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
 
                         peliculasCreadas.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);

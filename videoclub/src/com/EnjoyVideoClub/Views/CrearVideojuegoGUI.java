@@ -1,11 +1,11 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -40,9 +40,6 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
         this.setTitle("CinePlus");
         agregarmenu();
         this.setVisible(true);
-
-        ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
-
 
         tituloTxtField.setBackground(new Color(240, 217, 117));
         desarrolladorTxtField.setBackground(new Color(240, 217, 117));
@@ -95,7 +92,11 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
 
                     if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
                             !videojuego.getNombreAutor().equals("")) {
-                        videojuegosCreados.add(videojuego);
+                        Videojuego.videojuegosCreados.add(videojuego);
+                        String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
+                                "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
+                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, videojuego);
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
