@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearPeliculaGUI extends VentanaMainGUI{
@@ -54,8 +53,6 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
         agregarmenu();
-
-        ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -125,7 +122,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                                 pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
 
-                        peliculasCreadas.add(pelicula);
+                        Pelicula.listaPeliculas.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
