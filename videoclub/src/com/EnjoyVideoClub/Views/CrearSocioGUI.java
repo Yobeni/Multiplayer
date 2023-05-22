@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CrearSocioGUI extends JFrame {
+public class CrearSocioGUI extends VentanaMainGUI {
 
     private JPanel Jpanel1;
     private JLabel tituloLbl;
@@ -36,6 +36,12 @@ public class CrearSocioGUI extends JFrame {
         this.setSize(700,500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+
+        regresarBtn.setBackground(new Color(250, 149, 18));
+        restablecerBtn.setBackground(new Color(250, 149, 18));
+        AñadirBtn.setBackground(new Color(250, 149, 18));
         restablecerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,5 +121,12 @@ public class CrearSocioGUI extends JFrame {
         btnPollo.setContentAreaFilled(false);
         btnPollo.setFocusPainted(false);
         btnPollo.setBorder(new EmptyBorder(5,10,5,10));
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasGUI();
+                dispose();
+            }
+        });
     }
 }
