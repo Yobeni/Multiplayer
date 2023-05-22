@@ -15,6 +15,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JTextField tituloTfield;
     private JTextField directorTfield;
     private JTextField FechaTfield;
+    private JTextField DurecionTfield;
     private JTextField ActorTfield;
     private JTextField ActrizTfield;
     private JButton restablecerBtn;
@@ -86,7 +87,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-               duracionSpin.setValue(0);
+                DurecionTfield.setText("");
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
