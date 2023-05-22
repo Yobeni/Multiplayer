@@ -3,6 +3,7 @@ package com.EnjoyVideoClub.Views;
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,5 +111,9 @@ public class CrearSocioGUI extends JFrame {
                 regresarBtn.setBackground(new Color(250, 149, 18));
             }
         });
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
     }
 }
