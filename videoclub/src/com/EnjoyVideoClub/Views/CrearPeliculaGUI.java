@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CrearPeliculaGUI extends JFrame{
+public class CrearPeliculaGUI extends VentanaMainGUI{
     private JPanel CrearPeliculaPanel;
     private JTextField tituloTfield;
     private JTextField directorTfield;
@@ -52,6 +52,7 @@ public class CrearPeliculaGUI extends JFrame{
         restablecerBtn.setBackground(new Color(250, 149, 18));
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+        agregarmenu();
 
         ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
 
