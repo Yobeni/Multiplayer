@@ -17,6 +17,8 @@ public class Socio {
     private Date fechaNac;
     private String poblacion;
     private int dineroDeuda;
+
+    public static ArrayList <Socio> arrayListSocio = new ArrayList<>();
     /*
     Constructor por defecto de la clase Socio. Los constantes que usa viene de la clase Constantes.
      */
@@ -98,6 +100,13 @@ public class Socio {
 
     public void setDineroDeuda(int dineroDeuda) {
         this.dineroDeuda = dineroDeuda;
+    }
+    public ArrayList<Socio> getArrayListSocio() {
+        return arrayListSocio;
+    }
+
+    public void setArrayListSocio(ArrayList<Socio> arrayListSocio) {
+        this.arrayListSocio = arrayListSocio;
     }
     public boolean mayorDeEdad(int edad) {
         boolean comp = false;

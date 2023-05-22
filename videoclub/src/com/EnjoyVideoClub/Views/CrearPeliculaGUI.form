@@ -66,6 +66,7 @@
           <text value="Actriz principal:"/>
         </properties>
       </component>
+
       <component id="79619" class="javax.swing.JLabel" binding="tituloLbl">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
