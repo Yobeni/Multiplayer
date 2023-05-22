@@ -68,7 +68,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         apellidos = ApellidosSocio.getText();
                         poblacion = PoblacionTxtBox.getText();
 
-                         socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
                         Socio.arrayListSocio.add(socio);
                         String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
                                 "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
