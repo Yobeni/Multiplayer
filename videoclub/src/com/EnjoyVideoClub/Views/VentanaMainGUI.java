@@ -24,9 +24,9 @@ VentanaMainGUI extends JFrame {
         this.setTitle("Cine Plus Videoclub - Menú Principal");
         this.setVisible(true);
 
-        agregarmenu();
-
         this.setBackground(new Color(255, 222, 89));
+
+        agregarmenu();
 
         darDeAltaButton.addActionListener(new ActionListener() {
             @Override
