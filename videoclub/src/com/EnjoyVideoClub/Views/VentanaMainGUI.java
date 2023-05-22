@@ -88,7 +88,20 @@ VentanaMainGUI extends JFrame {
                 System.exit(0);
             }
         });
-
+        darAlta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearSocioGUI();
+                dispose();
+            }
+        });
+        darBaja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new eliminarSocio();
+                dispose();
+            }
+        });
 
         s.addActionListener(new ActionListener() {
             @Override

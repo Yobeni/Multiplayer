@@ -12,7 +12,7 @@
     <children>
       <component id="a34b" class="javax.swing.JLabel" binding="tituloPeliculaLbl">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Título:"/>
@@ -64,6 +64,15 @@
         </constraints>
         <properties>
           <text value="Actriz principal:"/>
+        </properties>
+      </component>
+      <component id="bee68" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="com/EnjoyVideoClub/Views/multimedia/VIDEOCLUB.gif"/>
+          <text value=""/>
         </properties>
       </component>
       <component id="79619" class="javax.swing.JLabel" binding="tituloLbl">
@@ -149,15 +158,6 @@
           <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-      </component>
-      <component id="fd8b0" class="javax.swing.JButton" binding="btnPollo">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <icon value="com/EnjoyVideoClub/Views/multimedia/VIDEOCLUB.gif"/>
-          <text value=""/>
-        </properties>
       </component>
     </children>
   </grid>
