@@ -5,6 +5,7 @@ import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,6 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JTextField tituloTfield;
     private JTextField directorTfield;
     private JTextField FechaTfield;
-    private JTextField DurecionTfield;
     private JTextField ActorTfield;
     private JTextField ActrizTfield;
     private JButton restablecerBtn;
@@ -31,7 +31,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JLabel actrizLbl;
     private JButton retrocederBtn;
     private JSpinner duracionSpin;
-    private JLabel lblPollo;
+    private JButton btnPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
@@ -88,7 +88,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-                DurecionTfield.setText("");
+                duracionSpin.setValue(0);
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
@@ -142,6 +142,20 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
             @Override
             public void mouseExited(MouseEvent e) {
                 añadirBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
+
+
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
             }
         });
     }
