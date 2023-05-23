@@ -40,22 +40,34 @@ public class eliminarSocio extends VentanaMainGUI{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Socio obj1 = new Socio();
-                ArrayList <Socio> arrayListSocio = obj1.getArrayListSocio();
-                Boolean bool = false;
-                String nombreSeleccionado = txtField1.getText();
-                for (int i = 0;i<arrayListSocio.size();i++) {
-                   if (arrayListSocio.get(i).getNIF().equals(nombreSeleccionado) ) {
-                       bool = true;
-                       arrayListSocio.remove(i);
-                   }
-                }
-                if (bool) {
-                    int option = JOptionPane.showConfirmDialog(null,"Seguro que quiere eliminar?","Confirmación",JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        System.out.println("hola");
+                    Boolean bool = false;
+                    if (Socio.arrayListSocio.size()<=0) {
+                        JOptionPane.showMessageDialog(null,"No tiene ningún socio registrado");
                     }
-                }
+                    for (int i = 0;i<Socio.arrayListSocio.size() && bool== false;i++) {
+                        String nombreSeleccionado = txtField1.getText();
+                        if (Socio.arrayListSocio.get(i).getNIF().equals(nombreSeleccionado) ) {
+                            bool = true;
+                            if (bool) {
+                                int option = JOptionPane.showConfirmDialog(null,"Seguro que quiere eliminar?","Confirmación",JOptionPane.YES_NO_OPTION);
+                                if (option == JOptionPane.YES_OPTION) {
+                                    String eliminar = "Delete from socio where name like "  + "'" + Socio.arrayListSocio.get(i).getNIF() + "'";
+                                    Socio.arrayListSocio.remove(i);
+                                    JOptionPane.showMessageDialog(null,"Eliminado!");
+                                } else if(option == JOptionPane.NO_OPTION) {
+                                    bool = false;
+
+                                }
+
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Error, vuelve a introducir el NIF");
+                            bool = false;
+                        }
+
+                    }
+
 
             }
         });

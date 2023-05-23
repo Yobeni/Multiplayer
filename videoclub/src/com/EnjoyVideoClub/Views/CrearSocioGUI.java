@@ -56,19 +56,19 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM");
-                Date fecha;
-                String nif,nombre,apellidos, poblacion;
-                Socio socio;
-                try {
-                    if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")){
-                        fecha = formato.parse(fechaTxtBox.getText());
-                        nif = NifTxtBox.getText();
-                        nombre = NombreDeSocio.getText();
-                        apellidos = ApellidosSocio.getText();
-                        poblacion = PoblacionTxtBox.getText();
 
-                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                try {
+
+                    if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")){
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
+
+                        Date fecha = formato.parse(fechaTxtBox.getText());
+                        String nif = NifTxtBox.getText();
+                        String nombre = NombreDeSocio.getText();
+                        String apellidos = ApellidosSocio.getText();
+                        String poblacion = PoblacionTxtBox.getText();
+
+                        Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
                         Socio.arrayListSocio.add(socio);
                         String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
                                 "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
