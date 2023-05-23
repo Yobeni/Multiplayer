@@ -47,5 +47,13 @@ public class altasGUI extends VentanaMainGUI{
                 dispose();
             }
         });
+        altaCancionBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearDiscoGUI();
+                dispose();
+            }
+        });
     }
+
 }

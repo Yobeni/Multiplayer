@@ -1,9 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
-import com.EnjoyVideoClub.Model.Disco;
 import com.EnjoyVideoClub.Model.FormatoMultimedia;
-import com.EnjoyVideoClub.Model.PlataformaVideojuego;
 import com.EnjoyVideoClub.Model.Videojuego;
 
 import javax.swing.*;
@@ -16,7 +14,8 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CrearDiscoGUI extends VentanaMainGUI {
+public class CrearCancionGUI extends VentanaMainGUI{
+
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
     private JLabel tituloVideojuegoLbl;
@@ -36,7 +35,7 @@ public class CrearDiscoGUI extends VentanaMainGUI {
     private JButton añadirCancionButton;
     private JTextArea txtAreaCanciones;
 
-    public CrearDiscoGUI() {
+    public CrearCancionGUI() {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
