@@ -77,6 +77,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                     throw new RuntimeException(ex);
                 }
             }
