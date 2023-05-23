@@ -50,6 +50,13 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+        devolverMultimediaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new devolverGUI();
+                dispose();
+            }
+        });
     }
 
     public void agregarmenu() {
