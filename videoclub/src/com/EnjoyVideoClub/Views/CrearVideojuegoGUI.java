@@ -177,7 +177,7 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
         btnPollo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
+                new VentanaMainGUI();
                 dispose();
             }
         });
