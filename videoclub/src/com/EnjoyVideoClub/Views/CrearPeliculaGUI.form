@@ -12,7 +12,7 @@
     <children>
       <component id="a34b" class="javax.swing.JLabel" binding="tituloPeliculaLbl">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Título:"/>
@@ -66,6 +66,7 @@
           <text value="Actriz principal:"/>
         </properties>
       </component>
+
       <component id="79619" class="javax.swing.JLabel" binding="tituloLbl">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -151,6 +152,7 @@
         <properties/>
       </component>
       <component id="c3097" class="javax.swing.JButton" binding="btnPollo">
+
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
