@@ -56,7 +56,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
         restablecerBtn.setBackground(new Color(250, 149, 18));
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
-        agregarmenu();
+
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
             @Override
