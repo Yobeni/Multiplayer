@@ -15,10 +15,10 @@ public class eliminarSocio extends VentanaMainGUI{
     private JTextField txtField1;
     private JButton AceptarBtn;
     private JLabel lbl1;
-    private JPanel Jpanel1;
+    private JPanel devolverPanel;
 
     public eliminarSocio() {
-        this.setContentPane(Jpanel1);
+        this.setContentPane(devolverPanel);
         this.setVisible(true);
         this.setSize(700,500);
         this.setLocationRelativeTo(null);
