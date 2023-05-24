@@ -54,6 +54,12 @@ public class altasGUI extends VentanaMainGUI{
                 dispose();
             }
         });
+        altaSocioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearSocioGUI();
+                dispose();
+            }
+        });
     }
-
 }

@@ -50,6 +50,13 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+        devolverMultimediaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new devolverGUI();
+                dispose();
+            }
+        });
 
     }
 
@@ -63,7 +70,7 @@ VentanaMainGUI extends JFrame {
         barra.setBackground(g);
 
 
-        JMenuItem s = new JMenu("\uD83D\uDD25");
+        JMenu s = new JMenu("\uD83D\uDD25");
         s.setForeground(g2);
         barra.add(s);
         Font font = s.getFont().deriveFont(18f);
@@ -92,7 +99,20 @@ VentanaMainGUI extends JFrame {
                 System.exit(0);
             }
         });
-
+        darAlta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearSocioGUI();
+                dispose();
+            }
+        });
+        darBaja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new eliminarSocio();
+                dispose();
+            }
+        });
 
         s.addActionListener(new ActionListener() {
             @Override
