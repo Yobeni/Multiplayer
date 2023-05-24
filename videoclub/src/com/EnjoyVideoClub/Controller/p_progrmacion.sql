@@ -16,3 +16,12 @@ CREATE TABLE videojuego(
 	plataformas		varchar(50),
 	duracion		integer
 );
+
+CREATE TABLE socio(
+	 NIF			varchar(50) primary key;
+     	 nombre			varchar(50);
+    	 apellidos		varchar(50);
+         fechaNac		varchar(50);
+    	 poblacion		varchar(50);
+    	 dineroDeuda		integer;
+)

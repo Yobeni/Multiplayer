@@ -27,7 +27,7 @@ public class Pelicula extends Multimedia{
         setActrizPrincipal(actrizPrincipal);
     }
 
-    public double getDuracionPelicula() {
+    public int getDuracionPelicula() {
         return duracionPelicula;
     }
     public void setDuracionPelicula(int duracionPelicula) {

@@ -6,10 +6,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Principal {
+    public static ArrayList<Multimedia> multimedias = new ArrayList<>();
     public static void main(String[] args) {
         try {
-            ArrayList<Multimedia> multimedias = new ArrayList<>();
             BaseDeDatos.cargarVideojuegosDeLaBaseDeDatos(multimedias);
+            BaseDeDatos.cargarPeliculasDeLaBaseDeDatos(multimedias);
+
             for (Multimedia multimedia : multimedias) {
                 System.out.println(multimedia);
             }
@@ -20,5 +22,6 @@ public class Principal {
         }
 
         System.out.println("Ya tenemos ventana main de GUI");
+        System.out.println("creo que funciona...");
     }
 }
