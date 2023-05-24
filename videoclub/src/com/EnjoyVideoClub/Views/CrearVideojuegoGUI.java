@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -99,7 +100,7 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
 
                     if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
                             !videojuego.getNombreAutor().equals("")) {
-                        Videojuego.videojuegosCreados.add(videojuego);
+                        Principal.multimedias.add(videojuego);
                         String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
                                 "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
                                 "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";

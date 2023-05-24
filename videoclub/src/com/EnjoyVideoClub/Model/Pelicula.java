@@ -7,7 +7,6 @@ public class Pelicula extends Multimedia{
     private int duracionPelicula;
     private String actorPrincipaL;
     private String actrizPrincipal;
-    public static ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
 
     public int DURACION_DEFAULT = 0;
     public String ACTOR_DEFAULT = "";
