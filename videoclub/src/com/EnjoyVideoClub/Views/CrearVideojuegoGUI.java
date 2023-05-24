@@ -29,6 +29,8 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
     private JButton restablecerBtn;
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
+    private JLabel duracionLbl;
+    private JTextField duracionTxtField;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -67,11 +69,14 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fecha = formato.parse(fechaTxtField.getText());
 
-                    Videojuego videojuego = new Videojuego(tituloTxtField.getText(),
-                            desarrolladorTxtField.getText(),
-                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha);
+                    String titulo = tituloTxtField.getText();
+                    String desarrollador = desarrolladorTxtField.getText();
+                    FormatoMultimedia formatoMultimedia = (FormatoMultimedia) formatoComboBox.getSelectedItem();
+                    Date fecha = formato.parse(fechaTxtField.getText());
+                    int duracion = Integer.parseInt(duracionTxtField.getText());
+
+                    Videojuego videojuego = new Videojuego(titulo, desarrollador, formatoMultimedia, fecha, duracion);
 
                     if (ps5RadioBtn.isSelected()) {
                         PlataformaVideojuego ps5 = PlataformaVideojuego.PS5;
