@@ -10,7 +10,7 @@ CREATE TABLE pelicula(
 
 CREATE TABLE videojuego(
 	titulo			varchar(50) primary key,
-	desarollador	varchar(50),
+	desarrollador	varchar(50),
 	formato			varchar(50),
 	fecha			varchar(50),
 	plataformas		varchar(50),

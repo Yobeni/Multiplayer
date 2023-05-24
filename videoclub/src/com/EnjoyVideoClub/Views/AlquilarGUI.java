@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,7 @@ public class AlquilarGUI extends VentanaMainGUI {
         this.setTitle("Cine Plus - Alquilar multimedia.");
         this.setVisible(true);
 
+        alquilarTitleLbl.setFont(new Font("Georgia", Font.BOLD, 30));
         agregarmenu();
 
         tipoComboBox.setEditable(false);
