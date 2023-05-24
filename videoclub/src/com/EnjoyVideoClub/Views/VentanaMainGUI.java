@@ -50,9 +50,13 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+
     }
 
     public void agregarmenu() {
+        if(this.getClass().getSimpleName().equals("CrearCancionGUI")){
+            return;
+        }
         JMenuBar barra = new JMenuBar();
         Color g2 = new Color(253, 85, 27);
         Color g = new Color(0, 0, 0);
