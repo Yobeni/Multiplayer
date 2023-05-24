@@ -67,14 +67,19 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         String nombre = NombreDeSocio.getText();
                         String apellidos = ApellidosSocio.getText();
                         String poblacion = PoblacionTxtBox.getText();
+                        Date comprobacion = new Date(01/01/2005 );
+                        if (fecha.before(comprobacion)) {
+                            Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                            Socio.arrayListSocio.add(socio);
+                            String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
+                                    "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
+                                    "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
+                            BaseDeDatos.agregarMultimedia(consulta);
+                            JOptionPane.showMessageDialog(null, socio);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Es menor de edad!");
+                        }
 
-                        Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
-                        Socio.arrayListSocio.add(socio);
-                        String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
-                                "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
-                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
-                        BaseDeDatos.agregarMultimedia(consulta);
-                        JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);

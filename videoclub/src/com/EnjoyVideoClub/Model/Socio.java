@@ -109,15 +109,7 @@ public class Socio {
     public void setArrayListSocio(ArrayList<Socio> arrayListSocio) {
         this.arrayListSocio = arrayListSocio;
     }
-    public boolean mayorDeEdad(int edad) {
-        boolean comp = false;
-        if (edad<18) {
-            comp = false;
-        } else {
-            comp = true;
-        }
-        return comp;
-    }
+
     public void alquilar(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) throws Exception{
         if (getDineroDeuda()<0) {
             throw new Exception("No puede alquilar si tiene deudas!");
