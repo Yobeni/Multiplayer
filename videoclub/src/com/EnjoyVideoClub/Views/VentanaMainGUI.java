@@ -66,7 +66,7 @@ VentanaMainGUI extends JFrame {
         barra.setBackground(g);
 
 
-        JMenuItem s = new JMenu("\uD83D\uDD25");
+        JMenu s = new JMenu("\uD83D\uDD25");
         s.setForeground(g2);
         barra.add(s);
         Font font = s.getFont().deriveFont(18f);
