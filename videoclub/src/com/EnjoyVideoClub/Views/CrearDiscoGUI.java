@@ -161,5 +161,12 @@ public class CrearDiscoGUI extends VentanaMainGUI {
             }
         });
 
+        añadirCancionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CrearCancionGUI c =new CrearCancionGUI();
+
+            }
+        });
     }
 }

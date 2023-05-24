@@ -2,11 +2,13 @@ package com.EnjoyVideoClub.Model;
 
 import com.EnjoyVideoClub.Controller.Constantes;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Cancion extends Multimedia{
-    private String[] colaboradores;
+    private ArrayList<String> colaboradores;
     private double duracion;
+    public static ArrayList<Cancion> cancionesCreadas = new ArrayList<>();
 
     public Cancion() {
         super();
@@ -14,17 +16,17 @@ public class Cancion extends Multimedia{
         this.duracion = Constantes.DURACION_DEFAULT;
     }
 
-    public Cancion(String titulo, String nombreAutor, FormatoMultimedia formato, Date año, String[] colaboradores, double duracion) {
+    public Cancion(String titulo, String nombreAutor, FormatoMultimedia formato, Date año, ArrayList<String> colaboradores, double duracion) {
         super(titulo, nombreAutor, formato, año);
         this.colaboradores = colaboradores;
         setDuracion(duracion);
     }
 
-    public String[] getColaboradores() {
+    public ArrayList<String> getColaboradores() {
         return colaboradores;
     }
 
-    public void setColaboradores(String[] colaboradores) {
+    public void setColaboradores(ArrayList<String> colaboradores) {
         this.colaboradores = colaboradores;
     }
 
@@ -41,7 +43,7 @@ public class Cancion extends Multimedia{
     }
 
     public String mostrarColaboradores(){
-        String infoColaboradores="-- COLABORADORES DE LA CANCIÓN --";
+        String infoColaboradores="-- COLABORADORES DE LA CANCIÓN --\n";
         for (String colaborador : this.colaboradores) {
             infoColaboradores += colaborador + "\n";
         }
@@ -52,6 +54,6 @@ public class Cancion extends Multimedia{
     public String toString() {
         return (super.toString()+"\n--- DATOS DE LA CANCIÓN ---" +
                 "\n Duración de la canción: " + getDuracion() +
-                "\n Canciones: " + mostrarColaboradores());
+                "\n  " + mostrarColaboradores());
     }
 }

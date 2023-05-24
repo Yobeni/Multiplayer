@@ -1,17 +1,19 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Constantes;
+import com.EnjoyVideoClub.Model.Cancion;
 import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Videojuego;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearCancionGUI extends VentanaMainGUI{
@@ -22,7 +24,6 @@ public class CrearCancionGUI extends VentanaMainGUI{
     private JLabel desarrolladorLbl;
     private JLabel formatoLbl;
     private JLabel fechaLbl;
-    private JLabel CancionesLbl;
     private JTextField tituloTxtField;
     private JTextField desarrolladorTxtField;
     private JTextField fechaTxtField;
@@ -31,19 +32,25 @@ public class CrearCancionGUI extends VentanaMainGUI{
     private JButton restablecerBtn;
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
+    private JLabel LblColaboradores;
+    private JTextField colaboradoresTextField1;
+    private JTextField duracionTextField;
+
     private JButton btnPollo;
-    private JButton añadirCancionButton;
-    private JTextArea txtAreaCanciones;
+
+
+
 
     public CrearCancionGUI() {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(700, 500);
-
+        this.setSize(500, 300);
+        this.setResizable(true);
+        this.setPreferredSize(new Dimension(500,200));
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
-        agregarmenu();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         this.setVisible(true);
 
         tituloTxtField.setBackground(new Color(240, 217, 117));
@@ -51,6 +58,8 @@ public class CrearCancionGUI extends VentanaMainGUI{
         fechaTxtField.setBackground(new Color(240, 217, 117));
         formatoComboBox.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+        colaboradoresTextField1.setBackground(new Color(240, 217, 117));
+        duracionTextField.setBackground(new Color(240,217,117));
 
         crearBtn.setBackground(new Color(250, 149, 18));
         regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
@@ -62,26 +71,32 @@ public class CrearCancionGUI extends VentanaMainGUI{
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
         formatoComboBox.setEditable(false);
 
+
         crearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
-
-                    Videojuego videojuego = new Videojuego(tituloTxtField.getText(),
-                            desarrolladorTxtField.getText(),
-                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha);
+                    double duracionDouble = Double.parseDouble(duracionTextField.getText());
 
 
-                    if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
-                            !videojuego.getNombreAutor().equals("")) {
-                        Videojuego.videojuegosCreados.add(videojuego);
-                        String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
-                                "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
-                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";
+
+
+
+                    if (!tituloTxtField.equals("")&&!duracionTextField.equals("")&&!fechaTxtField.equals("")&&!desarrolladorTxtField.equals("")) {
+
+                        Cancion cancion = new Cancion(tituloTxtField.getText(),
+                                desarrolladorTxtField.getText(),
+                                (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha,separarNombres(colaboradoresTextField1.getText()),duracionDouble);
+
+                        Cancion.cancionesCreadas.add(cancion);
+
+                        String consulta = "Insert into cancion values (" + "'" + cancion.getTitulo() + "', " +
+                                "'" + cancion.getNombreAutor() + "', " + "'" + cancion.getFormato() + "', " +
+                                "'" + cancion.getAño() + "', " + "'" + cancion.getColaboradores() + "', " + "'" + cancion.getDuracion() + "', " + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
-                        JOptionPane.showMessageDialog(null, videojuego);
+                        JOptionPane.showMessageDialog(null, cancion);
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
                     }
@@ -141,24 +156,22 @@ public class CrearCancionGUI extends VentanaMainGUI{
         regresarAlMenúDeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
                 dispose();
             }
         });
 
-        btnPollo.setBorderPainted(false);
-        btnPollo.setContentAreaFilled(false);
-        btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
 
 
-        btnPollo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new altasGUI();
-                dispose();
-            }
-        });
 
     }
+
+    private static ArrayList<String> separarNombres(String texto){
+        ArrayList<String> nombres = new ArrayList<>();
+        String [] nombresArray = texto.split("/");
+        for (String nombre : nombresArray) {
+            nombres.add(nombre.trim());
+        }
+        return nombres;
+    }
+
 }
