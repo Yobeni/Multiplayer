@@ -22,5 +22,6 @@ public class Principal {
         }
 
         System.out.println("Ya tenemos ventana main de GUI");
+        System.out.println("creo que funciona...");
     }
 }
