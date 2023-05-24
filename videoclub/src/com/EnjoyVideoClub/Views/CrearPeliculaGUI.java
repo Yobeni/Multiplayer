@@ -46,6 +46,8 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
         FormatoCbo.addItem(FormatoMultimedia.ARCHIVO);
         FormatoCbo.setEditable(false);
 
+        btnPollo.setBounds(10,10,10,10);
+
         SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
         duracionSpin.setModel(value);
 
