@@ -24,9 +24,9 @@ VentanaMainGUI extends JFrame {
         this.setTitle("Cine Plus Videoclub - Menú Principal");
         this.setVisible(true);
 
-        agregarmenu();
-
         this.setBackground(new Color(255, 222, 89));
+
+        agregarmenu();
 
         darDeAltaButton.addActionListener(new ActionListener() {
             @Override
@@ -50,6 +50,13 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+        devolverMultimediaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new devolverGUI();
+                dispose();
+            }
+        });
     }
 
     public void agregarmenu() {
@@ -59,7 +66,7 @@ VentanaMainGUI extends JFrame {
         barra.setBackground(g);
 
 
-        JMenuItem s = new JMenu("\uD83D\uDD25");
+        JMenu s = new JMenu("\uD83D\uDD25");
         s.setForeground(g2);
         barra.add(s);
         Font font = s.getFont().deriveFont(18f);
@@ -88,7 +95,20 @@ VentanaMainGUI extends JFrame {
                 System.exit(0);
             }
         });
-
+        darAlta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearSocioGUI();
+                dispose();
+            }
+        });
+        darBaja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new eliminarSocio();
+                dispose();
+            }
+        });
 
         s.addActionListener(new ActionListener() {
             @Override

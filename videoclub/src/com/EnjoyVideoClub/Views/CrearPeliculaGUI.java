@@ -5,10 +5,10 @@ import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearPeliculaGUI extends VentanaMainGUI{
@@ -31,6 +31,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JLabel actrizLbl;
     private JButton retrocederBtn;
     private JSpinner duracionSpin;
+    private JButton btnPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
@@ -45,6 +46,8 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
         FormatoCbo.addItem(FormatoMultimedia.ARCHIVO);
         FormatoCbo.setEditable(false);
 
+        btnPollo.setBounds(10,10,10,10);
+
         SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
         duracionSpin.setModel(value);
 
@@ -53,9 +56,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
         restablecerBtn.setBackground(new Color(250, 149, 18));
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
-        agregarmenu();
 
-        ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -89,7 +90,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-               duracionSpin.setValue(0);
+                duracionSpin.setValue(0);
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
@@ -125,11 +126,11 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                                 pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
 
-                        peliculasCreadas.add(pelicula);
+                        Pelicula.listaPeliculas.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
@@ -143,6 +144,20 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
             @Override
             public void mouseExited(MouseEvent e) {
                 añadirBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
+
+
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
             }
         });
     }
