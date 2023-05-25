@@ -124,8 +124,12 @@ public class AlquilarGUI extends VentanaMainGUI {
         alquilarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!comprobarQueElSocioExiste()) {
+                    throw new RuntimeException("No existe el socio registrado en la base de datos");
+                }
+
                 if (!fechaInicioTxt.getText().equals("") && !fechaFinTxt.getText().equals("") &&
-                        comprobarQueElSocioExiste()) {
+                        comprobarQueElSocioExiste() && comprobarQueElSocioNoTieneRecargosPendientes()) {
                     String consulta = "INSERT INTO alquileres VALUES ('" + fechaInicioTxt.getText() + "', '"
                             + fechaFinTxt.getText() + "', '" + nifSocioTxt.getText() + "', '" +
                             tipoComboBox.getSelectedItem().toString() + "', '" +
@@ -238,6 +242,15 @@ public class AlquilarGUI extends VentanaMainGUI {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean comprobarQueElSocioNoTieneRecargosPendientes() {
+        for (Socio socio : Principal.socios) {
+            if (socio.getDineroDeuda() > 0) {
+                throw new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
+            }
+        }
+        return true;
     }
 
     public void hoverBotones() {
