@@ -16,6 +16,7 @@ public class Principal {
             BaseDeDatos.cargarVideojuegosDeLaBaseDeDatos(multimedias);
             BaseDeDatos.cargarPeliculasDeLaBaseDeDatos(multimedias);
             BaseDeDatos.cargarSociosDeLaBaseDeDatos(socios);
+            BaseDeDatos.cargarAlquileresDeLaBaseDeDatos(alquileres);
 
             for (Socio socio : socios) {
                 System.out.println(socio);
