@@ -57,7 +57,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM");
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Date fecha;
                 String nif,nombre,apellidos, poblacion;
                 Socio socio;
