@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Alquiler {
@@ -62,14 +63,17 @@ public class Alquiler {
 
     @Override
     public String toString() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaInicio = formato.format(getFechaInicio());
+        String fechaFin = formato.format(getFechaFin());
         return "--- DATOS DEL ALQUILER ---" +
                 "\n > Tipo de multimedia: " + getTipoMultimedia().getClass().getSimpleName() +
                 "\n > Título de la multimedia: " + getTituloMultimedia() +
                 "\n > NIF del Socio que realiza el alquiler: " + getNifSocio() +
-                "\n > Precio del alquiler: " + getPrecio() +
-                "\n > Fecha de inicio: " + getFechaInicio() +
-                "\n > Fecha de finalización: " + getFechaFin() +
+                "\n > Precio del alquiler: " + getPrecio() + ".00 €" +
+                "\n > Fecha de inicio: " + fechaInicio +
+                "\n > Fecha de finalización: " + fechaFin +
                 "\n--- NO EXCEDER EL TIEMPO LÍMITE DEL ALQUILER ---" +
-                "\n            CinePlus Videoclub                  ";
+                "\n                 CinePlus Videoclub                  ";
     }
 }

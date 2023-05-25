@@ -30,8 +30,5 @@ public class Principal {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
-        System.out.println("Ya tenemos ventana main de GUI");
-        System.out.println("creo que funciona...aa");
     }
 }
