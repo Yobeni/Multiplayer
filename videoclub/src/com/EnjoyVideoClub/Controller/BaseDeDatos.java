@@ -15,7 +15,7 @@ import java.util.Locale;
 public class BaseDeDatos {
     public static Connection connection = null;
     public static final String USER = "postgres";
-    public static final String PASSWORD = "Qerrassa";
+    public static final String PASSWORD = "Intpl_1023";
     public static final String URL = "jdbc:postgresql://localhost:5432/";
     public static final String BASE_DE_DATOS = "Proyecto Programación - CinePlus Videoclub";
     public static final String DRIVER = "org.postgresql.Driver";
@@ -114,7 +114,36 @@ public class BaseDeDatos {
                     Date fechaNacimiento = formatearFecha(fechaNac);
 
                     Socio socio = new Socio(nif, nombre, fechaNacimiento, poblacion, apellidos);
+                    socio.setDineroDeuda(deuda);
                     socios.add(socio);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cargarAlquileresDeLaBaseDeDatos(ArrayList<Alquiler> alquileres) {
+        String consulta = "SELECT * FROM alquileres";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fechaInicio = formato.parse(resultSet.getString("fecha_inicio"));
+                    Date fechaFin = formato.parse(resultSet.getString("fecha_fin"));
+                    String nif = resultSet.getString("nif_socio");
+                    Multimedia multimedia = comprobarMultimedia(resultSet.getString("tipo_mult"));
+                    int precio = Integer.parseInt(resultSet.getString("precio").substring(0, 1));
+                    String titulo = resultSet.getString("titulo_mult");
+
+                    Alquiler alquiler = new Alquiler(fechaInicio, fechaFin, nif, multimedia, titulo, precio);
+                    Principal.alquileres.add(alquiler);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -141,6 +170,14 @@ public class BaseDeDatos {
             case "DVD" -> FormatoMultimedia.DVD;
             case "BLURAY" -> FormatoMultimedia.BLURAY;
             case "ARCHIVO" -> FormatoMultimedia.ARCHIVO;
+            default -> null;
+        };
+    }
+
+    public static Multimedia comprobarMultimedia(String multimedia) {
+        return switch (multimedia) {
+            case "Película" -> new Pelicula();
+            case "Videojuego" -> new Videojuego();
             default -> null;
         };
     }

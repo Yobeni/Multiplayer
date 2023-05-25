@@ -25,3 +25,15 @@ CREATE TABLE socio(
     	 poblacion		varchar(50);
     	 dineroDeuda		integer;
 )
+
+CREATE TABLE alquileres (
+	fecha_inicio		varchar(50),
+	fecha_fin			varchar(50),
+	nif_socio			varchar(50),
+	tipo_mult			varchar(50),
+	precio				varchar(10),
+	titulo_mult			varchar(50),
+
+	primary key (nif_socio, titulo_mult),
+	foreign key (nif_socio) references socios(nif)
+);
