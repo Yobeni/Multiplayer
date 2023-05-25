@@ -63,7 +63,7 @@ public class Alquiler {
     @Override
     public String toString() {
         return "--- DATOS DEL ALQUILER ---" +
-                "\n > Tipo de multimedia: " + getTipoMultimedia() +
+                "\n > Tipo de multimedia: " + getTipoMultimedia().getClass().getSimpleName() +
                 "\n > Título de la multimedia: " + getTituloMultimedia() +
                 "\n > NIF del Socio que realiza el alquiler: " + getNifSocio() +
                 "\n > Precio del alquiler: " + getPrecio() +
