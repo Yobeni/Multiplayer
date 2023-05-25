@@ -1,9 +1,6 @@
 package com.EnjoyVideoClub.Controller;
 
-import com.EnjoyVideoClub.Model.FormatoMultimedia;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Pelicula;
-import com.EnjoyVideoClub.Model.Videojuego;
+import com.EnjoyVideoClub.Model.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -91,6 +88,34 @@ public class BaseDeDatos {
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(consulta);
                 connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cargarSociosDeLaBaseDeDatos(ArrayList<Socio> socios) {
+        String consulta = "SELECT * FROM socios";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    String nif = resultSet.getString("nif");
+                    String nombre = resultSet.getString("nombre");
+                    String apellidos = resultSet.getString("apellidos");
+                    String fechaNac = resultSet.getString("fechanac");
+                    String poblacion = resultSet.getString("poblacion");
+                    int deuda = resultSet.getInt("dinerodeuda");
+                    Date fechaNacimiento = formatearFecha(fechaNac);
+
+                    Socio socio = new Socio(nif, nombre, fechaNacimiento, poblacion, apellidos);
+                    socios.add(socio);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

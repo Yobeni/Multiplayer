@@ -1,15 +1,13 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Controller.Principal;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Pelicula;
-import com.EnjoyVideoClub.Model.Videojuego;
+import com.EnjoyVideoClub.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +35,8 @@ public class AlquilarGUI extends VentanaMainGUI {
     private JTextField fechaInicioTxt;
     private JTextField fechaFinTxt;
     private JButton validarBtn;
-    int precioBase = 4;
+    private JLabel nifSocioLbl;
+    private JTextField nifSocioTxt;
 
     public AlquilarGUI() {
         this.setContentPane(panel1);
@@ -57,11 +56,13 @@ public class AlquilarGUI extends VentanaMainGUI {
         duraciónTxtField.setEditable(false);
         precioTxtField.setEditable(false);
         fechaFinTxt.setEditable(false);
+        fechaInicioTxt.setEditable(false);
 
         tipoComboBox.addItem("Película");
         tipoComboBox.addItem("Videojuego");
         tipoComboBox.addItem("Disco");
 
+        mostrarFechaDeHoy();
         colores();
         regresarAlMenuPrincipal();
         mostrarFechaFinal();
@@ -83,6 +84,11 @@ public class AlquilarGUI extends VentanaMainGUI {
                     Date fechaFin = sumarDias(fechaInicio, 3);
                     String fechaFinString = formato.format(fechaFin);
                     fechaFinTxt.setText(fechaFinString);
+
+                    // Comprueba que el socio existe.
+                    if (!comprobarQueElSocioExiste()) {
+                        throw new RuntimeException("El socio no está registrado en la base de datos");
+                    }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -108,17 +114,27 @@ public class AlquilarGUI extends VentanaMainGUI {
     }
 
     public void alquilar() {
+        String tipoMult = "";
+        switch (tipoComboBox.getSelectedIndex()) {
+            case 0 -> tipoMult = "Película";
+            case 1 -> tipoMult = "Videojuego";
+            case 2 -> tipoMult = "Disco";
+        }
+        String finalTipoMult = tipoMult;
         alquilarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!fechaInicioTxt.getText().equals("") && !fechaFinTxt.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Alquiler realizado!" +
-                            "\nFecha de inicio: " + fechaInicioTxt.getText() +
-                            "\nFecha de finalización: " + fechaFinTxt.getText() +
-                            "\nPrecio del alquiler: " + precioTxtField.getText() +
-                            "\nNO EXCEDER EL LÍMITE.");
+                if (!fechaInicioTxt.getText().equals("") && !fechaFinTxt.getText().equals("") &&
+                        comprobarQueElSocioExiste()) {
+                    String consulta = "INSERT INTO alquileres VALUES ('" + fechaInicioTxt.getText() + "', '"
+                            + fechaFinTxt.getText() + "', '" + nifSocioTxt.getText() + "', '" +
+                            tipoComboBox.getSelectedItem().toString() + "', '" +
+                            precioTxtField.getText() + "', '" + nombreComboBox.getSelectedItem().toString() + "')";
+                    BaseDeDatos.agregarMultimedia(consulta);
+                    crearAlquiler();
                 } else {
-                    throw new RuntimeException("Los datos no han sido validados.");
+                    throw new RuntimeException("No es posible realizar el alquiler dado que los datos no han sido " +
+                            "validados, o bien el socio no existe en la base de datos.");
                 }
             }
         });
@@ -193,6 +209,37 @@ public class AlquilarGUI extends VentanaMainGUI {
         });
     }
 
+    public void mostrarFechaDeHoy() {
+        Date fecha = new Date();
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaString = formato.format(fecha);
+            fechaInicioTxt.setText(fechaString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void crearAlquiler() {
+        try {
+            Multimedia multimedia = null;
+            switch (tipoComboBox.getSelectedIndex()) {
+                case 0 -> multimedia = new Pelicula();
+                case 1 -> multimedia = new Videojuego();
+            }
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaInicio = formato.parse(fechaInicioTxt.getText());
+            Date fechaFin = formato.parse(fechaFinTxt.getText());
+            String nifSocio = nifSocioTxt.getText();
+            String titulo = nombreComboBox.getSelectedItem().toString();
+            int precio = Integer.parseInt(precioTxtField.getText().substring(0, 1));
+            Alquiler alquiler = new Alquiler(fechaInicio, fechaFin, nifSocio, multimedia, titulo, precio);
+            Principal.alquileres.add(alquiler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void hoverBotones() {
         regresarBtn.addMouseListener(new MouseAdapter() {
             @Override
@@ -249,6 +296,7 @@ public class AlquilarGUI extends VentanaMainGUI {
     public void colores() {
         Color amarillo = new Color(240, 217, 117);
         Color naranja = new Color(250, 149, 18);
+
         // Colores campos de texto.
         tipoComboBox.setBackground(amarillo);
         nombreComboBox.setBackground(amarillo);
@@ -257,10 +305,20 @@ public class AlquilarGUI extends VentanaMainGUI {
         precioTxtField.setBackground(amarillo);
         fechaInicioTxt.setBackground(amarillo);
         fechaFinTxt.setBackground(amarillo);
+        nifSocioTxt.setBackground(amarillo);
 
         // Colores botones.
         validarBtn.setBackground(naranja);
         regresarBtn.setBackground(naranja);
         alquilarBtn.setBackground(naranja);
+    }
+
+    public boolean comprobarQueElSocioExiste() {
+        for (Socio socio : Principal.socios) {
+            if (socio.equals(nifSocioTxt.getText())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

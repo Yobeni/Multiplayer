@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -70,8 +71,9 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         poblacion = PoblacionTxtBox.getText();
 
                         socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
-                        Socio.arrayListSocio.add(socio);
-                        String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
+                        //Socio.arrayListSocio.add(socio);
+                        Principal.socios.add(socio);
+                        String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                 "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
                                 "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
                         BaseDeDatos.agregarMultimedia(consulta);

@@ -12,7 +12,7 @@ public class Pelicula extends Multimedia{
     public String ACTOR_DEFAULT = "";
     public String ACTRIZ_DEFAULT = "";
 
-    Pelicula(){
+    public Pelicula(){
         super();
         duracionPelicula = DURACION_DEFAULT;
         actorPrincipaL = ACTOR_DEFAULT;
