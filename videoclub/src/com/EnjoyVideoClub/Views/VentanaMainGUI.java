@@ -6,6 +6,8 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class
 VentanaMainGUI extends JFrame {
@@ -28,7 +30,10 @@ VentanaMainGUI extends JFrame {
 
         this.setBackground(new Color(255, 222, 89));
 
+        titleLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+
         agregarmenu();
+        mouseHover();
 
         darDeAltaButton.addActionListener(new ActionListener() {
             @Override
@@ -128,5 +133,72 @@ VentanaMainGUI extends JFrame {
 
            }
        });
+    }
+
+    public void mouseHover() {
+        Color naranja = new Color(250, 149, 18);
+        Color naranjaOscuro = new Color(253, 84, 27);
+
+        darDeAltaButton.setBackground(naranja);
+        alquilarMultimediaButton.setBackground(naranja);
+        devolverMultimediaButton.setBackground(naranja);
+        listarButton.setBackground(naranja);
+        salirButton.setBackground(naranja);
+
+        darDeAltaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                darDeAltaButton.setBackground(naranjaOscuro);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                darDeAltaButton.setBackground(naranja);
+            }
+        });
+        alquilarMultimediaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                alquilarMultimediaButton.setBackground(naranjaOscuro);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                alquilarMultimediaButton.setBackground(naranja);
+            }
+        });
+        devolverMultimediaButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                devolverMultimediaButton.setBackground(naranjaOscuro);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                devolverMultimediaButton.setBackground(naranja);
+            }
+        });
+        listarButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                listarButton.setBackground(naranjaOscuro);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                listarButton.setBackground(naranja);
+            }
+        });
+        salirButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                salirButton.setBackground(naranjaOscuro);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                salirButton.setBackground(naranja);
+            }
+        });
     }
 }
