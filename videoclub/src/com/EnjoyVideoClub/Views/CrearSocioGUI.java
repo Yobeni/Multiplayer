@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearSocioGUI extends VentanaMainGUI {
@@ -129,7 +130,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         btnPollo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
+                new VentanaMainGUI();
                 dispose();
             }
         });

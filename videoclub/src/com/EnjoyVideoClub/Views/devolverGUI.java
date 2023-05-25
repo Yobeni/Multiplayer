@@ -1,6 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
-import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,21 +15,21 @@ import java.util.Date;
 public class devolverGUI extends VentanaMainGUI {
     private JTextField nombreTF;
     private JPanel panel1;
-    private JTextField textField2;
-    private JComboBox comboBox1;
+    private JTextField alquilerTF;
+    private JComboBox TtipoCBO;
     private JTextField textField3;
     private JLabel lblNombre;
     private JLabel lblFechaAlquiler;
     private JLabel lblTipo;
     private JLabel lblSocio;
     private JLabel lblPrecio;
-    private JButton button1;
-    private JButton button2;
+    private JButton regresarBtn;
+    private JButton devolverBtn;
     private JButton btnValidar;
     private JButton btnPollo;
     private JLabel lblDevolber;
     private JTextField devolucionTF;
-    private JTextField textField5;
+    private JTextField nifTf;
     private JLabel lbldevolucion;
 
     public devolverGUI() {
@@ -44,6 +44,10 @@ public class devolverGUI extends VentanaMainGUI {
         this.setVisible(true);
 
         fechaActual();
+
+        TtipoCBO.addItem("Pelicula");
+        TtipoCBO.addItem("Videojuego");
+        TtipoCBO.addItem("Canción");
 
         btnPollo.setBorderPainted(false);
         btnPollo.setContentAreaFilled(false);
@@ -65,7 +69,38 @@ public class devolverGUI extends VentanaMainGUI {
         btnValidar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    int errores = 0;
+                    if (!nombreTF.equals("")&&!nifTf.equals("")){
+                        for (int i = 0;i< Principal.multimedias.size();i++){
+                            if (!Principal.multimedias.get(i).getTitulo().equals(nombreTF)){
+                                errores++;
+                                throw new RuntimeException("No pueden haber campos vacios.");
+                            }
 
+                        }
+                    }else {
+                        throw new RuntimeException("No pueden haber campos vacios.");
+                    }
+
+                    if (errores == 0){
+                        for (int i = 0;i<Principal.multimedias.size();i++){
+                            if (Principal.multimedias.get(i).getTitulo().equals(nombreTF)){
+                                alquilerTF.setText(Principal.multimedias.get(i).getAño().toString());
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Los datos son correctos");
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+        regresarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
             }
         });
     }
