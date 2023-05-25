@@ -1,6 +1,8 @@
 package com.EnjoyVideoClub.Views;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,12 +112,21 @@ VentanaMainGUI extends JFrame {
             }
         });
 
-        s.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new altasGUI();
-                dispose();
-            }
-        });
+       s.addMenuListener(new MenuListener() {
+           @Override
+           public void menuSelected(MenuEvent e) {
+               JOptionPane.showMessageDialog(null,"hola");
+           }
+
+           @Override
+           public void menuDeselected(MenuEvent e) {
+
+           }
+
+           @Override
+           public void menuCanceled(MenuEvent e) {
+
+           }
+       });
     }
 }
