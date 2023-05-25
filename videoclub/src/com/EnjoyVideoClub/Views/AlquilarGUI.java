@@ -134,7 +134,7 @@ public class AlquilarGUI extends VentanaMainGUI {
                             + fechaFinTxt.getText() + "', '" + nifSocioTxt.getText() + "', '" +
                             tipoComboBox.getSelectedItem().toString() + "', '" +
                             precioTxtField.getText() + "', '" + nombreComboBox.getSelectedItem().toString() + "')";
-                    BaseDeDatos.agregarMultimedia(consulta);
+                    //BaseDeDatos.agregarMultimedia(consulta);
                     crearAlquiler();
                 } else {
                     throw new RuntimeException("No es posible realizar el alquiler dado que los datos no han sido " +
@@ -238,6 +238,7 @@ public class AlquilarGUI extends VentanaMainGUI {
             String titulo = nombreComboBox.getSelectedItem().toString();
             int precio = Integer.parseInt(precioTxtField.getText().substring(0, 1));
             Alquiler alquiler = new Alquiler(fechaInicio, fechaFin, nifSocio, multimedia, titulo, precio);
+            JOptionPane.showMessageDialog(null, alquiler);
             Principal.alquileres.add(alquiler);
         } catch (Exception e) {
             e.printStackTrace();
