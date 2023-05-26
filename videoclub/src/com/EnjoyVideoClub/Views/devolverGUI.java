@@ -46,6 +46,7 @@ public class devolverGUI extends VentanaMainGUI {
 
         fechaActual();
         mostrarDatosMultimediasDependiendoDelTipo();
+        hoverBotones();
 
         TtipoCBO.addItem("Pelicula");
         TtipoCBO.addItem("Videojuego");
@@ -86,12 +87,22 @@ public class devolverGUI extends VentanaMainGUI {
                                         precioTF.setText(alq.getPrecio() + "€");
                                     }
                                 }
+                            } else {
+                                dias = dias -3;
+                                long incremetnoPrecio = dias*2;
+                                for (Alquiler alq : Principal.alquileres){
+                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                                        precioTF.setText((alq.getPrecio() + incremetnoPrecio) + "€");
+                                    }
+                                }
                             }
 
                         } else {
+                            precioTF.setText("");
                             throw new RuntimeException("El socio introducido no existe");
                         }
                     } else {
+                        precioTF.setText("");
                         throw new RuntimeException("Debe introducir el nif del socio");
                     }
                 }catch (Exception ex){
@@ -179,6 +190,56 @@ public class devolverGUI extends VentanaMainGUI {
             }
         }
         return false;
+    }
+
+    public void hoverBotones() {
+        regresarBtn.setBackground(new Color(250, 149, 18));
+        devolverBtn.setBackground(new Color(250, 149, 18));
+        btnValidar.setBackground(new Color(250, 149, 18));
+        regresarBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                regresarBtn.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                regresarBtn.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                regresarBtn.setBackground(new Color(253, 84, 27));
+            }
+        });
+
+        devolverBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                devolverBtn.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                devolverBtn.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                devolverBtn.setBackground(new Color(253, 84, 27));
+            }
+        });
+
+       btnValidar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnValidar.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnValidar.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnValidar.setBackground(new Color(253, 84, 27));
+            }
+        });
     }
 }
 
