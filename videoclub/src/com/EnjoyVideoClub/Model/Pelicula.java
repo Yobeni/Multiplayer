@@ -8,9 +8,9 @@ public class Pelicula extends Multimedia{
     private String actorPrincipaL;
     private String actrizPrincipal;
 
-    public int DURACION_DEFAULT = 0;
-    public String ACTOR_DEFAULT = "";
-    public String ACTRIZ_DEFAULT = "";
+    public final int DURACION_DEFAULT = 0;
+    public final String ACTOR_DEFAULT = "";
+    public final String ACTRIZ_DEFAULT = "";
 
     public Pelicula(){
         super();

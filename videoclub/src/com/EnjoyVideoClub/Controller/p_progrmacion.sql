@@ -17,7 +17,7 @@ CREATE TABLE videojuego(
 	duracion		integer
 );
 
-CREATE TABLE socio(
+CREATE TABLE socios (
 	 NIF			varchar(50) primary key;
      	 nombre			varchar(50);
     	 apellidos		varchar(50);
