@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.*;
 
@@ -32,6 +33,8 @@ public class devolverGUI extends VentanaMainGUI {
     private JTextField nifTf;
     private JLabel lbldevolucion;
     private JComboBox tituloCBO;
+
+    public boolean validado = false;
 
     public devolverGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -75,6 +78,7 @@ public class devolverGUI extends VentanaMainGUI {
                 try {
                     if (!nifTf.getText().equals("")){
                         if (comprobarQueElSocioExiste()){
+                            validado = true;
                             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                             Date fechaInicio = formato.parse(alquilerTF.getText());
                             Date fechaFinal = formato.parse(devolucionTF.getText());
@@ -99,10 +103,12 @@ public class devolverGUI extends VentanaMainGUI {
 
                         } else {
                             precioTF.setText("");
+                            validado = false;
                             throw new RuntimeException("El socio introducido no existe");
                         }
                     } else {
                         precioTF.setText("");
+                        validado = false;
                         throw new RuntimeException("Debe introducir el nif del socio");
                     }
                 }catch (Exception ex){
@@ -117,7 +123,27 @@ public class devolverGUI extends VentanaMainGUI {
                 dispose();
             }
         });
+
+        devolverBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (validado){
+                        JOptionPane.showMessageDialog(null,"Estas seguro que quieres devolver?");
+                        String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
+                                tituloCBO.getSelectedItem() + "';";
+                        BaseDeDatos.agregarMultimedia(consulta);
+                        devolverMultimedia();
+                    } else {
+                        throw new RuntimeException("Antes debe validar los datos");
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
     }
+
 
     public void fechaActual(){
         Date fecha = new Date();
@@ -240,6 +266,14 @@ public class devolverGUI extends VentanaMainGUI {
                 btnValidar.setBackground(new Color(253, 84, 27));
             }
         });
+    }
+
+    public void devolverMultimedia(){
+        for (Alquiler alq : Principal.alquileres){
+            if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                Principal.alquileres.remove(alq);
+            }
+        }
     }
 }
 
