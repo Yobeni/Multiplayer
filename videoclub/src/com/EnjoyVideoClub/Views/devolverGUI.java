@@ -86,6 +86,14 @@ public class devolverGUI extends VentanaMainGUI {
                                         precioTF.setText(alq.getPrecio() + "€");
                                     }
                                 }
+                            } else {
+                                dias = dias -3;
+                                long incremetnoPrecio = dias*2;
+                                for (Alquiler alq : Principal.alquileres){
+                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                                        precioTF.setText((alq.getPrecio() + incremetnoPrecio) + "€");
+                                    }
+                                }
                             }
 
                         } else {
