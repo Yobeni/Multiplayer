@@ -87,6 +87,7 @@ public class AlquilarGUI extends VentanaMainGUI {
 
                     // Comprueba que el socio existe.
                     if (!comprobarQueElSocioExiste()) {
+                        fechaFinTxt.setText("");
                         throw new RuntimeException("El socio no está registrado en la base de datos");
                     }
                 } catch (Exception ex) {
