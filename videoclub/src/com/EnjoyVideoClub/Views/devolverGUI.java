@@ -1,16 +1,14 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.Principal;
-import com.EnjoyVideoClub.Model.Alquiler;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Pelicula;
-import com.EnjoyVideoClub.Model.Videojuego;
+import com.EnjoyVideoClub.Model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +17,7 @@ public class devolverGUI extends VentanaMainGUI {
     private JPanel panel1;
     private JTextField alquilerTF;
     private JComboBox TtipoCBO;
-    private JTextField textField3;
+    private JTextField precioTF;
     private JLabel lblNombre;
     private JLabel lblFechaAlquiler;
     private JLabel lblTipo;
@@ -74,7 +72,28 @@ public class devolverGUI extends VentanaMainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (!nifTf.getText().equals("")){
+                        if (comprobarQueElSocioExiste()){
+                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                            Date fechaInicio = formato.parse(alquilerTF.getText());
+                            Date fechaFinal = formato.parse(devolucionTF.getText());
 
+                            long dias = ChronoUnit.DAYS.between(fechaInicio.toInstant(), fechaFinal.toInstant());
+
+                            if (dias <= 3){
+                                for (Alquiler alq : Principal.alquileres){
+                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                                        precioTF.setText(alq.getPrecio() + "€");
+                                    }
+                                }
+                            }
+
+                        } else {
+                            throw new RuntimeException("El socio introducido no existe");
+                        }
+                    } else {
+                        throw new RuntimeException("Debe introducir el nif del socio");
+                    }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -102,7 +121,6 @@ public class devolverGUI extends VentanaMainGUI {
 
     public void mostrarDatosMultimediasDependiendoDelTipo() {
         ArrayList<Date> alquilerDates = new ArrayList<>();
-
 
         TtipoCBO.addItemListener(new ItemListener() {
             @Override
@@ -152,6 +170,15 @@ public class devolverGUI extends VentanaMainGUI {
                 }
             }
         });
+    }
+
+    public boolean comprobarQueElSocioExiste() {
+        for (Socio socio : Principal.socios) {
+            if (socio.equals(nifTf.getText())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

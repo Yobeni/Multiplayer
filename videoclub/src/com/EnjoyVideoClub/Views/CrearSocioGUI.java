@@ -88,7 +88,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         regresarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
+                new VentanaMainGUI();
                 dispose();
             }
         });
