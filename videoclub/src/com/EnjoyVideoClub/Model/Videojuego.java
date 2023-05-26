@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class Videojuego extends Multimedia {
     private ArrayList<PlataformaVideojuego> plataformas = new ArrayList<>();
-    public static ArrayList<Videojuego> videojuegosCreados = new ArrayList<>();
     private int duracion;
 
 

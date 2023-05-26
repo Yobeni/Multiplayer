@@ -1,9 +1,6 @@
 package com.EnjoyVideoClub.Controller;
 
-import com.EnjoyVideoClub.Model.FormatoMultimedia;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Pelicula;
-import com.EnjoyVideoClub.Model.Videojuego;
+import com.EnjoyVideoClub.Model.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -99,6 +96,63 @@ public class BaseDeDatos {
         }
     }
 
+    public static void cargarSociosDeLaBaseDeDatos(ArrayList<Socio> socios) {
+        String consulta = "SELECT * FROM socios";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    String nif = resultSet.getString("nif");
+                    String nombre = resultSet.getString("nombre");
+                    String apellidos = resultSet.getString("apellidos");
+                    String fechaNac = resultSet.getString("fechanac");
+                    String poblacion = resultSet.getString("poblacion");
+                    int deuda = resultSet.getInt("dinerodeuda");
+                    Date fechaNacimiento = formatearFecha(fechaNac);
+
+                    Socio socio = new Socio(nif, nombre, fechaNacimiento, poblacion, apellidos);
+                    socio.setDineroDeuda(deuda);
+                    socios.add(socio);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cargarAlquileresDeLaBaseDeDatos(ArrayList<Alquiler> alquileres) {
+        String consulta = "SELECT * FROM alquileres";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fechaInicio = formato.parse(resultSet.getString("fecha_inicio"));
+                    Date fechaFin = formato.parse(resultSet.getString("fecha_fin"));
+                    String nif = resultSet.getString("nif_socio");
+                    Multimedia multimedia = comprobarMultimedia(resultSet.getString("tipo_mult"));
+                    int precio = Integer.parseInt(resultSet.getString("precio").substring(0, 1));
+                    String titulo = resultSet.getString("titulo_mult");
+
+                    Alquiler alquiler = new Alquiler(fechaInicio, fechaFin, nif, multimedia, titulo, precio);
+                    Principal.alquileres.add(alquiler);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Date formatearFecha(String fecha) {
         try {
             DateFormat formato = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
@@ -116,6 +170,14 @@ public class BaseDeDatos {
             case "DVD" -> FormatoMultimedia.DVD;
             case "BLURAY" -> FormatoMultimedia.BLURAY;
             case "ARCHIVO" -> FormatoMultimedia.ARCHIVO;
+            default -> null;
+        };
+    }
+
+    public static Multimedia comprobarMultimedia(String multimedia) {
+        return switch (multimedia) {
+            case "Película" -> new Pelicula();
+            case "Videojuego" -> new Videojuego();
             default -> null;
         };
     }

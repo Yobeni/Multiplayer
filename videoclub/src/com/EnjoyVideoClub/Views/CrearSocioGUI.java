@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearSocioGUI extends VentanaMainGUI {
@@ -56,6 +58,10 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date fecha;
+                String nif,nombre,apellidos, poblacion;
+                Socio socio;
 
                 try {
 
@@ -80,6 +86,14 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             JOptionPane.showMessageDialog(null,"Es menor de edad!");
                         }
 
+                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                        //Socio.arrayListSocio.add(socio);
+                        Principal.socios.add(socio);
+                        String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
+                                "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
+                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
+                        JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -134,7 +148,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         btnPollo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
+                new VentanaMainGUI();
                 dispose();
             }
         });

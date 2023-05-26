@@ -142,4 +142,8 @@ public class Socio {
                 + fecha + "\nDinero deuda: " + getDineroDeuda()
                 + "\n------------------";
     }
+
+    public boolean equals(String nif) {
+        return this.NIF.equals(nif);
+    }
 }

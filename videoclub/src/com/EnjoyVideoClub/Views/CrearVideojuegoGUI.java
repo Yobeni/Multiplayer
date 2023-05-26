@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -49,6 +50,7 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
         desarrolladorTxtField.setBackground(new Color(240, 217, 117));
         fechaTxtField.setBackground(new Color(240, 217, 117));
         formatoComboBox.setBackground(new Color(240, 217, 117));
+        duracionTxtField.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         crearBtn.setBackground(new Color(250, 149, 18));
@@ -99,10 +101,11 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
 
                     if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
                             !videojuego.getNombreAutor().equals("")) {
-                        Videojuego.videojuegosCreados.add(videojuego);
+                        Principal.multimedias.add(videojuego);
+                        int dur = Integer.parseInt(duracionTxtField.getText());
                         String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
                                 "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
-                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";
+                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "', " + dur + ")";
                         BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, videojuego);
                     } else {
