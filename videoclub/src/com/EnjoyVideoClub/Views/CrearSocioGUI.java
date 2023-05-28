@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CrearSocioGUI extends VentanaMainGUI {
@@ -36,7 +38,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
     public CrearSocioGUI() {
         this.setContentPane(Jpanel1);
         this.setVisible(true);
-        this.setSize(700,500);
+        this.setSize(700, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -59,53 +61,49 @@ public class CrearSocioGUI extends VentanaMainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    boolean comp =false;
-                    if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")){
+                    boolean comp = false;
+                    if (!NombreDeSocio.equals("") && !fechaTxtBox.equals("") && !ApellidosSocio.equals("") && !PoblacionTxtBox.equals("") && !NifTxtBox.equals("")) {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
-
                         Date fecha = formato.parse(fechaTxtBox.getText());
-                        String nif;
-
-                             nif = NifTxtBox.getText();
-                            for (Socio socio: Socio.arrayListSocio) {
-                                if (nif.equals(socio.getNIF())) {
-                                    JOptionPane.showMessageDialog(null,"Este socio ya esta registrado!");
-                                    comp = true;
-                                } else {
-                                    comp=false;
-                                }
+                        String nif = NifTxtBox.getText();
+                        for (Socio socio : Socio.arrayListSocio) {
+                            if (nif.equals(socio.getNIF())) {
+                                JOptionPane.showMessageDialog(null, "Este socio ya esta registrado!");
+                                comp = true;
+                                break;
+                            } else {
+                                comp = false;
                             }
-
-
-
-                        String nombre = NombreDeSocio.getText();
-                        String apellidos = ApellidosSocio.getText();
-                        String poblacion = PoblacionTxtBox.getText();
-                        Date comprobacion = new Date(01/01/2005);
-                        comprobacion = formato.parse("01/01/2005");
-
-                        if (fecha.before(comprobacion) && comp==false) {
-                            Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
-                            Socio.arrayListSocio.add(socio);
-                            String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
-                                    "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
-                                    "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
-                            BaseDeDatos.agregarMultimedia(consulta);
-                            JOptionPane.showMessageDialog(null, socio);
-                        } else if (!fecha.before(comprobacion) && comp==false){
-                            JOptionPane.showMessageDialog(null,"Es menor de edad!");
                         }
+                        Calendar calendario = Calendar.getInstance();
+                        int diaActual = calendario.get(Calendar.DAY_OF_MONTH);
+                        int mesActual = calendario.get(Calendar.MONTH) + 1;
+                        int anyoActual = calendario.get(Calendar.YEAR)-18;
+                        String requisito = diaActual+"/"+mesActual+"/"+ anyoActual;
+                        if (!fecha.before(formato.parse(requisito))) {
+                            JOptionPane.showMessageDialog(null, "Es menor de edad!");
+                        } else if (!comp) {
+                            String nombre = NombreDeSocio.getText();
+                            String apellidos = ApellidosSocio.getText();
+                            String poblacion = PoblacionTxtBox.getText();
+                            if (!BaseDeDatos.verificarNIFRepetido(nif)) {
 
-                        Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
-                        //Socio.arrayListSocio.add(socio);
-                        Principal.socios.add(socio);
-                        String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
-                                "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
-                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
-                        BaseDeDatos.agregarMultimedia(consulta);
+                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos);
+                                Socio.arrayListSocio.add(socio);
+                                String consulta = "INSERT INTO socios VALUES ('" + socio.getNIF() + "', " +
+                                        "'" + socio.getNombre() + "', '" + socio.getApellidos() + "', " +
+                                        "'" + socio.getFechaNac() + "', '" + socio.getPoblacion() + "', " +
+                                        "'" + socio.getDineroDeuda() + "')";
+                                BaseDeDatos.agregarSocio(consulta);
+                                JOptionPane.showMessageDialog(null, socio);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El socio con el NIF proporcionado ya existe.");
+
+                            }
+                        }
                     }
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                     throw new RuntimeException(ex);
                 }
             }
@@ -153,7 +151,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         btnPollo.setBorderPainted(false);
         btnPollo.setContentAreaFilled(false);
         btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
         btnPollo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

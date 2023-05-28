@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class eliminarSocio extends VentanaMainGUI {
@@ -39,51 +42,49 @@ public class eliminarSocio extends VentanaMainGUI {
             }
         });
         AceptarBtn.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                Boolean bool = false;
-                if (Socio.arrayListSocio.size() <= 0) {
+                boolean bool = false;
+                ArrayList<Socio> socios = new ArrayList<>();
+                BaseDeDatos.cargarSociosDeLaBaseDeDatos(socios);
+
+                if (socios.size() <= 0) {
                     JOptionPane.showMessageDialog(null, "No tiene ningún socio registrado");
-                }
-                for (int i = 0; i < Socio.arrayListSocio.size() && bool == false; i++) {
-                    String nombreSeleccionado = txtField1.getText();
-                    if (Socio.arrayListSocio.get(i).getNIF().equals(nombreSeleccionado)) {
-                        bool = true;
-                        if (bool) {
-                            int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                            if (option == JOptionPane.YES_OPTION) {
-                                String eliminar = "Delete from socio where name like " + "'" + Socio.arrayListSocio.get(i).getNIF() + "'";
-                                Socio.arrayListSocio.remove(i);
-                                JOptionPane.showMessageDialog(null, "Eliminado!");
-                            } else if (option == JOptionPane.NO_OPTION) {
-                                bool = false;
-
+                } else {
+                    for (int i = 0; i < socios.size() && !bool; i++) {
+                        String nifSeleccionado = txtField1.getText();
+                        if (socios.get(i).getNIF().equals(nifSeleccionado)) {
+                            bool = true;
+                            if (bool) {
+                                int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                                if (option == JOptionPane.YES_OPTION) {
+                                    String eliminar = "DELETE FROM socios WHERE nif = '" + socios.get(i).getNIF() + "'";
+                                    BaseDeDatos.eliminarSocio(eliminar);
+                                    socios.remove(i);
+                                    JOptionPane.showMessageDialog(null, "¡Socio eliminado!");
+                                } else if (option == JOptionPane.NO_OPTION) {
+                                    bool = false;
+                                }
                             }
-
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error, vuelva a introducir el NIF");
+                            bool = false;
                         }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error, vuelve a introducir el NIF");
-                        bool = false;
                     }
-
                 }
-                AceptarBtn.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        AceptarBtn.setBackground(new Color(253, 84, 27));
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        AceptarBtn.setBackground(new Color(250, 149, 18));
-                    }
-                });
-                AceptarBtn.setBackground(new Color(250, 149, 18));
-
+            }
+        });
+        AceptarBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                AceptarBtn.setBackground(new Color(253, 84, 27));
             }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                AceptarBtn.setBackground(new Color(250, 149, 18));
+            }
         });
+        AceptarBtn.setBackground(new Color(250, 149, 18));
     }
 }
