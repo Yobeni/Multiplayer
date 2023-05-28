@@ -17,14 +17,14 @@ CREATE TABLE videojuego(
 	duracion		integer
 );
 
-CREATE TABLE socio(
-	 NIF			varchar(50) primary key;
-     	 nombre			varchar(50);
-    	 apellidos		varchar(50);
-         fechaNac		varchar(50);
-    	 poblacion		varchar(50);
-    	 dineroDeuda		integer;
-)
+CREATE TABLE socios(
+	 NIF			varchar(50) primary key,
+     	 nombre			varchar(50),
+    	 apellidos		varchar(50),
+         fechaNac		varchar(50),
+    	 poblacion		varchar(50),
+    	 dineroDeuda		integer
+);
 
 CREATE TABLE alquileres (
 	fecha_inicio		varchar(50),

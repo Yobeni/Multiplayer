@@ -15,7 +15,7 @@ import java.util.Locale;
 public class BaseDeDatos {
     public static Connection connection = null;
     public static final String USER = "postgres";
-    public static final String PASSWORD = "Intpl_1023";
+    public static final String PASSWORD = "1234";
     public static final String URL = "jdbc:postgresql://localhost:5432/";
     public static final String BASE_DE_DATOS = "Proyecto Programación - CinePlus Videoclub";
     public static final String DRIVER = "org.postgresql.Driver";

@@ -58,23 +58,33 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha;
-                String nif,nombre,apellidos, poblacion;
-                Socio socio;
-
                 try {
-
+                    boolean comp =false;
                     if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")){
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
 
                         Date fecha = formato.parse(fechaTxtBox.getText());
-                        String nif = NifTxtBox.getText();
+                        String nif;
+
+                             nif = NifTxtBox.getText();
+                            for (Socio socio: Socio.arrayListSocio) {
+                                if (nif.equals(socio.getNIF())) {
+                                    JOptionPane.showMessageDialog(null,"Este socio ya esta registrado!");
+                                    comp = true;
+                                } else {
+                                    comp=false;
+                                }
+                            }
+
+
+
                         String nombre = NombreDeSocio.getText();
                         String apellidos = ApellidosSocio.getText();
                         String poblacion = PoblacionTxtBox.getText();
-                        Date comprobacion = new Date(01/01/2005 );
-                        if (fecha.before(comprobacion)) {
+                        Date comprobacion = new Date(01/01/2005);
+                        comprobacion = formato.parse("01/01/2005");
+
+                        if (fecha.before(comprobacion) && comp==false) {
                             Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
                             Socio.arrayListSocio.add(socio);
                             String consulta = "Insert into socio values (" + "'" + socio.getNIF() + "', " +
@@ -82,18 +92,17 @@ public class CrearSocioGUI extends VentanaMainGUI {
                                     "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
                             BaseDeDatos.agregarMultimedia(consulta);
                             JOptionPane.showMessageDialog(null, socio);
-                        } else {
+                        } else if (!fecha.before(comprobacion) && comp==false){
                             JOptionPane.showMessageDialog(null,"Es menor de edad!");
                         }
 
-                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                        Socio socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
                         //Socio.arrayListSocio.add(socio);
                         Principal.socios.add(socio);
                         String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                 "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
                                 "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
-                        JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null,ex.getMessage());
