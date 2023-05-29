@@ -14,8 +14,10 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.Date;
 
 public class CrearSocioGUI extends VentanaMainGUI {
@@ -34,6 +36,8 @@ public class CrearSocioGUI extends VentanaMainGUI {
     private JButton regresarBtn;
     private JButton AñadirBtn;
     private JButton restablecerBtn;
+    private JPasswordField contraseñaTF;
+    private JLabel paswordLbl;
 
     public CrearSocioGUI() {
         this.setContentPane(Jpanel1);
@@ -101,6 +105,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
 
                             }
                         }
+
                     }
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -111,7 +116,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         regresarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
+                new VentanaMainGUI();
                 dispose();
             }
         });

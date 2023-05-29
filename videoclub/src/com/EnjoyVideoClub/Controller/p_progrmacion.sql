@@ -17,6 +17,7 @@ CREATE TABLE videojuego(
 	duracion		integer
 );
 
+
 CREATE TABLE socios(
 	 NIF			varchar(50) primary key,
      	 nombre			varchar(50),
@@ -25,6 +26,7 @@ CREATE TABLE socios(
     	 poblacion		varchar(50),
     	 dineroDeuda		integer
 );
+
 
 CREATE TABLE alquileres (
 	fecha_inicio		varchar(50),

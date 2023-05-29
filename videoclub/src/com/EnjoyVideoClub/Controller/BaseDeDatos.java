@@ -112,8 +112,9 @@ public class BaseDeDatos {
                     String poblacion = resultSet.getString("poblacion");
                     int deuda = resultSet.getInt("dinerodeuda");
                     Date fechaNacimiento = formatearFecha(fechaNac);
+                    String paswwd = resultSet.getString("contraseña");
 
-                    Socio socio = new Socio(nif, nombre, fechaNacimiento, poblacion, apellidos);
+                    Socio socio = new Socio(nif, nombre, fechaNacimiento, poblacion, apellidos,paswwd);
                     socio.setDineroDeuda(deuda);
                     socios.add(socio);
                 }

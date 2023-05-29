@@ -1,6 +1,8 @@
 package com.EnjoyVideoClub.Views;
 
+
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -21,6 +23,8 @@ public class eliminarSocio extends VentanaMainGUI {
     private JButton AceptarBtn;
     private JLabel lbl1;
     private JPanel devolverPanel;
+    private JLabel passwdLbl;
+    private JPasswordField passwdTF;
 
     public eliminarSocio() {
         this.setContentPane(devolverPanel);
@@ -44,6 +48,7 @@ public class eliminarSocio extends VentanaMainGUI {
         AceptarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 boolean bool = false;
                 ArrayList<Socio> socios = new ArrayList<>();
                 BaseDeDatos.cargarSociosDeLaBaseDeDatos(socios);
@@ -70,7 +75,10 @@ public class eliminarSocio extends VentanaMainGUI {
                             JOptionPane.showMessageDialog(null, "Error, vuelva a introducir el NIF");
                             bool = false;
                         }
+
                     }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
             }
         });

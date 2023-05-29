@@ -1,5 +1,7 @@
 package com.EnjoyVideoClub.Model;
 
+import com.EnjoyVideoClub.Controller.Constantes;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,15 +10,11 @@ public class Pelicula extends Multimedia{
     private String actorPrincipaL;
     private String actrizPrincipal;
 
-    public int DURACION_DEFAULT = 0;
-    public String ACTOR_DEFAULT = "";
-    public String ACTRIZ_DEFAULT = "";
-
     public Pelicula(){
         super();
-        duracionPelicula = DURACION_DEFAULT;
-        actorPrincipaL = ACTOR_DEFAULT;
-        actrizPrincipal = ACTRIZ_DEFAULT;
+        duracionPelicula = Constantes.DURACION_DEFAULT_PELICULA;
+        actorPrincipaL = Constantes.ACTOR_DEFAULT;
+        actrizPrincipal = Constantes.ACTRIZ_DEFAULT;
     }
 
     public Pelicula(String titulo, String dev, FormatoMultimedia formato, Date date, int duracionPelicula, String actorPrincipaL, String actrizPrincipal){

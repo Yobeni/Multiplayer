@@ -1,16 +1,15 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Controller.Principal;
-import com.EnjoyVideoClub.Model.Alquiler;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Pelicula;
-import com.EnjoyVideoClub.Model.Videojuego;
+import com.EnjoyVideoClub.Model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +18,7 @@ public class devolverGUI extends VentanaMainGUI {
     private JPanel panel1;
     private JTextField alquilerTF;
     private JComboBox TtipoCBO;
-    private JTextField textField3;
+    private JTextField precioTF;
     private JLabel lblNombre;
     private JLabel lblFechaAlquiler;
     private JLabel lblTipo;
@@ -35,6 +34,8 @@ public class devolverGUI extends VentanaMainGUI {
     private JLabel lbldevolucion;
     private JComboBox tituloCBO;
 
+    public boolean validado = false;
+
     public devolverGUI() {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(panel1);
@@ -48,6 +49,7 @@ public class devolverGUI extends VentanaMainGUI {
 
         fechaActual();
         mostrarDatosMultimediasDependiendoDelTipo();
+        hoverBotones();
 
         TtipoCBO.addItem("Pelicula");
         TtipoCBO.addItem("Videojuego");
@@ -74,7 +76,41 @@ public class devolverGUI extends VentanaMainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (!nifTf.getText().equals("")){
+                        if (comprobarQueElSocioExiste()){
+                            validado = true;
+                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                            Date fechaInicio = formato.parse(alquilerTF.getText());
+                            Date fechaFinal = formato.parse(devolucionTF.getText());
 
+                            long dias = ChronoUnit.DAYS.between(fechaInicio.toInstant(), fechaFinal.toInstant());
+
+                            if (dias <= 3){
+                                for (Alquiler alq : Principal.alquileres){
+                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                                        precioTF.setText(alq.getPrecio() + "€");
+                                    }
+                                }
+                            } else {
+                                dias = dias -3;
+                                long incremetnoPrecio = dias*2;
+                                for (Alquiler alq : Principal.alquileres){
+                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                                        precioTF.setText((alq.getPrecio() + incremetnoPrecio) + "€");
+                                    }
+                                }
+                            }
+
+                        } else {
+                            precioTF.setText("");
+                            validado = false;
+                            throw new RuntimeException("El socio introducido no existe");
+                        }
+                    } else {
+                        precioTF.setText("");
+                        validado = false;
+                        throw new RuntimeException("Debe introducir el nif del socio");
+                    }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -87,7 +123,29 @@ public class devolverGUI extends VentanaMainGUI {
                 dispose();
             }
         });
+
+        devolverBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (validado){
+                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
+                                    tituloCBO.getSelectedItem() + "';";
+                            BaseDeDatos.agregarMultimedia(consulta);
+                            devolverMultimedia();
+                        }
+                    } else {
+                        throw new RuntimeException("Antes debe validar los datos");
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
     }
+
 
     public void fechaActual(){
         Date fecha = new Date();
@@ -102,7 +160,6 @@ public class devolverGUI extends VentanaMainGUI {
 
     public void mostrarDatosMultimediasDependiendoDelTipo() {
         ArrayList<Date> alquilerDates = new ArrayList<>();
-
 
         TtipoCBO.addItemListener(new ItemListener() {
             @Override
@@ -152,6 +209,73 @@ public class devolverGUI extends VentanaMainGUI {
                 }
             }
         });
+    }
+
+    public boolean comprobarQueElSocioExiste() {
+        for (Socio socio : Principal.socios) {
+            if (socio.equals(nifTf.getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void hoverBotones() {
+        regresarBtn.setBackground(new Color(250, 149, 18));
+        devolverBtn.setBackground(new Color(250, 149, 18));
+        btnValidar.setBackground(new Color(250, 149, 18));
+        regresarBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                regresarBtn.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                regresarBtn.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                regresarBtn.setBackground(new Color(253, 84, 27));
+            }
+        });
+
+        devolverBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                devolverBtn.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                devolverBtn.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                devolverBtn.setBackground(new Color(253, 84, 27));
+            }
+        });
+
+       btnValidar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnValidar.setBackground(new Color(253, 84, 27));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnValidar.setBackground(new Color(250, 149, 18));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnValidar.setBackground(new Color(253, 84, 27));
+            }
+        });
+    }
+
+    public void devolverMultimedia(){
+        for (Alquiler alq : Principal.alquileres){
+            if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
+                Principal.alquileres.remove(alq);
+            }
+        }
     }
 }
 

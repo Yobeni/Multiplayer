@@ -22,5 +22,9 @@ public class Constantes {
     public static final double DURACION_DEFAULT = 0.00;
     public static final ArrayList<Cancion> CANCIONES_DEFAULT= null;
     public static final String APELLIDOS_DEFAULT = "";
+    public static final String PASSWD_DEFAULT = "";
+    public static final int DURACION_DEFAULT_PELICULA = 0;
+    public static final String ACTOR_DEFAULT = "";
+    public static final String ACTRIZ_DEFAULT = "";
 
 }
