@@ -64,6 +64,14 @@ VentanaMainGUI extends JFrame {
                 dispose();
             }
         });
+
+        listarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ListarGUI();
+                dispose();
+            }
+        });
     }
 
     public void agregarmenu() {
