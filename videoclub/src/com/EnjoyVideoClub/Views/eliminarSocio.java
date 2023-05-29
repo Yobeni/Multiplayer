@@ -1,6 +1,8 @@
 package com.EnjoyVideoClub.Views;
 
-import com.EnjoyVideoClub.Controller.Principal;
+
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
+
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -8,9 +10,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class eliminarSocio extends VentanaMainGUI{
+public class eliminarSocio extends VentanaMainGUI {
     private JButton btnPollo;
     private JLabel tituloLbl;
     private JTextField txtField1;
@@ -23,14 +29,14 @@ public class eliminarSocio extends VentanaMainGUI{
     public eliminarSocio() {
         this.setContentPane(devolverPanel);
         this.setVisible(true);
-        this.setSize(700,500);
+        this.setSize(700, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
         btnPollo.setBorderPainted(false);
         btnPollo.setContentAreaFilled(false);
         btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
 
         btnPollo.addActionListener(new ActionListener() {
             @Override
@@ -40,32 +46,53 @@ public class eliminarSocio extends VentanaMainGUI{
             }
         });
         AceptarBtn.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Boolean bool = false;
-                    String nombreSeleccionado = txtField1.getText();
-                    String contraseña = String.valueOf(passwdTF.getPassword());
-                    for (Socio socio : Principal.socios) {
-                        if (socio.getNIF().equals(nombreSeleccionado) && socio.getPasswd().equals(contraseña)) {
+
+                boolean bool = false;
+                ArrayList<Socio> socios = new ArrayList<>();
+                BaseDeDatos.cargarSociosDeLaBaseDeDatos(socios);
+
+                if (socios.size() <= 0) {
+                    JOptionPane.showMessageDialog(null, "No tiene ningún socio registrado");
+                } else {
+                    for (int i = 0; i < socios.size() && !bool; i++) {
+                        String nifSeleccionado = txtField1.getText();
+                        if (socios.get(i).getNIF().equals(nifSeleccionado)) {
                             bool = true;
-                            Principal.socios.remove(socio);
+                            if (bool) {
+                                int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                                if (option == JOptionPane.YES_OPTION) {
+                                    String eliminar = "DELETE FROM socios WHERE nif = '" + socios.get(i).getNIF() + "'";
+                                    BaseDeDatos.eliminarSocio(eliminar);
+                                    socios.remove(i);
+                                    JOptionPane.showMessageDialog(null, "¡Socio eliminado!");
+                                } else if (option == JOptionPane.NO_OPTION) {
+                                    bool = false;
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error, vuelva a introducir el NIF");
+                            bool = false;
                         }
-                    }
-                    if (bool) {
-                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                        if (option == JOptionPane.YES_OPTION) {
-                            System.out.println("hola");
-                        }
-                    }else {
-                        throw new RuntimeException("El NIF o la contraseña no es correcto");
+
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
-
             }
         });
+        AceptarBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                AceptarBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                AceptarBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+        AceptarBtn.setBackground(new Color(250, 149, 18));
     }
 }

@@ -15,7 +15,7 @@ import java.util.Locale;
 public class BaseDeDatos {
     public static Connection connection = null;
     public static final String USER = "postgres";
-    public static final String PASSWORD = "Qerrassa";
+    public static final String PASSWORD = "Haida123";
     public static final String URL = "jdbc:postgresql://localhost:5432/";
     public static final String BASE_DE_DATOS = "Proyecto Programación - CinePlus Videoclub";
     public static final String DRIVER = "org.postgresql.Driver";
@@ -181,5 +181,60 @@ public class BaseDeDatos {
             case "Videojuego" -> new Videojuego();
             default -> null;
         };
+    }
+    public static boolean verificarNIFRepetido(String nif) {
+        String consulta = "SELECT COUNT(*) FROM socios WHERE nif = '" + nif + "'";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static void agregarSocio(String consulta) {
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(consulta);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void eliminarSocio(String consulta) {
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(consulta);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
