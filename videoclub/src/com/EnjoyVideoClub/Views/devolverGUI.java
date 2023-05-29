@@ -129,11 +129,13 @@ public class devolverGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (validado){
-                        JOptionPane.showMessageDialog(null,"Estas seguro que quieres devolver?");
-                        String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
-                                tituloCBO.getSelectedItem() + "';";
-                        BaseDeDatos.agregarMultimedia(consulta);
-                        devolverMultimedia();
+                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
+                                    tituloCBO.getSelectedItem() + "';";
+                            BaseDeDatos.agregarMultimedia(consulta);
+                            devolverMultimedia();
+                        }
                     } else {
                         throw new RuntimeException("Antes debe validar los datos");
                     }

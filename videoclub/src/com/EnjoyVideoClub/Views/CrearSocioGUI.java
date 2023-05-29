@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearSocioGUI extends VentanaMainGUI {
@@ -32,6 +31,8 @@ public class CrearSocioGUI extends VentanaMainGUI {
     private JButton regresarBtn;
     private JButton AñadirBtn;
     private JButton restablecerBtn;
+    private JPasswordField contraseñaTF;
+    private JLabel paswordLbl;
 
     public CrearSocioGUI() {
         this.setContentPane(Jpanel1);
@@ -60,22 +61,24 @@ public class CrearSocioGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Date fecha;
-                String nif,nombre,apellidos, poblacion;
+                String nif,nombre,apellidos, poblacion, passwd;
                 Socio socio;
                 try {
-                    if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")){
+                    if (!NombreDeSocio.equals("")&&!fechaTxtBox.equals("")&&!ApellidosSocio.equals("")&&!PoblacionTxtBox.equals("")&&!NifTxtBox.equals("")&&!contraseñaTF.equals("")){
                         fecha = formato.parse(fechaTxtBox.getText());
                         nif = NifTxtBox.getText();
                         nombre = NombreDeSocio.getText();
                         apellidos = ApellidosSocio.getText();
                         poblacion = PoblacionTxtBox.getText();
+                        passwd = String.valueOf(contraseñaTF.getPassword());
 
-                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos);
+                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos,passwd);
                         //Socio.arrayListSocio.add(socio);
                         Principal.socios.add(socio);
                         String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                 "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
-                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" + socio.getDineroDeuda()  + "')";
+                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" +
+                                socio.getDineroDeuda()  + "', " + socio.getPasswd() + ")";
                         BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, socio);
                     }

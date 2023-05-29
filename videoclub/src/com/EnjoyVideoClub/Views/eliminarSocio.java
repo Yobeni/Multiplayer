@@ -1,5 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class eliminarSocio extends VentanaMainGUI{
     private JButton AceptarBtn;
     private JLabel lbl1;
     private JPanel devolverPanel;
+    private JLabel passwdLbl;
+    private JPasswordField passwdTF;
 
     public eliminarSocio() {
         this.setContentPane(devolverPanel);
@@ -40,21 +43,26 @@ public class eliminarSocio extends VentanaMainGUI{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Socio obj1 = new Socio();
-                ArrayList <Socio> arrayListSocio = obj1.getArrayListSocio();
-                Boolean bool = false;
-                String nombreSeleccionado = txtField1.getText();
-                for (int i = 0;i<arrayListSocio.size();i++) {
-                   if (arrayListSocio.get(i).getNIF().equals(nombreSeleccionado) ) {
-                       bool = true;
-                       arrayListSocio.remove(i);
-                   }
-                }
-                if (bool) {
-                    int option = JOptionPane.showConfirmDialog(null,"Seguro que quiere eliminar?","Confirmación",JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        System.out.println("hola");
+                try {
+                    Boolean bool = false;
+                    String nombreSeleccionado = txtField1.getText();
+                    String contraseña = String.valueOf(passwdTF.getPassword());
+                    for (Socio socio : Principal.socios) {
+                        if (socio.getNIF().equals(nombreSeleccionado) && socio.getPasswd().equals(contraseña)) {
+                            bool = true;
+                            Principal.socios.remove(socio);
+                        }
                     }
+                    if (bool) {
+                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            System.out.println("hola");
+                        }
+                    }else {
+                        throw new RuntimeException("El NIF o la contraseña no es correcto");
+                    }
+                }catch (Exception ex){
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
 
             }

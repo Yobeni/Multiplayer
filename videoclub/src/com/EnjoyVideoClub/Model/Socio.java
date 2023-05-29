@@ -17,8 +17,8 @@ public class Socio {
     private Date fechaNac;
     private String poblacion;
     private int dineroDeuda;
+    private String passwd;
 
-    public static ArrayList <Socio> arrayListSocio = new ArrayList<>();
     /*
     Constructor por defecto de la clase Socio. Los constantes que usa viene de la clase Constantes.
      */
@@ -28,6 +28,7 @@ public class Socio {
         setPoblacion(Constantes.POBLACION_DEFAULT);
         setFechaNac(Constantes.FECHA_NACIMIENTO_DEFAULT);
         setApellidos(Constantes.APELLIDOS_DEFAULT);
+        setPasswd(Constantes.PASSWD_DEFAULT);
     }
 
     /**
@@ -38,12 +39,13 @@ public class Socio {
      * @param poblacion String que define la población del socio.
      * @param apellidos String que define los apellidos del socio.
      */
-    public Socio(String NIF,String nombre,Date fechaNac,String poblacion,String apellidos) {
+    public Socio(String NIF,String nombre,Date fechaNac,String poblacion,String apellidos,String passwd) {
         setNIF(NIF);
         setFechaNac(fechaNac);
         setPoblacion(poblacion);
         setNombre(nombre);
         setApellidos(apellidos);
+        setPasswd(passwd);
     }
 
     /**
@@ -101,13 +103,15 @@ public class Socio {
     public void setDineroDeuda(int dineroDeuda) {
         this.dineroDeuda = dineroDeuda;
     }
-    public ArrayList<Socio> getArrayListSocio() {
-        return arrayListSocio;
+
+    public String getPasswd() {
+        return passwd;
+    }
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
-    public void setArrayListSocio(ArrayList<Socio> arrayListSocio) {
-        this.arrayListSocio = arrayListSocio;
-    }
+
     public boolean mayorDeEdad(int edad) {
         boolean comp = false;
         if (edad<18) {
