@@ -2,10 +2,7 @@ package com.EnjoyVideoClub.Controller;
 
 import com.EnjoyVideoClub.Model.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -181,5 +178,22 @@ public class BaseDeDatos {
             case "Videojuego" -> new Videojuego();
             default -> null;
         };
+    }
+
+    public static void actualizarBD(String consulta){
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                int filasActualizadas = statement.executeUpdate(consulta);
+                statement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
