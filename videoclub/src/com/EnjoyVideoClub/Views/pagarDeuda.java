@@ -25,6 +25,8 @@ public class pagarDeuda extends VentanaMainGUI{
     private JLabel nifLbl;
     private JLabel passwdLbl;
     private JLabel deudaLbl;
+    private JTextField importeTF;
+    private JLabel importeLbl;
     public boolean validado = false;
 
     public pagarDeuda() {
