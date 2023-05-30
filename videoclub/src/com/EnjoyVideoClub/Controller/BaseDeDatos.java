@@ -179,21 +179,4 @@ public class BaseDeDatos {
             default -> null;
         };
     }
-
-    public static void actualizarBD(String consulta){
-        try {
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
-            try {
-                Statement statement = connection.createStatement();
-                int filasActualizadas = statement.executeUpdate(consulta);
-                statement.close();
-                connection.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

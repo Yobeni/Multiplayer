@@ -42,6 +42,7 @@ public class devolverGUI extends VentanaMainGUI {
         this.setContentPane(panel1);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
+        this.setBackground(backgroundColor);
 
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
@@ -93,30 +94,27 @@ public class devolverGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (validado){
-                       // int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                       //if (option == JOptionPane.YES_OPTION) {
-                            String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
-                                    tituloCBO.getSelectedItem() + "';";
-                            BaseDeDatos.agregarMultimedia(consulta);
-                            devolverMultimedia();
-
+                       int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                       if (option == JOptionPane.YES_OPTION) {
                             for (Socio soc : Principal.socios){
                                 System.out.println(soc.getNIF());
                                 System.out.println(nifTf.getText());
                                 if (soc.getNIF().equals(nifTf.getText())){
-                                    System.out.println("Entra");
-                                    soc.setDineroDeuda(calcularPrecio());
-                                    String consultaUpdate = "UPDATE socios SET dinerodeuda = " + calcularPrecio() +
-                                            "WHERE nif = '" + soc.getNIF() + "';";
-                                    BaseDeDatos.actualizarBD(consultaUpdate);
+                                    String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
+                                            tituloCBO.getSelectedItem() + "'; UPDATE socios SET dinerodeuda = dinerodeuda + " +
+                                            calcularPrecio() + " WHERE nif = '" + soc.getNIF() + "';";
+                                    soc.setDineroDeuda(calcularPrecio() + soc.getDineroDeuda());
+                                    BaseDeDatos.agregarMultimedia(consulta);
+                                    devolverMultimedia();
                                 }
-                            //}
+                            }
                         }
                     } else {
-                        throw new RuntimeException("Antes debe validar los datos");
+                        System.out.println("hola");
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    //JOptionPane.showMessageDialog(null, ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });
