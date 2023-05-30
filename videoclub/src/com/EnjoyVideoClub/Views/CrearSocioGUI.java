@@ -64,6 +64,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
                     boolean comp = false;
                     if (!NombreDeSocio.equals("") && !fechaTxtBox.equals("") && !ApellidosSocio.equals("") && !PoblacionTxtBox.equals("") && !NifTxtBox.equals("")) {
@@ -90,16 +91,10 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             String nombre = NombreDeSocio.getText();
                             String apellidos = ApellidosSocio.getText();
                             String poblacion = PoblacionTxtBox.getText();
-                            String passwd = String.valueOf(contraseñaTF.getPassword());
-                            if (!BaseDeDatos.verificarNIFRepetido(nif)) {
-
-                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos, passwd);
-                              
                             String passw = String.valueOf(contraseñaTF.getPassword());
                             if (!BaseDeDatos.verificarNIFRepetido(nif)) {
 
                                 Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos,passw);
-
                                 Principal.socios.add(socio);
                                 String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                         "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
