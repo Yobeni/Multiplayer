@@ -5,20 +5,17 @@ import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class CrearPeliculaGUI extends JFrame{
+public class CrearPeliculaGUI extends VentanaMainGUI{
     private JPanel CrearPeliculaPanel;
     private JTextField tituloTfield;
     private JTextField directorTfield;
     private JTextField FechaTfield;
-    private JTextField DurecionTfield;
     private JTextField ActorTfield;
     private JTextField ActrizTfield;
     private JButton restablecerBtn;
@@ -34,7 +31,7 @@ public class CrearPeliculaGUI extends JFrame{
     private JLabel actrizLbl;
     private JButton retrocederBtn;
     private JSpinner duracionSpin;
-    private JLabel lblPollo;
+    private JButton btnPollo;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
@@ -49,11 +46,17 @@ public class CrearPeliculaGUI extends JFrame{
         FormatoCbo.addItem(FormatoMultimedia.ARCHIVO);
         FormatoCbo.setEditable(false);
 
+        btnPollo.setBounds(10,10,10,10);
+
         SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
         duracionSpin.setModel(value);
 
+        retrocederBtn.setBackground(new Color(250, 149, 18));
+        añadirBtn.setBackground(new Color(250, 149, 18));
+        restablecerBtn.setBackground(new Color(250, 149, 18));
 
-        ArrayList<Pelicula> peliculasCreadas = new ArrayList<>();
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+
 
         CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -68,6 +71,18 @@ public class CrearPeliculaGUI extends JFrame{
                 dispose();
             }
         });
+
+        restablecerBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                restablecerBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
         restablecerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,11 +90,24 @@ public class CrearPeliculaGUI extends JFrame{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-               duracionSpin.setValue(0);
+                duracionSpin.setValue(0);
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
             }
         });
+
+        retrocederBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                retrocederBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                retrocederBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
         añadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,12 +126,38 @@ public class CrearPeliculaGUI extends JFrame{
                                 pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
 
-                        peliculasCreadas.add(pelicula);
+                        Pelicula.listaPeliculas.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
+            }
+        });
+
+        añadirBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                añadirBtn.setBackground(new Color(253, 84, 27));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                añadirBtn.setBackground(new Color(250, 149, 18));
+            }
+        });
+
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
+
+
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
             }
         });
     }
