@@ -94,6 +94,12 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             if (!BaseDeDatos.verificarNIFRepetido(nif)) {
 
                                 Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos, passwd);
+                              
+                            String passw = String.valueOf(contraseñaTF.getPassword());
+                            if (!BaseDeDatos.verificarNIFRepetido(nif)) {
+
+                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos,passw);
+
                                 Principal.socios.add(socio);
                                 String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                         "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
@@ -103,7 +109,6 @@ public class CrearSocioGUI extends VentanaMainGUI {
                                 JOptionPane.showMessageDialog(null, socio);
                             } else {
                                 JOptionPane.showMessageDialog(null, "El socio con el NIF proporcionado ya existe.");
-
                             }
                         }
                     }
