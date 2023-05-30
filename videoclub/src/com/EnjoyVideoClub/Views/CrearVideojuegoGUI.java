@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +32,8 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
     private JButton btnPollo;
+    private JLabel duracionLbl;
+    private JTextField duracionTxtField;
 
     public CrearVideojuegoGUI() {
         Color backgroundColor = new Color(255, 222, 89);
@@ -47,6 +50,7 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
         desarrolladorTxtField.setBackground(new Color(240, 217, 117));
         fechaTxtField.setBackground(new Color(240, 217, 117));
         formatoComboBox.setBackground(new Color(240, 217, 117));
+        duracionTxtField.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         crearBtn.setBackground(new Color(250, 149, 18));
@@ -69,11 +73,14 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fecha = formato.parse(fechaTxtField.getText());
 
-                    Videojuego videojuego = new Videojuego(tituloTxtField.getText(),
-                            desarrolladorTxtField.getText(),
-                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha);
+                    String titulo = tituloTxtField.getText();
+                    String desarrollador = desarrolladorTxtField.getText();
+                    FormatoMultimedia formatoMultimedia = (FormatoMultimedia) formatoComboBox.getSelectedItem();
+                    Date fecha = formato.parse(fechaTxtField.getText());
+                    int duracion = Integer.parseInt(duracionTxtField.getText());
+
+                    Videojuego videojuego = new Videojuego(titulo, desarrollador, formatoMultimedia, fecha, duracion);
 
                     if (ps5RadioBtn.isSelected()) {
                         PlataformaVideojuego ps5 = PlataformaVideojuego.PS5;
@@ -94,10 +101,11 @@ public class CrearVideojuegoGUI extends VentanaMainGUI {
 
                     if (videojuego.getPlataformas().size() != 0 && !videojuego.getTitulo().equals("") &&
                             !videojuego.getNombreAutor().equals("")) {
-                        Videojuego.videojuegosCreados.add(videojuego);
+                        Principal.multimedias.add(videojuego);
+                        int dur = Integer.parseInt(duracionTxtField.getText());
                         String consulta = "Insert into videojuego values (" + "'" + videojuego.getTitulo() + "', " +
                                 "'" + videojuego.getNombreAutor() + "', " + "'" + videojuego.getFormato() + "', " +
-                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "')";
+                                "'" + videojuego.getAño() + "', " + "'" + videojuego.getPlataformas() + "', " + dur + ")";
                         BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, videojuego);
                     } else {

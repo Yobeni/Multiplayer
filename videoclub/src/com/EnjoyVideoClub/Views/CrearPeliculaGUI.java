@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.FormatoMultimedia;
 import com.EnjoyVideoClub.Model.Pelicula;
 
@@ -126,7 +127,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                                 pelicula.getActorPrincipaL() + "', '" + pelicula.getActrizPrincipal() + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
 
-                        Pelicula.listaPeliculas.add(pelicula);
+                        Principal.multimedias.add(pelicula);
                         JOptionPane.showMessageDialog(null, pelicula);
                     }
                 }catch (Exception ex){
