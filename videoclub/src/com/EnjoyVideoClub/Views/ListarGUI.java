@@ -85,6 +85,7 @@ public class ListarGUI extends VentanaMainGUI {
                         "Título de la multimedia alquilada: " + alquiler.getTituloMultimedia() +
                         "\nTipo de la multimedia alquilada: " + alquiler.getTipoMultimedia().getClass().getSimpleName();
                 infoTxtArea.setText(info);
+                System.out.println("entra");
             } else {
                 infoTxtArea.setText("El socio especificado no tiene alquieres iniciados, o bien, no existe en la base " +
                         "de datos");
