@@ -25,8 +25,8 @@ public class pagarDeuda extends VentanaMainGUI{
     private JLabel nifLbl;
     private JLabel passwdLbl;
     private JLabel deudaLbl;
-    private JTextField importeTF;
     private JLabel importeLbl;
+    private JSpinner importeSpin;
     public boolean validado = false;
 
     public pagarDeuda() {
@@ -71,9 +71,11 @@ public class pagarDeuda extends VentanaMainGUI{
             public void actionPerformed(ActionEvent e) {
                 if (validado){
                     for (Socio soc : Principal.socios) {
-                        if (nifTF.getText().equals(soc.getNIF())){
+                        int importeIneger = (int) importeSpin.getValue();
+                        if (nifTF.getText().equals(soc.getNIF())&&soc.getDineroDeuda()>=importeIneger){
                             soc.setDineroDeuda(0);
-                            String consultaUpdate = "UPDATE socios SET dinerodeuda = 0 WHERE nif = '" + soc.getNIF() + "';";
+                            String consultaUpdate = "UPDATE socios SET dinerodeuda = dinerodeuda - " +
+                                    importeIneger +" WHERE nif = '" + soc.getNIF() + "';";
                             BaseDeDatos.agregarMultimedia(consultaUpdate);
                         }
                     }

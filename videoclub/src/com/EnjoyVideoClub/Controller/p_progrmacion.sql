@@ -24,7 +24,8 @@ CREATE TABLE socios(
     	 apellidos		varchar(50),
          fechaNac		varchar(50),
     	 poblacion		varchar(50),
-    	 dineroDeuda		integer
+    	 dineroDeuda		integer,
+    	 contraseña     varchar(50)
 );
 
 

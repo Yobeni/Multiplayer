@@ -98,7 +98,7 @@ public class ListarGUI extends VentanaMainGUI {
         for (Socio socio : Principal.socios) {
             if (socio.getDineroDeuda() > 0) {
                 info += "Nombre: " + socio.getNombre() + "\nNIF: " + socio.getNIF() + "\nDeuda: " +
-                        socio.getDineroDeuda() + "\n\n";
+                        socio.getDineroDeuda() + " €\n\n";
                 infoTxtArea.setText(info);
             } else {
                 infoTxtArea.setText("No hay socios con recargos pendientes...");
