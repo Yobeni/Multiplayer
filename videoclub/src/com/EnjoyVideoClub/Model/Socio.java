@@ -2,6 +2,7 @@ package com.EnjoyVideoClub.Model;
 
 import com.EnjoyVideoClub.Controller.Constantes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -112,15 +113,6 @@ public class Socio {
     }
 
 
-    public boolean mayorDeEdad(int edad) {
-        boolean comp = false;
-        if (edad<18) {
-            comp = false;
-        } else {
-            comp = true;
-        }
-        return comp;
-    }
     public void alquilar(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) throws Exception{
         if (getDineroDeuda()<0) {
             throw new Exception("No puede alquilar si tiene deudas!");
@@ -146,9 +138,11 @@ public class Socio {
 
     @Override
     public String toString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+        String fecha = format.format(getFechaNac());
         return "------------------\nNIF: " + getNIF() + "\nNombre: " + getNombre()
                 +"\nPoblación: " + getPoblacion() + "\nFecha Nacimiento: "
-                + getFechaNac() + "\nDinero deuda: " + getDineroDeuda()
+                + fecha + "\nDinero deuda: " + getDineroDeuda()
                 + "\n------------------";
     }
 

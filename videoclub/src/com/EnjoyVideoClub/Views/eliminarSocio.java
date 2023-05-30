@@ -1,7 +1,13 @@
 package com.EnjoyVideoClub.Views;
 
+
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Controller.Principal;
+
+
+import com.EnjoyVideoClub.Controller.BaseDeDatos;
+
+
 import com.EnjoyVideoClub.Model.Socio;
 
 import javax.swing.*;
@@ -10,7 +16,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class eliminarSocio extends VentanaMainGUI{
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
+public class eliminarSocio extends VentanaMainGUI {
     private JButton btnPollo;
     private JLabel tituloLbl;
     private JTextField nifTF;
@@ -23,14 +37,14 @@ public class eliminarSocio extends VentanaMainGUI{
     public eliminarSocio() {
         this.setContentPane(devolverPanel);
         this.setVisible(true);
-        this.setSize(700,500);
+        this.setSize(700, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
         btnPollo.setBorderPainted(false);
         btnPollo.setContentAreaFilled(false);
         btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
+        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
 
         btnPollo.addActionListener(new ActionListener() {
             @Override
@@ -40,9 +54,9 @@ public class eliminarSocio extends VentanaMainGUI{
             }
         });
         AceptarBtn.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
                     boolean encontrado = false;
                     String nombreSeleccionado = nifTF.getText();
@@ -66,5 +80,6 @@ public class eliminarSocio extends VentanaMainGUI{
                 }
             }
         });
+        
     }
 }
