@@ -45,12 +45,14 @@ public class pagarDeuda extends VentanaMainGUI{
                 try {
                     if (!nifTF.getText().equals("")&&!passwdTF.getPassword().equals("")){
                         String pass = String.valueOf(passwdTF.getPassword());
+                        int contador = 0;
                         for (Socio soc : Principal.socios){
+                            contador++;
                             if (soc.getNIF().equals(nifTF.getText())&&soc.getPasswd().equals(pass)){
                                 validado = true;
                                 deudaTF.setText(soc.getDineroDeuda() + "€");
-                            }else{
-                                System.out.println("El NIF o la contraseña són incorrectos");
+                            }else if (contador == Principal.socios.size()){
+                                throw new RuntimeException("El NIF o la contraseña no son correctos");
                             }
                         }
                     } else {

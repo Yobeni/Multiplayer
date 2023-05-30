@@ -70,7 +70,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
                         Date fecha = formato.parse(fechaTxtBox.getText());
                         String nif = NifTxtBox.getText();
-                        for (Socio socio : Socio.arrayListSocio) {
+                        for (Socio socio : Principal.socios) {
                             if (nif.equals(socio.getNIF())) {
                                 JOptionPane.showMessageDialog(null, "Este socio ya esta registrado!");
                                 comp = true;
@@ -90,31 +90,21 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             String nombre = NombreDeSocio.getText();
                             String apellidos = ApellidosSocio.getText();
                             String poblacion = PoblacionTxtBox.getText();
+                            String passw = String.valueOf(contraseñaTF.getPassword());
                             if (!BaseDeDatos.verificarNIFRepetido(nif)) {
 
-                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos);
-                                Socio.arrayListSocio.add(socio);
-                                String consulta = "INSERT INTO socios VALUES ('" + socio.getNIF() + "', " +
-                                        "'" + socio.getNombre() + "', '" + socio.getApellidos() + "', " +
-                                        "'" + socio.getFechaNac() + "', '" + socio.getPoblacion() + "', " +
-                                        "'" + socio.getDineroDeuda() + "')";
+                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos,passw);
+                                Principal.socios.add(socio);
+                                String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
+                                        "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
+                                        "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" +
+                                        socio.getDineroDeuda()  + "', '" + socio.getPasswd() + "')";
                                 BaseDeDatos.agregarSocio(consulta);
                                 JOptionPane.showMessageDialog(null, socio);
                             } else {
                                 JOptionPane.showMessageDialog(null, "El socio con el NIF proporcionado ya existe.");
-
                             }
                         }
-
-                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos,passwd);
-                        //Socio.arrayListSocio.add(socio);
-                        Principal.socios.add(socio);
-                        String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
-                                "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
-                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" +
-                                socio.getDineroDeuda()  + "', '" + socio.getPasswd() + "')";
-                        BaseDeDatos.agregarMultimedia(consulta);
-                        JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
