@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class CrearCancionGUI extends VentanaMainGUI{
 
-
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
     private JLabel tituloVideojuegoLbl;
@@ -38,12 +37,11 @@ public class CrearCancionGUI extends VentanaMainGUI{
     private JTextField duracionTextField;
 
     private JButton btnPollo;
-    private Cancion cancionEnviada;
 
 
 
 
-    public CrearCancionGUI(CrearDiscoGUI c) {
+    public CrearCancionGUI() {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
         this.setSize(500, 300);
@@ -83,6 +81,9 @@ public class CrearCancionGUI extends VentanaMainGUI{
                     double duracionDouble = Double.parseDouble(duracionTextField.getText());
 
 
+
+
+
                     if (!tituloTxtField.equals("")&&!duracionTextField.equals("")&&!fechaTxtField.equals("")&&!desarrolladorTxtField.equals("")) {
 
                         Cancion cancion = new Cancion(tituloTxtField.getText(),
@@ -90,16 +91,12 @@ public class CrearCancionGUI extends VentanaMainGUI{
                                 (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha,separarNombres(colaboradoresTextField1.getText()),duracionDouble);
 
                         Cancion.cancionesCreadas.add(cancion);
-                        c.txtAreaCanciones.setText("sdfg");
-
 
                         String consulta = "Insert into cancion values (" + "'" + cancion.getTitulo() + "', " +
                                 "'" + cancion.getNombreAutor() + "', " + "'" + cancion.getFormato() + "', " +
                                 "'" + cancion.getAño() + "', " + "'" + cancion.getColaboradores() + "', " + "'" + cancion.getDuracion() + "', " + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
                         JOptionPane.showMessageDialog(null, cancion);
-                        dispose();
-
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
                     }
@@ -163,8 +160,10 @@ public class CrearCancionGUI extends VentanaMainGUI{
             }
         });
 
-    }
 
+
+
+    }
 
     private static ArrayList<String> separarNombres(String texto){
         ArrayList<String> nombres = new ArrayList<>();
