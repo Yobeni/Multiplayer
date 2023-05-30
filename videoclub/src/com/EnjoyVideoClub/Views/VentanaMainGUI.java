@@ -95,12 +95,14 @@ VentanaMainGUI extends JFrame {
         JMenuItem guardar = new JMenuItem("Guardar archivo");
         JMenuItem darAlta = new JMenuItem("Dar de Alta");
         JMenuItem darBaja = new JMenuItem("Dar de Baja");
+        JMenuItem deuda = new JMenuItem("Pagar deuda");
         barra.add(archivo);
         barra.add(socios);
         archivo.add(guardar);
         archivo.add(salir);
         socios.add(darAlta);
         socios.add(darBaja);
+        socios.add(deuda);
         setJMenuBar(barra);
 
 
@@ -121,6 +123,14 @@ VentanaMainGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new eliminarSocio();
+                dispose();
+            }
+        });
+
+        deuda.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new pagarDeuda();
                 dispose();
             }
         });

@@ -2,10 +2,7 @@ package com.EnjoyVideoClub.Controller;
 
 import com.EnjoyVideoClub.Model.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

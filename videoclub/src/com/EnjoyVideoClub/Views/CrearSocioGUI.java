@@ -106,6 +106,15 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             }
                         }
 
+                        socio = new Socio(nif,nombre,fecha,poblacion,apellidos,passwd);
+                        //Socio.arrayListSocio.add(socio);
+                        Principal.socios.add(socio);
+                        String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
+                                "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
+                                "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" +
+                                socio.getDineroDeuda()  + "', '" + socio.getPasswd() + "')";
+                        BaseDeDatos.agregarMultimedia(consulta);
+                        JOptionPane.showMessageDialog(null, socio);
                     }
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());

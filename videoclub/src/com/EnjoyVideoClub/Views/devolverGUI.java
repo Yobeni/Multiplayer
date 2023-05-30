@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class devolverGUI extends VentanaMainGUI {
         this.setContentPane(panel1);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
+        this.setBackground(backgroundColor);
 
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
@@ -55,23 +57,7 @@ public class devolverGUI extends VentanaMainGUI {
         TtipoCBO.addItem("Videojuego");
         TtipoCBO.addItem("Canción");
 
-        btnPollo.setBorderPainted(false);
-        btnPollo.setContentAreaFilled(false);
-        btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
-        panel1.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-            }
-        });
-        btnPollo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new VentanaMainGUI();
-                dispose();
-            }
-        });
+        botonPollo();
         btnValidar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,28 +65,7 @@ public class devolverGUI extends VentanaMainGUI {
                     if (!nifTf.getText().equals("")){
                         if (comprobarQueElSocioExiste()){
                             validado = true;
-                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                            Date fechaInicio = formato.parse(alquilerTF.getText());
-                            Date fechaFinal = formato.parse(devolucionTF.getText());
-
-                            long dias = ChronoUnit.DAYS.between(fechaInicio.toInstant(), fechaFinal.toInstant());
-
-                            if (dias <= 3){
-                                for (Alquiler alq : Principal.alquileres){
-                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
-                                        precioTF.setText(alq.getPrecio() + "€");
-                                    }
-                                }
-                            } else {
-                                dias = dias -3;
-                                long incremetnoPrecio = dias*2;
-                                for (Alquiler alq : Principal.alquileres){
-                                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())){
-                                        precioTF.setText((alq.getPrecio() + incremetnoPrecio) + "€");
-                                    }
-                                }
-                            }
-
+                            precioTF.setText(calcularPrecio() + "€");
                         } else {
                             precioTF.setText("");
                             validado = false;
@@ -129,18 +94,27 @@ public class devolverGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (validado){
-                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
-                        if (option == JOptionPane.YES_OPTION) {
-                            String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
-                                    tituloCBO.getSelectedItem() + "';";
-                            BaseDeDatos.agregarMultimedia(consulta);
-                            devolverMultimedia();
+                       int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                       if (option == JOptionPane.YES_OPTION) {
+                            for (Socio soc : Principal.socios){
+                                System.out.println(soc.getNIF());
+                                System.out.println(nifTf.getText());
+                                if (soc.getNIF().equals(nifTf.getText())){
+                                    String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
+                                            tituloCBO.getSelectedItem() + "'; UPDATE socios SET dinerodeuda = dinerodeuda + " +
+                                            calcularPrecio() + " WHERE nif = '" + soc.getNIF() + "';";
+                                    soc.setDineroDeuda(calcularPrecio() + soc.getDineroDeuda());
+                                    BaseDeDatos.agregarMultimedia(consulta);
+                                    devolverMultimedia();
+                                }
+                            }
                         }
                     } else {
-                        throw new RuntimeException("Antes debe validar los datos");
+                        System.out.println("hola");
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    //JOptionPane.showMessageDialog(null, ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });
@@ -173,6 +147,7 @@ public class devolverGUI extends VentanaMainGUI {
                         if (alq.getTipoMultimedia() instanceof Pelicula) {
                             tituloCBO.addItem(alq.getTituloMultimedia());
                             alquilerDates.add(alq.getFechaInicio());
+                            validado = false;
                         }
                     }
                 } else if (selectedIndex == 1) {
@@ -180,6 +155,7 @@ public class devolverGUI extends VentanaMainGUI {
                         if (alq.getTipoMultimedia() instanceof Videojuego) {
                             tituloCBO.addItem(alq.getTituloMultimedia());
                             alquilerDates.add(alq.getFechaInicio());
+                            validado = false;
                         }
                     }
                 }
@@ -195,6 +171,7 @@ public class devolverGUI extends VentanaMainGUI {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         String fechaString = formato.format(alquilerDates.get(selectedIndex));
                         alquilerTF.setText(fechaString);
+                        validado = false;
                     }catch (Exception ex){
                         ex.printStackTrace();
                     }
@@ -203,6 +180,7 @@ public class devolverGUI extends VentanaMainGUI {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         String fechaString = formato.format(alquilerDates.get(selectedIndex));
                         alquilerTF.setText(fechaString);
+                        validado = false;
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -276,6 +254,55 @@ public class devolverGUI extends VentanaMainGUI {
                 Principal.alquileres.remove(alq);
             }
         }
+    }
+
+    public void botonPollo(){
+        btnPollo.setBorderPainted(false);
+        btnPollo.setContentAreaFilled(false);
+        btnPollo.setFocusPainted(false);
+        btnPollo.setBorder(new EmptyBorder(5,10,5,10));
+        panel1.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+            }
+        });
+        btnPollo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaMainGUI();
+                dispose();
+            }
+        });
+    }
+
+    public int calcularPrecio(){
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaInicio = formato.parse(alquilerTF.getText());
+            Date fechaFinal = formato.parse(devolucionTF.getText());
+
+            long dias = ChronoUnit.DAYS.between(fechaInicio.toInstant(), fechaFinal.toInstant());
+
+            if (dias <= 3) {
+                for (Alquiler alq : Principal.alquileres) {
+                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())) {
+                        return alq.getPrecio();
+                    }
+                }
+            } else {
+                dias = dias - 3;
+                long incremetnoPrecio = dias * 2;
+                for (Alquiler alq : Principal.alquileres) {
+                    if (alq.getTituloMultimedia().equals(tituloCBO.getSelectedItem())) {
+                        return (int) (alq.getPrecio() + incremetnoPrecio);
+                    }
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return 23;
     }
 }
 
