@@ -64,6 +64,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
         AñadirBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
                     boolean comp = false;
                     if (!NombreDeSocio.equals("") && !fechaTxtBox.equals("") && !ApellidosSocio.equals("") && !PoblacionTxtBox.equals("") && !NifTxtBox.equals("")) {
