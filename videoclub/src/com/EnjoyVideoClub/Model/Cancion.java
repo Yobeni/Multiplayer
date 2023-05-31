@@ -12,7 +12,7 @@ public class Cancion extends Multimedia{
 
     public Cancion() {
         super();
-        this.colaboradores = Constantes.COLABORADORES_DEFAULT;
+         this.colaboradores = Constantes.COLABORADORES_DEFAULT;
         this.duracion = Constantes.DURACION_DEFAULT;
     }
 
