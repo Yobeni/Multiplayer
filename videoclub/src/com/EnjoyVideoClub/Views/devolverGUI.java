@@ -97,8 +97,6 @@ public class devolverGUI extends VentanaMainGUI {
                        int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
                        if (option == JOptionPane.YES_OPTION) {
                             for (Socio soc : Principal.socios){
-                                System.out.println(soc.getNIF());
-                                System.out.println(nifTf.getText());
                                 if (soc.getNIF().equals(nifTf.getText())){
                                     String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
                                             tituloCBO.getSelectedItem() + "'; UPDATE socios SET dinerodeuda = dinerodeuda + " +
@@ -113,7 +111,6 @@ public class devolverGUI extends VentanaMainGUI {
                         System.out.println("hola");
                     }
                 }catch (Exception ex){
-                    //JOptionPane.showMessageDialog(null, ex.getMessage());
                     ex.printStackTrace();
                 }
             }

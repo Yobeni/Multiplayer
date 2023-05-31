@@ -53,6 +53,7 @@ public class pagarDeuda extends VentanaMainGUI{
                             if (soc.getNIF().equals(nifTF.getText())&&soc.getPasswd().equals(pass)){
                                 validado = true;
                                 deudaTF.setText(soc.getDineroDeuda() + "€");
+                                break;
                             }else if (contador == Principal.socios.size()){
                                 throw new RuntimeException("El NIF o la contraseña no son correctos");
                             }
@@ -73,10 +74,12 @@ public class pagarDeuda extends VentanaMainGUI{
                     for (Socio soc : Principal.socios) {
                         int importeIneger = (int) importeSpin.getValue();
                         if (nifTF.getText().equals(soc.getNIF())&&soc.getDineroDeuda()>=importeIneger){
-                            soc.setDineroDeuda(0);
+                            soc.setDineroDeuda(soc.getDineroDeuda() - importeIneger);
                             String consultaUpdate = "UPDATE socios SET dinerodeuda = dinerodeuda - " +
                                     importeIneger +" WHERE nif = '" + soc.getNIF() + "';";
                             BaseDeDatos.agregarMultimedia(consultaUpdate);
+                            JOptionPane.showMessageDialog(null,"Se han pagado " +
+                                    importeIneger + "€ de tu deuda");
                         }
                     }
                 }
