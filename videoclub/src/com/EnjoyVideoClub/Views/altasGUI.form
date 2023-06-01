@@ -48,6 +48,7 @@
         </constraints>
         <properties>
           <text value="Dar de alta un disco"/>
+          <text value="Dar de alta un disco "/>
         </properties>
       </component>
       <component id="1c427" class="javax.swing.JButton" binding="atrasBtn">

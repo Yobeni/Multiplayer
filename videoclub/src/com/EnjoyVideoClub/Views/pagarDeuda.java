@@ -25,6 +25,8 @@ public class pagarDeuda extends VentanaMainGUI{
     private JLabel nifLbl;
     private JLabel passwdLbl;
     private JLabel deudaLbl;
+    private JLabel importeLbl;
+    private JSpinner importeSpin;
     public boolean validado = false;
 
     public pagarDeuda() {
@@ -45,12 +47,14 @@ public class pagarDeuda extends VentanaMainGUI{
                 try {
                     if (!nifTF.getText().equals("")&&!passwdTF.getPassword().equals("")){
                         String pass = String.valueOf(passwdTF.getPassword());
+                        int contador = 0;
                         for (Socio soc : Principal.socios){
+                            contador++;
                             if (soc.getNIF().equals(nifTF.getText())&&soc.getPasswd().equals(pass)){
                                 validado = true;
                                 deudaTF.setText(soc.getDineroDeuda() + "€");
-                            }else{
-                                System.out.println("El NIF o la contraseña són incorrectos");
+                            }else if (contador == Principal.socios.size()){
+                                throw new RuntimeException("El NIF o la contraseña no son correctos");
                             }
                         }
                     } else {
@@ -67,9 +71,11 @@ public class pagarDeuda extends VentanaMainGUI{
             public void actionPerformed(ActionEvent e) {
                 if (validado){
                     for (Socio soc : Principal.socios) {
-                        if (nifTF.getText().equals(soc.getNIF())){
+                        int importeIneger = (int) importeSpin.getValue();
+                        if (nifTF.getText().equals(soc.getNIF())&&soc.getDineroDeuda()>=importeIneger){
                             soc.setDineroDeuda(0);
-                            String consultaUpdate = "UPDATE socios SET dinerodeuda = 0 WHERE nif = '" + soc.getNIF() + "';";
+                            String consultaUpdate = "UPDATE socios SET dinerodeuda = dinerodeuda - " +
+                                    importeIneger +" WHERE nif = '" + soc.getNIF() + "';";
                             BaseDeDatos.agregarMultimedia(consultaUpdate);
                         }
                     }
