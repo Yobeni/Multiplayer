@@ -41,6 +41,10 @@ public class pagarDeuda extends VentanaMainGUI{
         agregarmenu();
         this.setVisible(true);
         botonPollo();
+
+        SpinnerNumberModel n = new SpinnerNumberModel();
+        n.setMinimum(0);
+        importeSpin.setModel(n);
         btnValidar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,7 +75,7 @@ public class pagarDeuda extends VentanaMainGUI{
             public void actionPerformed(ActionEvent e) {
                 if (validado){
                     for (Socio soc : Principal.socios) {
-                        int importeIneger = (int) importeSpin.getValue();
+                        int importeIneger = Integer.parseInt(importeSpin.getValue().toString());
                         if (nifTF.getText().equals(soc.getNIF())&&soc.getDineroDeuda()>=importeIneger){
                             soc.setDineroDeuda(0);
                             String consultaUpdate = "UPDATE socios SET dinerodeuda = dinerodeuda - " +

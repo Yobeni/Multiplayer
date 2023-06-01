@@ -49,8 +49,9 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
 
         btnPollo.setBounds(10,10,10,10);
 
-        SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
-        duracionSpin.setModel(value);
+        SpinnerNumberModel n = new SpinnerNumberModel();
+        n.setMinimum(0);
+        duracionSpin.setModel(n);
 
         retrocederBtn.setBackground(new Color(250, 149, 18));
         añadirBtn.setBackground(new Color(250, 149, 18));
@@ -118,7 +119,7 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                             !ActorTfield.getText().equals("") && !ActrizTfield.getText().equals("")){
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         Date fecha = formato.parse(FechaTfield.getText());
-                        int duracion = (int) duracionSpin.getValue();
+                        int duracion = Integer.parseInt(duracionSpin.getValue().toString());
 
                         Pelicula pelicula = new Pelicula(tituloTfield.getText(),directorTfield.getText(),
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
