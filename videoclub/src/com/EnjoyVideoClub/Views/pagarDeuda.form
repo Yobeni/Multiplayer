@@ -13,7 +13,7 @@
     <children>
       <component id="2e41" class="javax.swing.JLabel" binding="nifLbl">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Nif del socio: "/>
@@ -21,7 +21,7 @@
       </component>
       <component id="2b505" class="javax.swing.JLabel" binding="passwdLbl">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Contraseña:"/>
@@ -29,7 +29,7 @@
       </component>
       <component id="81601" class="javax.swing.JLabel" binding="deudaLbl">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Deuda a pagar"/>
@@ -73,10 +73,10 @@
       </component>
       <component id="6e26a" class="javax.swing.JLabel" binding="tituloLbl">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="gsdfg"/>
+          <text value="Pagar deuda"/>
         </properties>
       </component>
       <component id="4b6bd" class="javax.swing.JButton" binding="btnValidar">

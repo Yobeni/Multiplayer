@@ -9,7 +9,9 @@ public class Disco extends Multimedia{
     private double duracionTotal;
     private ArrayList<Cancion> canciones;
 
-    public Disco(double duracion, ArrayList<Cancion> canciones) {
+    public static ArrayList<Disco> discosCreados = new ArrayList<>();
+
+    public Disco() {
         super();
         this.duracionTotal = Constantes.DURACION_DEFAULT;
         this.canciones = Constantes.CANCIONES_DEFAULT;

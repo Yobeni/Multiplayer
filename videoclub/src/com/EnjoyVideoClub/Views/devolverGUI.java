@@ -63,13 +63,22 @@ public class devolverGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (!nifTf.getText().equals("")){
-                        if (comprobarQueElSocioExiste()){
-                            validado = true;
-                            precioTF.setText(calcularPrecio() + "€");
-                        } else {
-                            precioTF.setText("");
-                            validado = false;
-                            throw new RuntimeException("El socio introducido no existe");
+                        int contador = 0;
+                        for (Alquiler alquiler : Principal.alquileres) {
+                            contador++;
+                            if (alquiler.getNifSocio().equals(nifTf.getText()) &&
+                                    tituloCBO.getSelectedItem().toString().equals(alquiler.getTituloMultimedia()) &&
+                            comprobarQueElSocioExiste()) {
+                                validado = true;
+                                precioTF.setText(calcularPrecio() + "€");
+                                break;
+                            } else if (contador == Principal.alquileres.size()) {
+                                JOptionPane.showMessageDialog(null, "No es posible la validación" +
+                                        " de los datos dado que: 1. El socio no existe. 2. El socio especificado no " +
+                                        "alquiló la multimedia especificada");
+                                precioTF.setText("");
+                                validado = false;
+                            }
                         }
                     } else {
                         precioTF.setText("");
@@ -94,7 +103,8 @@ public class devolverGUI extends VentanaMainGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (validado){
-                       int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                       int option = JOptionPane.showConfirmDialog(null,
+                               "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
                        if (option == JOptionPane.YES_OPTION) {
                             for (Socio soc : Principal.socios){
                                 if (soc.getNIF().equals(nifTf.getText())){
@@ -108,7 +118,8 @@ public class devolverGUI extends VentanaMainGUI {
                             }
                         }
                     } else {
-                        System.out.println("hola");
+                        JOptionPane.showMessageDialog(null, "Debe validar los datos antes de " +
+                                "devolver");
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -243,6 +254,14 @@ public class devolverGUI extends VentanaMainGUI {
                 btnValidar.setBackground(new Color(253, 84, 27));
             }
         });
+
+        Color amarillo = new Color(240, 217, 117);
+        tituloCBO.setBackground(amarillo);
+        TtipoCBO.setBackground(amarillo);
+        alquilerTF.setBackground(amarillo);
+        devolucionTF.setBackground(amarillo);
+        nifTf.setBackground(amarillo);
+        precioTF.setBackground(amarillo);
     }
 
     public void devolverMultimedia(){
