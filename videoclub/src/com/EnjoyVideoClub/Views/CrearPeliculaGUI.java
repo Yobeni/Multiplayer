@@ -113,13 +113,16 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    if (!tituloTfield.equals("")&&!directorTfield.equals("")&&!ActorTfield.equals("")&&!ActrizTfield.equals("")){
+                    if (!tituloTfield.getText().equals("") &&
+                            !directorTfield.getText().equals("") &&
+                            !ActorTfield.getText().equals("") && !ActrizTfield.getText().equals("")){
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         Date fecha = formato.parse(FechaTfield.getText());
+                        int duracion = (int) duracionSpin.getValue();
 
                         Pelicula pelicula = new Pelicula(tituloTfield.getText(),directorTfield.getText(),
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
-                                ,fecha, (Integer) duracionSpin.getValue(),ActorTfield.getText(),ActrizTfield.getText());
+                                ,fecha, duracion, ActorTfield.getText(),ActrizTfield.getText());
 
                         String consulta = "Insert into pelicula values (" + "'" + pelicula.getTitulo() + "', " +
                                 "'" + pelicula.getNombreAutor() + "', " + "'" + pelicula.getFormato() + "', " +
