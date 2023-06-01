@@ -8,7 +8,7 @@ public class altasGUI extends VentanaMainGUI{
     private JPanel panel1;
     private JLabel titleLbl;
     private JLabel descripLbl;
-    private JButton altaSocioBtn;
+
     private JButton altaPeliBtn;
     private JButton altaJuegoBtn;
     private JButton altaCancionBtn;
@@ -47,5 +47,13 @@ public class altasGUI extends VentanaMainGUI{
                 dispose();
             }
         });
+        altaCancionBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CrearDiscoGUI();
+                dispose();
+            }
+        });
+
     }
 }
