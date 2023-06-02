@@ -49,6 +49,7 @@ public class ListarGUI extends VentanaMainGUI {
                 switch (listadosComboBox.getSelectedIndex()) {
                     case 0 -> listarTodasLasMultimedias();
                     case 1 -> listarPeliculasOrdenadasPorTitulo();
+                    case 2 -> listarDiscosOrdenadosPorDuracion();
                     case 3 -> listarVideojuegosOrdenadosPorAño();
                     case 4 -> {
                         String nif = JOptionPane.showInputDialog("Introduzca el NIF del socio que desea consultar");
@@ -63,14 +64,17 @@ public class ListarGUI extends VentanaMainGUI {
     public void listarTodasLasMultimedias() {
         String peliculas = "Películas.";
         String videojuegos = "Videojuegos.";
+        String discos = "Discos.";
         for (Multimedia multimedia : Principal.multimedias) {
             if (multimedia instanceof Pelicula) {
                 peliculas += "\n- " + multimedia.getTitulo();
             } else if (multimedia instanceof Videojuego) {
                 videojuegos += "\n- " + multimedia.getTitulo();
+            } else if (multimedia instanceof Disco) {
+                discos += "\n- " + multimedia.getTitulo();
             }
         }
-        infoTxtArea.setText(peliculas + "\n\n" + videojuegos);
+        infoTxtArea.setText(peliculas + "\n\n" + videojuegos + "\n\n" + discos);
     }
 
     public void listarAlquileresActualesDeUnSocio(String nif) {
@@ -137,6 +141,31 @@ public class ListarGUI extends VentanaMainGUI {
             }
         }
         infoTxtArea.setText(info);
+    }
+
+    public void listarDiscosOrdenadosPorDuracion() {
+        Collections.sort(Principal.multimedias, new Comparator<Multimedia>() {
+            @Override
+            public int compare(Multimedia o1, Multimedia o2) {
+                if (o1 instanceof Disco && o2 instanceof Disco) {
+                    double duracion1 = ((Disco) o1).getDuracionTotal();
+                    double duracion2 = ((Disco) o2).getDuracionTotal();
+                    return Double.compare(duracion1, duracion2);
+                } else {
+                    return 0;
+                }
+            }
+        });
+        String info = "";
+        for (Multimedia multimedia : Principal.multimedias) {
+            if (multimedia instanceof Disco) {
+                double duracionAMinutos = ((Disco) multimedia).getDuracionTotal() / 60;
+                String duracion = String.format("%.2f", duracionAMinutos);
+                info += "> Título del disco: " + multimedia.getTitulo() + "\n   Duracion: " +
+                        duracion + " minutos\n\n";
+                infoTxtArea.setText(info);
+            }
+        }
     }
 
     public void regresarAlMenuPrincipal() {

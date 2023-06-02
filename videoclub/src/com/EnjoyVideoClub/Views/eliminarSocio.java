@@ -80,10 +80,7 @@ public class eliminarSocio extends VentanaMainGUI {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
-
-                }
             }
         });
-
     }
 }
