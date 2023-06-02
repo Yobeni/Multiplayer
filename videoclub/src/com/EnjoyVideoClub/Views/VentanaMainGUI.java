@@ -1,6 +1,6 @@
 package com.EnjoyVideoClub.Views;
 
-import com.EnjoyVideoClub.Controller.Principal;
+import com.EnjoyVideoClub.Controller.*;
 import com.EnjoyVideoClub.Model.Disco;
 import com.EnjoyVideoClub.Model.Pelicula;
 import com.EnjoyVideoClub.Model.Videojuego;
@@ -17,6 +17,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 
 public class
 VentanaMainGUI extends JFrame {
@@ -118,22 +119,19 @@ VentanaMainGUI extends JFrame {
         socios.add(deuda);
         setJMenuBar(barra);
 
-        archivo.addActionListener(new ActionListener() {
+        guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser explorador = new JFileChooser("C:\\Users\\Haida\\Desktop\\1DAW\\PROGRAMACION\\PracticaP9.2");
-                explorador.setVisible(true);
-                explorador.setSize(400, 400);
-                explorador.setDialogTitle("Guardar archivo...");
-                int seleccion = explorador.showDialog(null, "Guardar");
-                if (seleccion == JFileChooser.APPROVE_OPTION) {
-                    File archivo = explorador.getSelectedFile();
-                    try {
-                        FileWriter fileWriter = new FileWriter(archivo);
+                File archivo = com.EnjoyVideoClub.Controller.archivo.getF();
+
+                try {
+                        FileWriter fileWriter = new FileWriter(archivo,true);
                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                         for (com.EnjoyVideoClub.Model.Socio Socio: Principal.socios) {
                             bufferedWriter.write("Se ha agregado: " + Socio);
                             bufferedWriter.newLine();
+                            System.out.println("Información guardada en el archivo Log.txt correctamente.");
+
                         }
                         for (com.EnjoyVideoClub.Model.Multimedia multimedia: Principal.multimedias) {
                             if (multimedia instanceof Pelicula) {
@@ -159,7 +157,6 @@ VentanaMainGUI extends JFrame {
                         ex.printStackTrace();
                     }
                 }
-            }
         });
         salir.addActionListener(new ActionListener() {
             @Override
