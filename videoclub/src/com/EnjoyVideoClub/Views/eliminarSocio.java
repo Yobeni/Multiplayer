@@ -69,6 +69,7 @@ public class eliminarSocio extends VentanaMainGUI {
                                 Principal.socios.remove(socio);
                                 String consulta = "DELETE FROM socios WHERE nif = '" + nifTF.getText() + "';";
                                 BaseDeDatos.agregarMultimedia(consulta);
+                                JOptionPane.showMessageDialog(null,"El socio se eliminó correctamente");
                             }
                         }
                     }
@@ -76,7 +77,7 @@ public class eliminarSocio extends VentanaMainGUI {
                         throw new RuntimeException("El NIF o la contraseña no es correcto");
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });

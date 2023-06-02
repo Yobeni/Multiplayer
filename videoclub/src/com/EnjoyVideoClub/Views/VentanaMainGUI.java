@@ -1,5 +1,10 @@
 package com.EnjoyVideoClub.Views;
 
+import com.EnjoyVideoClub.Controller.Principal;
+import com.EnjoyVideoClub.Model.Disco;
+import com.EnjoyVideoClub.Model.Pelicula;
+import com.EnjoyVideoClub.Model.Videojuego;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -8,6 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class
 VentanaMainGUI extends JFrame {
@@ -109,7 +118,49 @@ VentanaMainGUI extends JFrame {
         socios.add(deuda);
         setJMenuBar(barra);
 
-
+        archivo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser explorador = new JFileChooser("C:\\Users\\Haida\\Desktop\\1DAW\\PROGRAMACION\\PracticaP9.2");
+                explorador.setVisible(true);
+                explorador.setSize(400, 400);
+                explorador.setDialogTitle("Guardar archivo...");
+                int seleccion = explorador.showDialog(null, "Guardar");
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    File archivo = explorador.getSelectedFile();
+                    try {
+                        FileWriter fileWriter = new FileWriter(archivo);
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                        for (com.EnjoyVideoClub.Model.Socio Socio: Principal.socios) {
+                            bufferedWriter.write("Se ha agregado: " + Socio);
+                            bufferedWriter.newLine();
+                        }
+                        for (com.EnjoyVideoClub.Model.Multimedia multimedia: Principal.multimedias) {
+                            if (multimedia instanceof Pelicula) {
+                                bufferedWriter.write("Se ha agregado: " + multimedia);
+                                bufferedWriter.newLine();
+                            }
+                            if (multimedia instanceof Videojuego) {
+                                bufferedWriter.write("Se ha agregado: " + multimedia);
+                                bufferedWriter.newLine();
+                            }
+                            if (multimedia instanceof Disco) {
+                                bufferedWriter.write("Se ha agregado: " + multimedia);
+                                bufferedWriter.newLine();
+                            }
+                        }
+                        for (com.EnjoyVideoClub.Model.Alquiler alquiler: Principal.alquileres) {
+                            bufferedWriter.write("Se ha agregado" + alquiler);
+                            bufferedWriter.newLine();
+                        }
+                        bufferedWriter.close();
+                        fileWriter.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

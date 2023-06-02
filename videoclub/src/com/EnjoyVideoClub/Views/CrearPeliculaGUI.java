@@ -31,8 +31,9 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
     private JLabel actorLbl;
     private JLabel actrizLbl;
     private JButton retrocederBtn;
-    private JSpinner duracionSpin;
+
     private JButton btnPollo;
+    private JSpinner duracionSpinn;
 
     public CrearPeliculaGUI() {
         this.setContentPane(CrearPeliculaPanel);
@@ -49,23 +50,13 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
 
         btnPollo.setBounds(10,10,10,10);
 
-        SpinnerNumberModel n = new SpinnerNumberModel();
-        n.setMinimum(0);
-        duracionSpin.setModel(n);
-
         retrocederBtn.setBackground(new Color(250, 149, 18));
         añadirBtn.setBackground(new Color(250, 149, 18));
         restablecerBtn.setBackground(new Color(250, 149, 18));
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
-
-        CrearPeliculaPanel.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-            }
-        });
+        polloBoton();
         retrocederBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,9 +83,9 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                 directorTfield.setText("");
                 FormatoCbo.setSelectedIndex(0);
                 FechaTfield.setText("");
-                duracionSpin.setValue(0);
                 ActorTfield.setText("");
                 ActrizTfield.setText("");
+                duracionSpinn.setValue(0);
             }
         });
 
@@ -114,16 +105,17 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    if (!tituloTfield.getText().equals("") &&
-                            !directorTfield.getText().equals("") &&
+                    if (!tituloTfield.getText().equals("") && !directorTfield.getText().equals("") &&
                             !ActorTfield.getText().equals("") && !ActrizTfield.getText().equals("")){
+
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         Date fecha = formato.parse(FechaTfield.getText());
-                        int duracion = Integer.parseInt(duracionSpin.getValue().toString());
+
+                        int importeIneger = Integer.parseInt(duracionSpinn.getValue().toString());
 
                         Pelicula pelicula = new Pelicula(tituloTfield.getText(),directorTfield.getText(),
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
-                                ,fecha, duracion, ActorTfield.getText(),ActrizTfield.getText());
+                                ,fecha, importeIneger, ActorTfield.getText(),ActrizTfield.getText());
 
                         String consulta = "Insert into pelicula values (" + "'" + pelicula.getTitulo() + "', " +
                                 "'" + pelicula.getNombreAutor() + "', " + "'" + pelicula.getFormato() + "', " +
@@ -151,7 +143,9 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
                 añadirBtn.setBackground(new Color(250, 149, 18));
             }
         });
+    }
 
+    public void polloBoton(){
         btnPollo.setBorderPainted(false);
         btnPollo.setContentAreaFilled(false);
         btnPollo.setFocusPainted(false);
