@@ -1,10 +1,12 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
-import com.EnjoyVideoClub.Model.*;
+import com.EnjoyVideoClub.Controller.Constantes;
+import com.EnjoyVideoClub.Model.Cancion;
+import com.EnjoyVideoClub.Model.FormatoMultimedia;
+import com.EnjoyVideoClub.Model.Videojuego;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,14 +16,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CrearDiscoGUI extends VentanaMainGUI {
+public class CrearCancionGUI extends VentanaMainGUI{
+
+
     private JPanel CrearVideojuegoPanel;
     private JLabel tituloLbl;
     private JLabel tituloVideojuegoLbl;
     private JLabel desarrolladorLbl;
     private JLabel formatoLbl;
     private JLabel fechaLbl;
-    private JLabel CancionesLbl;
     private JTextField tituloTxtField;
     private JTextField desarrolladorTxtField;
     private JTextField fechaTxtField;
@@ -30,24 +33,25 @@ public class CrearDiscoGUI extends VentanaMainGUI {
     private JButton restablecerBtn;
     private JLabel lblPollo;
     private JButton regresarAlMenúDeButton;
+    private JLabel LblColaboradores;
+    private JTextField colaboradoresTextField1;
+    private JTextField duracionTextField;
+
     private JButton btnPollo;
-    private JButton añadirCancionButton;
-    public JTextArea txtAreaCanciones;
-    private JButton cargarCancionesButton;
-
-    public ArrayList<Cancion> cancionesMomentaneas;
+    private Cancion cancionEnviada;
 
 
 
-    public CrearDiscoGUI() {
+
+    public CrearCancionGUI(CrearDiscoGUI c) {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(700, 500);
-
+        this.setSize(500, 300);
+        this.setResizable(true);
+        this.setPreferredSize(new Dimension(500,200));
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
-        agregarmenu();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setVisible(true);
 
@@ -56,17 +60,12 @@ public class CrearDiscoGUI extends VentanaMainGUI {
         fechaTxtField.setBackground(new Color(240, 217, 117));
         formatoComboBox.setBackground(new Color(240, 217, 117));
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+        colaboradoresTextField1.setBackground(new Color(240, 217, 117));
+        duracionTextField.setBackground(new Color(240,217,117));
 
         crearBtn.setBackground(new Color(250, 149, 18));
         regresarAlMenúDeButton.setBackground(new Color(250, 149, 18));
         restablecerBtn.setBackground(new Color(250, 149, 18));
-        añadirCancionButton.setBackground(new Color(250, 149, 18));
-        txtAreaCanciones.setEditable(false);
-        txtAreaCanciones.setBackground(Color.black);
-        txtAreaCanciones.setForeground(Color.orange);
-
-
-
 
         formatoComboBox.addItem(FormatoMultimedia.CD);
         formatoComboBox.addItem(FormatoMultimedia.DVD);
@@ -74,30 +73,33 @@ public class CrearDiscoGUI extends VentanaMainGUI {
         formatoComboBox.addItem(FormatoMultimedia.ARCHIVO);
         formatoComboBox.setEditable(false);
 
+
         crearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
-                    double duracionTotal=0;
-                    cancionesMomentaneas = new ArrayList<>();
-                    for(Cancion c : Cancion.cancionesCreadas){
-                        duracionTotal+=c.getDuracion();
-                    }
-                    Disco disco = new Disco(tituloTxtField.getText(),
-                            desarrolladorTxtField.getText(),
-                            (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha,duracionTotal,cancionesMomentaneas);
+                    double duracionDouble = Double.parseDouble(duracionTextField.getText());
 
 
-                    if (!tituloTxtField.equals("")&&!fechaTxtField.equals("")
-                            &&!desarrolladorTxtField.equals("")) {
-                        Disco.discosCreados.add(disco);
-                        String consulta = "Insert into Disco values (" + "'" + disco.getTitulo() + "', " +
-                                "'" + disco.getNombreAutor() + "', " + "'" + disco.getFormato() + "', " +
-                                "'" + disco.getAño() + "', " + "'" + disco.getDuracionTotal() + disco.mostrarCanciones()+"')";
+                    if (!tituloTxtField.equals("")&&!duracionTextField.equals("")&&!fechaTxtField.equals("")&&!desarrolladorTxtField.equals("")) {
+
+                        Cancion cancion = new Cancion(tituloTxtField.getText(),
+                                desarrolladorTxtField.getText(),
+                                (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha,separarNombres(colaboradoresTextField1.getText()),duracionDouble);
+
+                        Cancion.cancionesCreadas.add(cancion);
+                        c.txtAreaCanciones.setText("sdfg");
+
+
+                        String consulta = "Insert into cancion values (" + "'" + cancion.getTitulo() + "', " +
+                                "'" + cancion.getNombreAutor() + "', " + "'" + cancion.getFormato() + "', " +
+                                "'" + cancion.getAño() + "', " + "'" + cancion.getColaboradores() + "', " + "'" + cancion.getDuracion() + "', " + "')";
                         BaseDeDatos.agregarMultimedia(consulta);
-                        JOptionPane.showMessageDialog(null, disco);
+                        JOptionPane.showMessageDialog(null, cancion);
+                        dispose();
+
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
                     }
@@ -157,45 +159,20 @@ public class CrearDiscoGUI extends VentanaMainGUI {
         regresarAlMenúDeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new altasGUI();
                 dispose();
             }
         });
 
-        btnPollo.setBorderPainted(false);
-        btnPollo.setContentAreaFilled(false);
-        btnPollo.setFocusPainted(false);
-        btnPollo.setBorder(new EmptyBorder(5, 10, 5, 10));
-
-
-        btnPollo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new altasGUI();
-                dispose();
-            }
-        });
-
-
-
-        añadirCancionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CrearCancionGUI c =new CrearCancionGUI(CrearDiscoGUI.this);
-            }
-        });
-        CrearVideojuegoPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                String texto="";
-                for(Cancion c: Cancion.cancionesCreadas){
-                    texto+=c.getTitulo()+"\n";
-                }
-                txtAreaCanciones.setText(texto);
-            }
-        });
     }
 
+
+    private static ArrayList<String> separarNombres(String texto){
+        ArrayList<String> nombres = new ArrayList<>();
+        String [] nombresArray = texto.split("/");
+        for (String nombre : nombresArray) {
+            nombres.add(nombre.trim());
+        }
+        return nombres;
+    }
 
 }

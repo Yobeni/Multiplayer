@@ -49,8 +49,9 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
 
         btnPollo.setBounds(10,10,10,10);
 
-        SpinnerModel value = new SpinnerNumberModel(0, 0, null, 1);
-        duracionSpin.setModel(value);
+        SpinnerNumberModel n = new SpinnerNumberModel();
+        n.setMinimum(0);
+        duracionSpin.setModel(n);
 
         retrocederBtn.setBackground(new Color(250, 149, 18));
         añadirBtn.setBackground(new Color(250, 149, 18));
@@ -113,13 +114,16 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    if (!tituloTfield.equals("")&&!directorTfield.equals("")&&!ActorTfield.equals("")&&!ActrizTfield.equals("")){
+                    if (!tituloTfield.getText().equals("") &&
+                            !directorTfield.getText().equals("") &&
+                            !ActorTfield.getText().equals("") && !ActrizTfield.getText().equals("")){
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         Date fecha = formato.parse(FechaTfield.getText());
+                        int duracion = Integer.parseInt(duracionSpin.getValue().toString());
 
                         Pelicula pelicula = new Pelicula(tituloTfield.getText(),directorTfield.getText(),
                                 (FormatoMultimedia) FormatoCbo.getSelectedItem()
-                                ,fecha, (Integer) duracionSpin.getValue(),ActorTfield.getText(),ActrizTfield.getText());
+                                ,fecha, duracion, ActorTfield.getText(),ActrizTfield.getText());
 
                         String consulta = "Insert into pelicula values (" + "'" + pelicula.getTitulo() + "', " +
                                 "'" + pelicula.getNombreAutor() + "', " + "'" + pelicula.getFormato() + "', " +
