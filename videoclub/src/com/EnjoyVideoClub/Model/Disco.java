@@ -40,10 +40,10 @@ public class Disco extends Multimedia{
     }
 
     public String mostrarCanciones(){
-        String infoCanciones="-- CANCIONES DEL DISCO --\n";
+        String infoCanciones="\n-- CANCIONES DEL DISCO --\n";
 
         for (int i = 0;i< this.canciones.size();i++){
-            infoCanciones+=canciones.get(i).toString()+"\n";
+            infoCanciones+=canciones.get(i).getTitulo()+"\n";
         }
         return infoCanciones;
     }

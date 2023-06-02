@@ -46,7 +46,7 @@ public class CrearCancionGUI extends VentanaMainGUI{
     public CrearCancionGUI(CrearDiscoGUI c) {
         Color backgroundColor = new Color(255, 222, 89);
         this.setContentPane(CrearVideojuegoPanel);
-        this.setSize(500, 300);
+        this.setSize(500, 350);
         this.setResizable(true);
         this.setPreferredSize(new Dimension(500,200));
         this.setLocationRelativeTo(null);
@@ -74,6 +74,8 @@ public class CrearCancionGUI extends VentanaMainGUI{
         formatoComboBox.setEditable(false);
 
 
+
+
         crearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,7 +92,8 @@ public class CrearCancionGUI extends VentanaMainGUI{
                                 (FormatoMultimedia) formatoComboBox.getSelectedItem(), fecha,separarNombres(colaboradoresTextField1.getText()),duracionDouble);
 
                         Cancion.cancionesCreadas.add(cancion);
-                        c.txtAreaCanciones.setText("sdfg");
+
+                        c.rellenarTextArea();
 
 
                         String consulta = "Insert into cancion values (" + "'" + cancion.getTitulo() + "', " +
