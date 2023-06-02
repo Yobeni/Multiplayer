@@ -166,6 +166,14 @@ public class devolverGUI extends VentanaMainGUI {
                             validado = false;
                         }
                     }
+                }else if (selectedIndex == 2) {
+                    for (Alquiler alq : Principal.alquileres) {
+                        if (alq.getTipoMultimedia() instanceof Disco) {
+                            tituloCBO.addItem(alq.getTituloMultimedia());
+                            alquilerDates.add(alq.getFechaInicio());
+                            validado = false;
+                        }
+                    }
                 }
             }
         });
@@ -184,6 +192,15 @@ public class devolverGUI extends VentanaMainGUI {
                         ex.printStackTrace();
                     }
                 } else if (TtipoCBO.getSelectedIndex() == 1 && selectedIndex >= 0 && selectedIndex < alquilerDates.size()) {
+                    try {
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                        String fechaString = formato.format(alquilerDates.get(selectedIndex));
+                        alquilerTF.setText(fechaString);
+                        validado = false;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }else if (TtipoCBO.getSelectedIndex() == 2 && selectedIndex >= 0 && selectedIndex < alquilerDates.size()) {
                     try {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         String fechaString = formato.format(alquilerDates.get(selectedIndex));

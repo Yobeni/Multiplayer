@@ -35,6 +35,7 @@ public class pagarDeuda extends VentanaMainGUI{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
         this.setBackground(backgroundColor);
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
