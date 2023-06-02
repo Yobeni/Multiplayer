@@ -83,8 +83,8 @@ public class CrearSocioGUI extends VentanaMainGUI {
                         Calendar calendario = Calendar.getInstance();
                         int diaActual = calendario.get(Calendar.DAY_OF_MONTH);
                         int mesActual = calendario.get(Calendar.MONTH) + 1;
-                        int anyoActual = calendario.get(Calendar.YEAR)-18;
-                        String requisito = diaActual+"/"+mesActual+"/"+ anyoActual;
+                        int anyoActual = calendario.get(Calendar.YEAR) - 18;
+                        String requisito = diaActual + "/" + mesActual + "/" + anyoActual;
                         if (!fecha.before(formato.parse(requisito))) {
                             JOptionPane.showMessageDialog(null, "Es menor de edad!");
                         } else if (!comp) {
@@ -94,12 +94,12 @@ public class CrearSocioGUI extends VentanaMainGUI {
                             String passw = String.valueOf(contraseñaTF.getPassword());
                             if (!BaseDeDatos.verificarNIFRepetido(nif)) {
 
-                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos,passw);
+                                Socio socio = new Socio(nif, nombre, fecha, poblacion, apellidos, passw);
                                 Principal.socios.add(socio);
                                 String consulta = "Insert into socios values (" + "'" + socio.getNIF() + "', " +
                                         "'" + socio.getNombre() + "', " + "'" + socio.getApellidos() + "', " +
                                         "'" + socio.getFechaNac() + "', " + "'" + socio.getPoblacion() + "', " + "'" +
-                                        socio.getDineroDeuda()  + "', '" + socio.getPasswd() + "')";
+                                        socio.getDineroDeuda() + "', '" + socio.getPasswd() + "')";
                                 BaseDeDatos.agregarSocio(consulta);
                                 JOptionPane.showMessageDialog(null, socio);
                             } else {

@@ -72,14 +72,14 @@ public class eliminarSocio extends VentanaMainGUI {
                             }
                         }
                     }
-                    if (!encontrado){
+                    if (!encontrado) {
                         throw new RuntimeException("El NIF o la contraseña no es correcto");
                     }
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
-        
+
     }
 }

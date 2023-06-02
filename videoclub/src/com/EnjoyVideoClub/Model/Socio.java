@@ -33,14 +33,14 @@ public class Socio {
     }
 
     /**
-     *
-     * @param NIF String que define el NIF del socio.
-     * @param nombre String que define el nombre del socio.
-     * @param fechaNac Date que define el fecha de nacionmiento del socio.
+     * @param NIF       String que define el NIF del socio.
+     * @param nombre    String que define el nombre del socio.
+     * @param fechaNac  Date que define el fecha de nacionmiento del socio.
      * @param poblacion String que define la población del socio.
      * @param apellidos String que define los apellidos del socio.
+     * @param passwd    String que define la contraseña del socio
      */
-    public Socio(String NIF,String nombre,Date fechaNac,String poblacion,String apellidos,String passwd) {
+    public Socio(String NIF, String nombre, Date fechaNac, String poblacion, String apellidos, String passwd) {
         setNIF(NIF);
         setFechaNac(fechaNac);
         setPoblacion(poblacion);
@@ -51,21 +51,26 @@ public class Socio {
 
     /**
      * Getter que retorna el NIF del socio.
+     *
      * @return El método retorna el el String NIF.
      */
     public String getNIF() {
         return NIF;
     }
+
     /**
      * Método setter de NIF del Socio.
+     *
      * @param NIF. Variable de tipo String que actualiza el valor del NIF de la clase socio.
      */
     public void setNIF(String NIF) {
         this.NIF = NIF;
     }
+
     /**
      * Getter que retorna el nombre del socio.
-     * @return  El método retorna un String
+     *
+     * @return El método retorna un String
      */
     public String getNombre() {
         return nombre;
@@ -90,9 +95,11 @@ public class Socio {
     public void setPoblacion(String poblacion) {
         this.poblacion = poblacion;
     }
+
     public int getDineroDeuda() {
         return dineroDeuda;
     }
+
     public String getApellidos() {
         return apellidos;
     }
@@ -108,19 +115,21 @@ public class Socio {
     public String getPasswd() {
         return passwd;
     }
+
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
 
 
-    public void alquilar(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) throws Exception{
-        if (getDineroDeuda()<0) {
+    public void alquilar(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) throws Exception {
+        if (getDineroDeuda() < 0) {
             throw new Exception("No puede alquilar si tiene deudas!");
         } else {
             multimediaAlquilado.add(multimedia);
         }
     }
-    public void devolver(Multimedia multimedia,ArrayList<Multimedia> multimediaAlquilado) {
+
+    public void devolver(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) {
         for (int i = 0; i < multimediaAlquilado.size(); i++) {
             if (multimediaAlquilado.get(i).equals(multimedia)) {
                 multimediaAlquilado.remove(i);
@@ -129,10 +138,10 @@ public class Socio {
     }
 
     public void pagarRecargo(int dineroDeuda) {
-        if (getDineroDeuda()<0) {
+        if (getDineroDeuda() < 0) {
             System.out.println("No tiene ningún deuda");
         } else {
-            setDineroDeuda(dineroDeuda-getDineroDeuda());
+            setDineroDeuda(dineroDeuda - getDineroDeuda());
         }
     }
 
@@ -140,8 +149,8 @@ public class Socio {
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
         String fecha = format.format(getFechaNac());
-        return "------------------\nNIF: " + getNIF() + "\nNombre: " + getNombre()
-                +"\nPoblación: " + getPoblacion() + "\nFecha Nacimiento: "
+        return "---SOCIO---\nNIF: " + getNIF() + "\nNombre: " + getNombre()
+                + "\nApellidos: " + getApellidos() + "\nPoblación: " + getPoblacion() + "\nFecha Nacimiento: "
                 + fecha + "\nDinero deuda: " + getDineroDeuda()
                 + "\n------------------";
     }
