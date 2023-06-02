@@ -107,8 +107,6 @@ public class devolverGUI extends VentanaMainGUI {
                                "Seguro que quiere devolver?", "Confirmación", JOptionPane.YES_NO_OPTION);
                        if (option == JOptionPane.YES_OPTION) {
                             for (Socio soc : Principal.socios){
-                                System.out.println(soc.getNIF());
-                                System.out.println(nifTf.getText());
                                 if (soc.getNIF().equals(nifTf.getText())){
                                     String consulta = "DELETE FROM alquileres WHERE titulo_mult = '" +
                                             tituloCBO.getSelectedItem() + "'; UPDATE socios SET dinerodeuda = dinerodeuda + " +
@@ -124,7 +122,6 @@ public class devolverGUI extends VentanaMainGUI {
                                 "devolver");
                     }
                 }catch (Exception ex){
-                    //JOptionPane.showMessageDialog(null, ex.getMessage());
                     ex.printStackTrace();
                 }
             }
@@ -169,6 +166,14 @@ public class devolverGUI extends VentanaMainGUI {
                             validado = false;
                         }
                     }
+                }else if (selectedIndex == 2) {
+                    for (Alquiler alq : Principal.alquileres) {
+                        if (alq.getTipoMultimedia() instanceof Disco) {
+                            tituloCBO.addItem(alq.getTituloMultimedia());
+                            alquilerDates.add(alq.getFechaInicio());
+                            validado = false;
+                        }
+                    }
                 }
             }
         });
@@ -187,6 +192,15 @@ public class devolverGUI extends VentanaMainGUI {
                         ex.printStackTrace();
                     }
                 } else if (TtipoCBO.getSelectedIndex() == 1 && selectedIndex >= 0 && selectedIndex < alquilerDates.size()) {
+                    try {
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                        String fechaString = formato.format(alquilerDates.get(selectedIndex));
+                        alquilerTF.setText(fechaString);
+                        validado = false;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }else if (TtipoCBO.getSelectedIndex() == 2 && selectedIndex >= 0 && selectedIndex < alquilerDates.size()) {
                     try {
                         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         String fechaString = formato.format(alquilerDates.get(selectedIndex));
