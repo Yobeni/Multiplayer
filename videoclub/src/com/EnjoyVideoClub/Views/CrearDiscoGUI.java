@@ -4,6 +4,7 @@ import com.EnjoyVideoClub.Controller.BaseDeDatos;
 import com.EnjoyVideoClub.Model.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -62,10 +63,12 @@ public class CrearDiscoGUI extends VentanaMainGUI {
         restablecerBtn.setBackground(new Color(250, 149, 18));
         añadirCancionButton.setBackground(new Color(250, 149, 18));
         txtAreaCanciones.setEditable(false);
-        txtAreaCanciones.setBackground(Color.black);
-        txtAreaCanciones.setForeground(Color.orange);
+        Color amarillo = new Color(240, 217, 117);
+        txtAreaCanciones.setBackground(amarillo);
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 
-
+        // Establecer el borde al JTextArea
+        txtAreaCanciones.setBorder(border);
 
 
         formatoComboBox.addItem(FormatoMultimedia.CD);
@@ -81,9 +84,9 @@ public class CrearDiscoGUI extends VentanaMainGUI {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
                     double duracionTotal=0;
-
-                    for(Cancion c : Cancion.cancionesCreadas){
-                        duracionTotal+=c.getDuracion();
+                    cancionesMomentaneas = Cancion.cancionesCreadas;
+                    for(Cancion aux : Cancion.cancionesCreadas){
+                        duracionTotal+=aux.getDuracion();
                     }
                     Disco disco = new Disco(tituloTxtField.getText(),
                             desarrolladorTxtField.getText(),
@@ -192,26 +195,21 @@ public class CrearDiscoGUI extends VentanaMainGUI {
             }
         });
 
-
-
         añadirCancionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CrearCancionGUI c =new CrearCancionGUI(CrearDiscoGUI.this);
             }
         });
-        CrearVideojuegoPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
 
-                String texto="";
-                for(Cancion c: Cancion.cancionesCreadas){
-                    texto+=c.getTitulo()+"\n";
-                }
-                txtAreaCanciones.setText(texto);
-            }
-        });
     }
 
+    public void rellenarTextArea(){
+        String texto="";
+        for(Cancion c: Cancion.cancionesCreadas){
+            texto+=c.getTitulo()+"\n";
+        }
+        txtAreaCanciones.setText(texto);
+    }
 
 }

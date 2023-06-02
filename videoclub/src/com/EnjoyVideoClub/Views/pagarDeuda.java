@@ -35,12 +35,17 @@ public class pagarDeuda extends VentanaMainGUI{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 500);
         this.setBackground(backgroundColor);
+        tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
         this.setLocationRelativeTo(null);
         this.setTitle("CinePlus");
         agregarmenu();
         this.setVisible(true);
         botonPollo();
+
+        SpinnerNumberModel n = new SpinnerNumberModel();
+        n.setMinimum(0);
+        importeSpin.setModel(n);
         btnValidar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +58,7 @@ public class pagarDeuda extends VentanaMainGUI{
                             if (soc.getNIF().equals(nifTF.getText())&&soc.getPasswd().equals(pass)){
                                 validado = true;
                                 deudaTF.setText(soc.getDineroDeuda() + "€");
+                                break;
                             }else if (contador == Principal.socios.size()){
                                 throw new RuntimeException("El NIF o la contraseña no son correctos");
                             }
@@ -71,12 +77,14 @@ public class pagarDeuda extends VentanaMainGUI{
             public void actionPerformed(ActionEvent e) {
                 if (validado){
                     for (Socio soc : Principal.socios) {
-                        int importeIneger = (int) importeSpin.getValue();
+                        int importeIneger = Integer.parseInt(importeSpin.getValue().toString());
                         if (nifTF.getText().equals(soc.getNIF())&&soc.getDineroDeuda()>=importeIneger){
-                            soc.setDineroDeuda(0);
+                            soc.setDineroDeuda(soc.getDineroDeuda() - importeIneger);
                             String consultaUpdate = "UPDATE socios SET dinerodeuda = dinerodeuda - " +
                                     importeIneger +" WHERE nif = '" + soc.getNIF() + "';";
                             BaseDeDatos.agregarMultimedia(consultaUpdate);
+                            JOptionPane.showMessageDialog(null,"Se han pagado " +
+                                    importeIneger + "€ de tu deuda");
                         }
                     }
                 }
