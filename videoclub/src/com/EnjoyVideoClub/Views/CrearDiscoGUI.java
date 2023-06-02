@@ -81,7 +81,7 @@ public class CrearDiscoGUI extends VentanaMainGUI {
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = formato.parse(fechaTxtField.getText());
                     double duracionTotal=0;
-                    cancionesMomentaneas = new ArrayList<>();
+
                     for(Cancion c : Cancion.cancionesCreadas){
                         duracionTotal+=c.getDuracion();
                     }
@@ -93,10 +93,26 @@ public class CrearDiscoGUI extends VentanaMainGUI {
                     if (!tituloTxtField.equals("")&&!fechaTxtField.equals("")
                             &&!desarrolladorTxtField.equals("")) {
                         Disco.discosCreados.add(disco);
-                        String consulta = "Insert into Disco values (" + "'" + disco.getTitulo() + "', " +
-                                "'" + disco.getNombreAutor() + "', " + "'" + disco.getFormato() + "', " +
-                                "'" + disco.getAño() + "', " + "'" + disco.getDuracionTotal() + disco.mostrarCanciones()+"')";
+
+                        String insert = String.format("insert into disco values ('%s', '%s', '%s', '%s', %f)",
+                                disco.getTitulo(),
+                                disco.getNombreAutor(),
+                                disco.getFormato(),
+                                disco.getAño(),
+                                disco.getDuracionTotal()
+                        );
+
+                        String consulta = "INSERT INTO disco VALUES ('" + disco.getTitulo() + "', '" +
+                                disco.getNombreAutor() + "', '" + disco.getFormato() + "', '" + disco.getAño() +
+                                "', " + disco.getDuracionTotal() + ")";
+
+                        String update = String.format("update cancion set titulo_disco = '%s' where autor = '%s' and" +
+                                " fecha = '%s'",
+                                disco.getTitulo(),
+                                disco.getNombreAutor(),
+                                disco.getAño());
                         BaseDeDatos.agregarMultimedia(consulta);
+                        BaseDeDatos.agregarMultimedia(update);
                         JOptionPane.showMessageDialog(null, disco);
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");

@@ -2,6 +2,7 @@ package com.EnjoyVideoClub.Controller;
 
 import com.EnjoyVideoClub.Model.*;
 
+import java.security.spec.ECField;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Locale;
 public class BaseDeDatos {
     public static Connection connection = null;
     public static final String USER = "postgres";
-    public static final String PASSWORD = "1234";
+    public static final String PASSWORD = "Intpl_1023";
     public static final String URL = "jdbc:postgresql://localhost:5432/";
     public static final String BASE_DE_DATOS = "Proyecto Programación - CinePlus Videoclub";
     public static final String DRIVER = "org.postgresql.Driver";
@@ -37,6 +38,74 @@ public class BaseDeDatos {
                     Date fecha = formatearFecha(fechaString);
                     Videojuego videojuego = new Videojuego(titulo, desarrollador, formato, fecha, duracion);
                     multimedias.add(videojuego);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cargarDiscosDeLaBaseDeDatos(ArrayList<Multimedia> multimedias) {
+        String consulta = "SELECT * FROM disco";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    String titulo = resultSet.getString("titulo");
+                    String autor = resultSet.getString("autor");
+                    String formatoString = resultSet.getString("formato");
+                    String fechaString = resultSet.getString("fecha");
+                    double duracion = resultSet.getDouble("duracion");
+
+                    Date fecha = formatearFecha(fechaString);
+                    FormatoMultimedia formato = comprobarFormatoMultimedia(formatoString);
+
+                    ArrayList<Cancion> canciones = new ArrayList<>();
+                    cargarCancionesDeLaBaseDeDatos(titulo, canciones);
+
+                    Disco disco = new Disco(titulo, autor, formato, fecha, duracion, canciones);
+                    multimedias.add(disco);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void cargarCancionesDeLaBaseDeDatos(String titulo, ArrayList<Cancion> canciones) {
+        String consulta = "SELECT * FROM cancion WHERE titulo = '" + titulo + "'";
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL + BASE_DE_DATOS, USER, PASSWORD);
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(consulta);
+                while (resultSet.next()) {
+                    String tituloCancion = resultSet.getString("titulo");
+                    String autor = resultSet.getString("autor");
+                    String formatoString = resultSet.getString("formato");
+                    String fechaString = resultSet.getString("fecha");
+                    double duracion = resultSet.getDouble("duracion");
+                    String colaboradoresString = resultSet.getString("colaboradores");
+
+                    Date fecha = formatearFecha(fechaString);
+                    FormatoMultimedia formato = comprobarFormatoMultimedia(formatoString);
+
+                    ArrayList<String> colaboradores = new ArrayList<>();
+                    String [] colaboradoresArray = colaboradoresString.split("/");
+                    for (String colab : colaboradoresArray) {
+                        colaboradores.add(colab.trim());
+                    }
+
+                    Cancion cancion = new Cancion(tituloCancion, autor, formato, fecha, colaboradores, duracion);
+                    canciones.add(cancion);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
