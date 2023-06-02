@@ -130,7 +130,6 @@ VentanaMainGUI extends JFrame {
                         for (com.EnjoyVideoClub.Model.Socio Socio: Principal.socios) {
                             bufferedWriter.write("Se ha agregado: " + Socio);
                             bufferedWriter.newLine();
-                            System.out.println("Información guardada en el archivo Log.txt correctamente.");
 
                         }
                         for (com.EnjoyVideoClub.Model.Multimedia multimedia: Principal.multimedias) {
@@ -151,7 +150,9 @@ VentanaMainGUI extends JFrame {
                             bufferedWriter.write("Se ha agregado" + alquiler);
                             bufferedWriter.newLine();
                         }
-                        bufferedWriter.close();
+                    System.out.println("Información guardada en el archivo Log.txt correctamente.");
+
+                    bufferedWriter.close();
                         fileWriter.close();
                     } catch (IOException ex) {
                         ex.printStackTrace();
