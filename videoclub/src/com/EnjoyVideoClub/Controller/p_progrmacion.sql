@@ -40,3 +40,9 @@ CREATE TABLE alquileres (
 	primary key (nif_socio, titulo_mult),
 	foreign key (nif_socio) references socios(nif)
 );
+
+CREATE TABLE disco (
+    duracionTotal       numeric(4,2),
+    canciones           varchar,
+
+);
