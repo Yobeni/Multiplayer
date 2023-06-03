@@ -68,7 +68,7 @@ public class CrearSocioGUI extends VentanaMainGUI {
                 try {
                     boolean comp = false;
                     if (!NombreDeSocio.equals("") && !fechaTxtBox.equals("") && !ApellidosSocio.equals("") && !PoblacionTxtBox.equals("") && !NifTxtBox.equals("")) {
-                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                         Date fecha = formato.parse(fechaTxtBox.getText());
                         String nif = NifTxtBox.getText();
                         for (Socio socio : Principal.socios) {

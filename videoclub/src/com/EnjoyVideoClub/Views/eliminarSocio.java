@@ -82,7 +82,6 @@ public class eliminarSocio extends VentanaMainGUI {
                 }
 
                 }
-            }
         });
 
     }
