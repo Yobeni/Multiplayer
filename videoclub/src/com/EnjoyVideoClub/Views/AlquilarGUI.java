@@ -230,7 +230,7 @@ public class AlquilarGUI extends VentanaMainGUI {
                     String duracion = String.format("%.2f", duracionNumero);
                     duraciónTxtField.setText(duracion + " minutos");
                     añoTextField.setText(añosDiscos.get(selectedIndex) + "");
-                    if (Double.parseDouble(duracion) < 30) {
+                    if (duracionNumero < 30) {
                         precioTxtField.setText("3.00 €");
                     } else {
                         precioTxtField.setText("4.00 €");
@@ -276,7 +276,8 @@ public class AlquilarGUI extends VentanaMainGUI {
     public boolean comprobarQueElSocioNoTieneRecargosPendientes() {
         for (Socio socio : Principal.socios) {
             if (nifSocioTxt.getText().equals(socio.getNIF()) && socio.getDineroDeuda() > 0) {
-                throw new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                JOptionPane.showMessageDialog(null,"No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                throw  new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
             }
         }
         return true;

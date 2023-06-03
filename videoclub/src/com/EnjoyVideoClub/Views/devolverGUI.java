@@ -48,6 +48,7 @@ public class devolverGUI extends VentanaMainGUI {
         this.setTitle("CinePlus");
         agregarmenu();
         this.setVisible(true);
+        lblDevolber.setFont(new Font("Georgia", Font.BOLD, 30));
 
         fechaActual();
         mostrarDatosMultimediasDependiendoDelTipo();
@@ -55,7 +56,7 @@ public class devolverGUI extends VentanaMainGUI {
 
         TtipoCBO.addItem("Pelicula");
         TtipoCBO.addItem("Videojuego");
-        TtipoCBO.addItem("Canción");
+        TtipoCBO.addItem("Disco");
 
         botonPollo();
         btnValidar.addActionListener(new ActionListener() {
