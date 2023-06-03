@@ -181,7 +181,7 @@ public class ListarGUI extends VentanaMainGUI {
     public void añadirOpcionesYColores() {
         listadosComboBox.addItem("Listado de todos los objetos multimedia");
         listadosComboBox.addItem("Listado de todas las películas ordenadas por título");
-        listadosComboBox.addItem("Listado de todas las canciones de un disco por duración");
+        listadosComboBox.addItem("Listado de todos los discos ordenados por duración");
         listadosComboBox.addItem("Listado de todos los videojuegos ordenados por año");
         listadosComboBox.addItem("Listado de los alquileres actuales de un socio");
         listadosComboBox.addItem("Listado de los socios con recargos pendientes");
