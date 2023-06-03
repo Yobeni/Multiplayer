@@ -257,6 +257,7 @@ public class AlquilarGUI extends VentanaMainGUI {
             switch (tipoComboBox.getSelectedIndex()) {
                 case 0 -> multimedia = new Pelicula();
                 case 1 -> multimedia = new Videojuego();
+                case 2 -> multimedia = new Disco();
             }
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date fechaInicio = formato.parse(fechaInicioTxt.getText());
