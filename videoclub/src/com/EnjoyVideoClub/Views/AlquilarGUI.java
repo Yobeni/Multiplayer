@@ -276,7 +276,8 @@ public class AlquilarGUI extends VentanaMainGUI {
     public boolean comprobarQueElSocioNoTieneRecargosPendientes() {
         for (Socio socio : Principal.socios) {
             if (nifSocioTxt.getText().equals(socio.getNIF()) && socio.getDineroDeuda() > 0) {
-                throw new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                JOptionPane.showMessageDialog(null,"No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                throw  new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
             }
         }
         return true;
