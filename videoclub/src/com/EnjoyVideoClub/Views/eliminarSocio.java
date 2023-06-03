@@ -59,16 +59,16 @@ public class eliminarSocio extends VentanaMainGUI {
 
                 try {
                     boolean encontrado = false;
-                    String nombreSeleccionado = nifTF.getText();
+                    String nifSeleccionado = nifTF.getText();
                     String contraseña = String.valueOf(passwdTF.getPassword());
                     for (Socio socio : Principal.socios) {
-                        if (socio.getNIF().equals(nombreSeleccionado) && socio.getPasswd().equals(contraseña)) {
+                        if (socio.getNIF().equals(nifSeleccionado) && socio.getPasswd().equals(contraseña)) {
                             encontrado = true;
                             int option = JOptionPane.showConfirmDialog(null, "Seguro que quiere eliminar?", "Confirmación", JOptionPane.YES_NO_OPTION);
                             if (option == JOptionPane.YES_OPTION) {
                                 Principal.socios.remove(socio);
                                 String consulta = "DELETE FROM socios WHERE nif = '" + nifTF.getText() + "';";
-                                BaseDeDatos.agregarMultimedia(consulta);
+                                BaseDeDatos.eliminarSocio(consulta);
                                 JOptionPane.showMessageDialog(null,"El socio se eliminó correctamente");
                             }
                         }
@@ -82,5 +82,6 @@ public class eliminarSocio extends VentanaMainGUI {
                 }
             }
         });
+
     }
 }
