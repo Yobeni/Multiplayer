@@ -17,6 +17,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
 
 
 public class
@@ -125,40 +127,46 @@ VentanaMainGUI extends JFrame {
                 File archivo = com.EnjoyVideoClub.Controller.archivo.f;
 
                 try {
-                        FileWriter fileWriter = new FileWriter(archivo,true);
-                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                        for (com.EnjoyVideoClub.Model.Socio Socio: Principal.socios) {
-                            bufferedWriter.write("Se ha agregado: " + Socio);
-                            bufferedWriter.newLine();
+                    // Leer contenido existente del archivo
+                    List<String> contenidoExistente = Files.readAllLines(archivo.toPath());
 
-                        }
-                        for (com.EnjoyVideoClub.Model.Multimedia multimedia: Principal.multimedias) {
-                            if (multimedia instanceof Pelicula) {
-                                bufferedWriter.write("Se ha agregado: " + multimedia);
-                                bufferedWriter.newLine();
-                            }
-                            if (multimedia instanceof Videojuego) {
-                                bufferedWriter.write("Se ha agregado: " + multimedia);
-                                bufferedWriter.newLine();
-                            }
-                            if (multimedia instanceof Disco) {
-                                bufferedWriter.write("Se ha agregado: " + multimedia);
-                                bufferedWriter.newLine();
-                            }
-                        }
-                        for (com.EnjoyVideoClub.Model.Alquiler alquiler: Principal.alquileres) {
-                            bufferedWriter.write("Se ha agregado" + alquiler);
+                    FileWriter fileWriter = new FileWriter(archivo, true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                    for (com.EnjoyVideoClub.Model.Socio Socio : Principal.socios) {
+                        String linea = "Se ha agregado: " + Socio.toString();
+                        if (!contenidoExistente.contains(linea)) {
+                            bufferedWriter.write(linea);
                             bufferedWriter.newLine();
                         }
+                    }
+
+                    for (com.EnjoyVideoClub.Model.Multimedia multimedia : Principal.multimedias) {
+                        String linea = "Se ha agregado: " + multimedia.toString();
+                        if (!contenidoExistente.contains(linea)) {
+                            bufferedWriter.write(linea);
+                            bufferedWriter.newLine();
+                        }
+                    }
+
+                    for (com.EnjoyVideoClub.Model.Alquiler alquiler : Principal.alquileres) {
+                        String linea = "Se ha agregado: " + alquiler.toString();
+                        if (!contenidoExistente.contains(linea)) {
+                            bufferedWriter.write(linea);
+                            bufferedWriter.newLine();
+                        }
+                    }
+
                     System.out.println("Información guardada en el archivo Log.txt correctamente.");
 
                     bufferedWriter.close();
-                        fileWriter.close();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                    fileWriter.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
+            }
         });
+
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
