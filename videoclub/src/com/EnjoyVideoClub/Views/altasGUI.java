@@ -32,6 +32,9 @@ public class altasGUI extends VentanaMainGUI{
     }
 
     public void colores() {
+        titleLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+        descripLbl.setFont(new Font("Georgia", Font.BOLD, 20));
+
         Color naranja = new Color(250, 149, 18);
         Color naranjaOscuro = new Color(253, 84, 27);
 

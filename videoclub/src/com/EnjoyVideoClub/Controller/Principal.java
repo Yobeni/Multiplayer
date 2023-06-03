@@ -6,8 +6,6 @@ import com.EnjoyVideoClub.Model.Socio;
 import com.EnjoyVideoClub.Views.VentanaMainGUI;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Principal {
@@ -22,17 +20,10 @@ public class Principal {
             BaseDeDatos.cargarDiscosDeLaBaseDeDatos(multimedias);
             BaseDeDatos.cargarSociosDeLaBaseDeDatos(socios);
             BaseDeDatos.cargarAlquileresDeLaBaseDeDatos(alquileres);
-            for (Socio socio : socios) {
-                System.out.println(socio);
-            }
-
-            for (Alquiler alquiler : alquileres) {
-                System.out.println(alquiler);
-            }
+            archivo.crearFile();
             new VentanaMainGUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        archivo.crearFile();
     }
 }

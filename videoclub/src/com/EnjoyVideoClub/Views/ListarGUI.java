@@ -188,6 +188,8 @@ public class ListarGUI extends VentanaMainGUI {
 
         infoTxtArea.setEditable(false);
 
+        titleLbl.setFont(new Font("Georgia", Font.BOLD, 30));
+
         polloBtn.setBorderPainted(false);
         polloBtn.setContentAreaFilled(false);
         polloBtn.setFocusPainted(false);

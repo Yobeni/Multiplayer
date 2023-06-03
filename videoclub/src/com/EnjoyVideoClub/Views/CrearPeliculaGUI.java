@@ -56,6 +56,15 @@ public class CrearPeliculaGUI extends VentanaMainGUI{
 
         tituloLbl.setFont(new Font("Georgia", Font.BOLD, 30));
 
+        Color amarillo = new Color(240, 217, 117);
+        tituloTfield.setBackground(amarillo);
+        directorTfield.setBackground(amarillo);
+        FormatoCbo.setBackground(amarillo);
+        FechaTfield.setBackground(amarillo);
+        duracionSpinn.setBackground(amarillo);
+        ActorTfield.setBackground(amarillo);
+        ActrizTfield.setBackground(amarillo);
+
         polloBoton();
         retrocederBtn.addActionListener(new ActionListener() {
             @Override
