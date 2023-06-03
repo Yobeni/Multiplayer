@@ -148,6 +148,8 @@ public class AlquilarGUI extends VentanaMainGUI {
     public void mostrarDatosMultimediasDependiendoDelTipo() {
         ArrayList<Integer> duracionesPeliculas = new ArrayList<>();
         ArrayList<Integer> duracionesJuegos = new ArrayList<>();
+        ArrayList<Double> duracionesDiscos = new ArrayList<>();
+        ArrayList<Integer> añosDiscos = new ArrayList<>();
         ArrayList<Integer> añosPeliculas = new ArrayList<>();
         ArrayList<Integer> añosJuegos = new ArrayList<>();
 
@@ -157,8 +159,10 @@ public class AlquilarGUI extends VentanaMainGUI {
                 nombreComboBox.removeAllItems();
                 duracionesPeliculas.clear();
                 duracionesJuegos.clear();
+                duracionesDiscos.clear();
                 añosPeliculas.clear();
                 añosJuegos.clear();
+                añosDiscos.clear();
 
                 int selectedIndex = tipoComboBox.getSelectedIndex();
                 if (selectedIndex == 0) {
@@ -185,6 +189,18 @@ public class AlquilarGUI extends VentanaMainGUI {
                             añosJuegos.add(año);
                         }
                     }
+                } else if (selectedIndex == 2) {
+                    for (Multimedia multimedia : Principal.multimedias) {
+                        if (multimedia instanceof Disco) {
+                            nombreComboBox.addItem(multimedia.getTitulo());
+                            double duracion = ((Disco) multimedia).getDuracionTotal();
+                            duracionesDiscos.add(duracion);
+                            String fechaVersion1 = multimedia.getAño() + "";
+                            String fecha = fechaVersion1.substring(24).trim();
+                            int año = Integer.parseInt(fecha);
+                            añosDiscos.add(año);
+                        }
+                    }
                 }
             }
         });
@@ -205,6 +221,16 @@ public class AlquilarGUI extends VentanaMainGUI {
                     duraciónTxtField.setText(duracionesJuegos.get(selectedIndex) + " horas");
                     añoTextField.setText(añosJuegos.get(selectedIndex) + "");
                     if (añosJuegos.get(selectedIndex) < 2010) {
+                        precioTxtField.setText("3.00 €");
+                    } else {
+                        precioTxtField.setText("4.00 €");
+                    }
+                } else if (tipoComboBox.getSelectedIndex() == 2 && selectedIndex >= 0 && selectedIndex < duracionesDiscos.size()) {
+                    double duracionNumero = duracionesDiscos.get(selectedIndex) / 60;
+                    String duracion = String.format("%.2f", duracionNumero);
+                    duraciónTxtField.setText(duracion + " minutos");
+                    añoTextField.setText(añosDiscos.get(selectedIndex) + "");
+                    if (duracionNumero < 30) {
                         precioTxtField.setText("3.00 €");
                     } else {
                         precioTxtField.setText("4.00 €");
@@ -231,6 +257,7 @@ public class AlquilarGUI extends VentanaMainGUI {
             switch (tipoComboBox.getSelectedIndex()) {
                 case 0 -> multimedia = new Pelicula();
                 case 1 -> multimedia = new Videojuego();
+                case 2 -> multimedia = new Disco();
             }
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date fechaInicio = formato.parse(fechaInicioTxt.getText());
@@ -249,7 +276,8 @@ public class AlquilarGUI extends VentanaMainGUI {
     public boolean comprobarQueElSocioNoTieneRecargosPendientes() {
         for (Socio socio : Principal.socios) {
             if (nifSocioTxt.getText().equals(socio.getNIF()) && socio.getDineroDeuda() > 0) {
-                throw new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                JOptionPane.showMessageDialog(null,"No es posible alquilar dado que el socio cuenta con recargos pendientes");
+                throw  new RuntimeException("No es posible alquilar dado que el socio cuenta con recargos pendientes");
             }
         }
         return true;

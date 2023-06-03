@@ -85,6 +85,10 @@ public class pagarDeuda extends VentanaMainGUI{
                             BaseDeDatos.agregarMultimedia(consultaUpdate);
                             JOptionPane.showMessageDialog(null,"Se han pagado " +
                                     importeIneger + "€ de tu deuda");
+                        } else if(!nifTF.getText().equals(soc.getNIF())) {
+                            JOptionPane.showMessageDialog(null,"El NIF introducido no pertenece a ningún socio");
+                        } else{
+                            JOptionPane.showMessageDialog(null,"El importe no puede ser mayor que la deuda");
                         }
                     }
                 }
