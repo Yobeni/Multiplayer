@@ -25,6 +25,10 @@ public class Principal {
             for (Socio socio : socios) {
                 System.out.println(socio);
             }
+
+            for (Alquiler alquiler : alquileres) {
+                System.out.println(alquiler);
+            }
             new VentanaMainGUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
