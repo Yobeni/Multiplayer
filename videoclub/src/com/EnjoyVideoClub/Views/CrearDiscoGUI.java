@@ -119,6 +119,7 @@ public class CrearDiscoGUI extends VentanaMainGUI {
                         BaseDeDatos.agregarMultimedia(update);
                         Principal.multimedias.add(disco);
                         JOptionPane.showMessageDialog(null, disco);
+                        Cancion.cancionesCreadas.clear();
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
                     }
