@@ -245,6 +245,7 @@ public class BaseDeDatos {
         return switch (multimedia) {
             case "Película" -> new Pelicula();
             case "Videojuego" -> new Videojuego();
+            case "Disco" -> new Disco();
             default -> null;
         };
     }
