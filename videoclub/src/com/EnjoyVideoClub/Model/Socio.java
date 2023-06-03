@@ -120,31 +120,6 @@ public class Socio {
         this.passwd = passwd;
     }
 
-
-    public void alquilar(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) throws Exception {
-        if (getDineroDeuda() < 0) {
-            throw new Exception("No puede alquilar si tiene deudas!");
-        } else {
-            multimediaAlquilado.add(multimedia);
-        }
-    }
-
-    public void devolver(Multimedia multimedia, ArrayList<Multimedia> multimediaAlquilado) {
-        for (int i = 0; i < multimediaAlquilado.size(); i++) {
-            if (multimediaAlquilado.get(i).equals(multimedia)) {
-                multimediaAlquilado.remove(i);
-            }
-        }
-    }
-
-    public void pagarRecargo(int dineroDeuda) {
-        if (getDineroDeuda() < 0) {
-            System.out.println("No tiene ningún deuda");
-        } else {
-            setDineroDeuda(dineroDeuda - getDineroDeuda());
-        }
-    }
-
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
