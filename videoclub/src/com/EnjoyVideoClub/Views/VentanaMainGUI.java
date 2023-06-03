@@ -122,7 +122,7 @@ VentanaMainGUI extends JFrame {
         guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File archivo = com.EnjoyVideoClub.Controller.archivo.getF();
+                File archivo = com.EnjoyVideoClub.Controller.archivo.f;
 
                 try {
                         FileWriter fileWriter = new FileWriter(archivo,true);

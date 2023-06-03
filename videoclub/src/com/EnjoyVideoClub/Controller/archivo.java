@@ -5,9 +5,7 @@ import java.io.IOException;
 
 public class archivo {
     public static File f = new File("Log.txt");
-    public static File getF() {
-        return f;
-    }
+
     public static void crearFile() {
         try {
             if (archivo.f.createNewFile()) {
