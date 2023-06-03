@@ -1,8 +1,6 @@
 package com.EnjoyVideoClub.Controller;
 
-import com.EnjoyVideoClub.Model.Alquiler;
-import com.EnjoyVideoClub.Model.Multimedia;
-import com.EnjoyVideoClub.Model.Socio;
+import com.EnjoyVideoClub.Model.*;
 import com.EnjoyVideoClub.Views.VentanaMainGUI;
 
 import javax.swing.*;
@@ -25,9 +23,16 @@ public class Principal {
             for (Socio socio : socios) {
                 System.out.println(socio);
             }
+
+//            for (Alquiler alq : alquileres){
+//                if (alq.getTipoMultimedia().equals("Disco")){
+//                    System.out.println(alq);
+//                }
+//            }
             new VentanaMainGUI();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
         }
         archivo.crearFile();
     }

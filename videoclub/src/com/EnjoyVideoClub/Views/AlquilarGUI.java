@@ -230,7 +230,7 @@ public class AlquilarGUI extends VentanaMainGUI {
                     String duracion = String.format("%.2f", duracionNumero);
                     duraciónTxtField.setText(duracion + " minutos");
                     añoTextField.setText(añosDiscos.get(selectedIndex) + "");
-                    if (Double.parseDouble(duracion) < 30) {
+                    if (duracionNumero < 30) {
                         precioTxtField.setText("3.00 €");
                     } else {
                         precioTxtField.setText("4.00 €");

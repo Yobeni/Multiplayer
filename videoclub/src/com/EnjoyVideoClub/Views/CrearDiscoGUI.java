@@ -1,6 +1,7 @@
 package com.EnjoyVideoClub.Views;
 
 import com.EnjoyVideoClub.Controller.BaseDeDatos;
+import com.EnjoyVideoClub.Controller.Principal;
 import com.EnjoyVideoClub.Model.*;
 
 import javax.swing.*;
@@ -116,6 +117,7 @@ public class CrearDiscoGUI extends VentanaMainGUI {
                                 disco.getAño());
                         BaseDeDatos.agregarMultimedia(consulta);
                         BaseDeDatos.agregarMultimedia(update);
+                        Principal.multimedias.add(disco);
                         JOptionPane.showMessageDialog(null, disco);
                     } else {
                         throw new RuntimeException("Todos los campos deben estar llenos");
